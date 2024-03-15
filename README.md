@@ -2,6 +2,8 @@
 
 This document contains a collection of 50 interview questions related to .NET and the C# programming language, aimed at assessing candidates at various levels of expertise.
 
+For more content like this be sure to join 10,500+ engineers to my .NET Pro Weekly Newsletter: https://stefandjokic.tech/?utm_source=github
+
 ## Basic
 
 1. **What is .NET?**
