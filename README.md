@@ -1,5 +1,73 @@
 # .NET (C#) Interview Questions and Answers
 
+This document contains a collection of 50 interview questions related to .NET and the C# programming language, aimed at assessing candidates at various levels of expertise.
+
+## Basic
+
+1. **What is .NET?**
+2. **Can you explain the Common Language Runtime (CLR)?**
+3. **What is the difference between managed and unmanaged code?**
+4. **Explain the basic structure of a C# program.**
+5. **What are Value Types and Reference Types in C#?**
+6. **What is garbage collection in .NET?**
+7. **Explain the concept of exception handling in C#.**
+8. **What are the different types of classes in C#?**
+9. **Can you describe what a namespace is and how it is used in C#?**
+10. **What is encapsulation?**
+
+## Intermediate
+
+11. **Explain polymorphism and its types in C#.**
+12. **What are delegates and how are they used in C#?**
+13. **Describe what LINQ is and give an example of where it might be used.**
+14. **What is the difference between an abstract class and an interface?**
+15. **How do you manage memory in .NET applications?**
+16. **Explain the concept of threading in .NET.**
+17. **What is async/await and how does it work?**
+18. **Describe the Entity Framework and its advantages.**
+19. **What are extension methods and where would you use them?**
+20. **How do you handle exceptions in a method that returns a Task?**
+
+## Advanced
+
+21. **What is reflection in .NET and how would you use it?**
+22. **Can you explain the concept of middleware in ASP.NET Core?**
+23. **Describe the Dependency Injection (DI) pattern and how it's implemented in .NET Core.**
+24. **What is the purpose of the .NET Standard?**
+25. **Explain the differences between .NET Core, .NET Framework, and Xamarin.**
+26. **How does garbage collection work in .NET and how can you optimize it?**
+27. **What are attributes in C# and how can they be used?**
+28. **Can you describe the process of code compilation in .NET?**
+29. **What is the Global Assembly Cache (GAC) and when should it be used?**
+30. **How would you secure a web application in ASP.NET Core?**
+
+## Framework-Specific
+
+31. **What is MVC (Model-View-Controller)?**
+32. **Can you explain the difference between Razor Pages and MVC in ASP.NET Core?**
+33. **How do you perform validations in ASP.NET Core?**
+34. **Describe SignalR and its use cases.**
+35. **What are the benefits of using Blazor over traditional web technologies?**
+36. **How do you implement Web API versioning in ASP.NET Core?**
+37. **Explain the role of IApplicationBuilder in ASP.NET Core.**
+38. **What are Areas in ASP.NET Core and how do you use them?**
+39. **How do you manage sessions in ASP.NET Core applications?**
+40. **Describe how to implement caching in ASP.NET Core.**
+
+## Testing & Best Practices
+
+41. **What is Unit Testing in .NET?**
+42. **How do you mock dependencies in unit tests using .NET?**
+43. **Can you explain SOLID principles?**
+44. **What is Continuous Integration/Continuous Deployment (CI/CD) and how does it apply to .NET development?**
+45. **How do you ensure your C# code is secure?**
+46. **What are some common performance issues in .NET applications and how do you address them?**
+47. **Describe the Repository pattern and its benefits.**
+48. **How do you handle database migrations in Entity Framework?**
+49. **What tools do you use for debugging and profiling .NET applications?**
+50. **How do you stay updated with the latest .NET technologies and practices?**
+
+    
 ## Basic
 
 ### 1. What is .NET?
