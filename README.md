@@ -65,3 +65,59 @@ Console.WriteLine(list2.Count); // Output: 4
 ```
 
 In the value type example, changing b does not affect a because b is a separate copy. In the reference type example, list2 is not a separate copy; it's another reference to the same list object as list1, so changes made through list2 are visible when accessing list1.
+
+### 6. What is garbage collection in .NET?
+
+**Answer:** Garbage collection (GC) in .NET is an automatic memory management feature that frees up memory used by objects that are no longer accessible in the program. It eliminates the need for developers to manually release memory, thereby reducing memory leaks and other memory-related errors. The GC operates on a separate thread and works in three phases: marking, relocating, and compacting. During the marking phase, it identifies which objects in the heap are still in use. During the relocating phase, it updates the references to objects that will be compacted. Finally, during the compacting phase, it reclaims the space occupied by the garbage objects and compacts the remaining objects to make memory allocation more efficient.
+
+### 7. Explain the concept of exception handling in C#.
+
+**Answer:** Exception handling in C# is a mechanism to handle runtime errors, allowing a program to continue running or fail gracefully instead of crashing. It is done using the try, catch, and finally blocks. The try block contains code that might throw an exception, while catch blocks are used to handle the exception. The finally block contains code that is executed whether an exception is thrown or not, often for cleanup purposes.
+
+```csharp
+try {
+    // Code that may cause an exception
+    int divide = 10 / 0;
+}
+catch (DivideByZeroException ex) {
+    // Code to handle the exception
+    Console.WriteLine("Cannot divide by zero. Please try again.");
+}
+finally {
+    // Code that executes after try/catch, regardless of an exception
+    Console.WriteLine("Operation completed.");
+}
+```
+
+### 8. What are the different types of classes in C#?
+
+**Answer:** In C#, classes can be categorized based on their functionality and accessibility:
+
+- **Static classes:** Cannot be instantiated and can only contain static members.
+- **Sealed classes:** Cannot be inherited from.
+- **Abstract classes:** Cannot be instantiated and are meant to be inherited from.
+- **Partial classes:** Allow the splitting of a class definition across multiple files.
+- **Generic classes:** Allow the definition of classes with placeholders for the type of its fields, methods, parameters, etc.
+
+Each type serves different purposes in the context of object-oriented programming and design patterns.
+
+### 9. Can you describe what a namespace is and how it is used in C#?
+
+**Answer:** A namespace in C# is used to organize code into a hierarchical structure. It allows the grouping of logically related classes, structs, interfaces, enums, and delegates. Namespaces help avoid naming conflicts by qualifying the uniqueness of each type. For example, the `System` namespace in .NET includes classes for basic system operations, such as console input/output, file reading/writing, and data manipulation.
+
+```csharp
+using System;
+
+namespace MyApplication
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+        }
+    }
+}
+```
+
+In this example, the System namespace is used to access the Console class, and MyApplication is a custom namespace for organizing the application's code. Namespaces are essential for managing the scope of names in larger programming projects to avoid name collisions.
