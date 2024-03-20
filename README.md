@@ -792,4 +792,49 @@ In this example, DivideAsync performs a division operation asynchronously and ma
 
 Handling exceptions in tasks is crucial for writing robust and error-resistant asynchronous C# applications, ensuring that your application can gracefully recover from errors encountered during asynchronous operations.
 
-### 21. To be continued
+### 21. What is reflection in .NET and how would you use it?
+
+**Answer:** Reflection in .NET is a powerful feature that allows runtime inspection of assemblies, types, and their members (such as methods, fields, properties, and events). It enables creating instances of types, invoking methods, and accessing fields and properties dynamically, without knowing the types at compile time. Reflection is used for various purposes, including building type browsers, dynamically invoking methods, and reading custom attributes.
+
+Reflection can be particularly useful in scenarios such as:
+- Dynamically loading and using assemblies.
+- Implementing object browsers or debuggers.
+- Creating instances of types for dependency injection frameworks.
+- Accessing and manipulating metadata for assemblies and types.
+
+Here's a simple example demonstrating how to use reflection to inspect and invoke methods of a class dynamically:
+
+```csharp
+using System;
+using System.Reflection;
+
+public class MyClass
+{
+    public void MethodToInvoke()
+    {
+        Console.WriteLine("Method Invoked.");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Obtaining the Type object for MyClass
+        Type myClassType = typeof(MyClass);
+        
+        // Creating an instance of MyClass
+        object myClassInstance = Activator.CreateInstance(myClassType);
+        
+        // Getting the MethodInfo object for MethodToInvoke
+        MethodInfo methodInfo = myClassType.GetMethod("MethodToInvoke");
+        
+        // Invoking the method on the instance
+        methodInfo.Invoke(myClassInstance, null);
+    }
+}
+```
+
+In this example, reflection is used to obtain the Type object for MyClass, create an instance of MyClass, and then retrieve and invoke the MethodToInvoke method. This demonstrates how reflection allows for dynamic type inspection and invocation, providing flexibility and power in how code interacts with objects.
+
+Using reflection comes with a performance cost, so it should be used judiciously, especially in performance-critical paths of an application.
