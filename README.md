@@ -4,6 +4,7 @@ This document contains a collection of 50 interview questions related to .NET an
 
 For more content like this be sure to join 10,500+ engineers to my .NET Pro Weekly Newsletter: https://stefandjokic.tech/?utm_source=github
 
+***These are only technical questions, it is not guaranteed that you will pass the interview if you know all the questions.***
 ## Basic
 
 1. **What is .NET?**
