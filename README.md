@@ -1260,3 +1260,218 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 Securing an ASP.NET Core web application is a comprehensive process that involves multiple layers of defense. By adhering to these practices and continuously monitoring for new vulnerabilities, you can significantly enhance the security of your application.
 
+## 30. What is the .NET Framework?
+The .NET Framework is a development platform from Microsoft that provides a runtime environment (CLR) and a comprehensive class library (FCL) for building and running applications across different platforms.
+
+### Example: A Simple .NET Console Application
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Welcome to .NET Framework!");
+    }
+}
+```
+The above program runs on the .NET Framework, demonstrating a basic console application.
+
+---
+
+## 31. What is the Common Language Runtime (CLR)?
+CLR is the runtime environment in .NET that manages code execution, memory allocation, garbage collection, and security.
+
+### Example: Using CLR Features
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Managed Code is executed within CLR.");
+        GC.Collect(); // Invoking Garbage Collection manually
+    }
+}
+```
+Here, we use `GC.Collect()`, which is a part of the CLR's garbage collection mechanism.
+
+---
+
+## 32. Explain the concept of Garbage Collection in .NET.
+Garbage collection in .NET is an automated process that frees up memory by reclaiming objects that are no longer in use.
+
+### Example: Forcing Garbage Collection
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Example obj = new Example();
+        obj = null;  // Eligible for GC
+
+        GC.Collect(); // Manually trigger garbage collection
+        Console.WriteLine("Garbage Collection triggered!");
+    }
+}
+
+class Example
+{
+    ~Example()
+    {
+        Console.WriteLine("Destructor called, object collected.");
+    }
+}
+```
+Here, the destructor (`~Example`) gets called when the garbage collector removes an object.
+
+---
+
+## 33. What is the difference between managed and unmanaged code?
+Managed code runs within the CLR and benefits from automatic memory management, while unmanaged code runs outside the CLR and requires manual memory management.
+
+### Example: Calling Unmanaged Code in .NET
+```csharp
+using System;
+using System.Runtime.InteropServices;
+
+class Program
+{
+    [DllImport("kernel32.dll")]
+    public static extern void Beep(uint dwFreq, uint dwDuration);
+    
+    static void Main()
+    {
+        Console.WriteLine("Calling unmanaged code (Beep)...");
+        Beep(750, 300); // Calls the Windows API function
+    }
+}
+```
+Here, `Beep` is an unmanaged function from `kernel32.dll`, which we invoke using `DllImport`.
+
+---
+
+## 34. What is the Global Assembly Cache (GAC)?
+The GAC is a machine-wide cache for assemblies that allows multiple applications to share libraries while avoiding conflicts.
+
+### Example: Registering an Assembly to the GAC
+Assemblies are added using the **GACUTIL** tool:
+```shell
+gacutil -i MyLibrary.dll
+```
+This registers `MyLibrary.dll` globally, making it accessible to all .NET applications.
+
+---
+
+## 35. What is the difference between an abstract class and an interface in C#?
+- **Abstract classes** can have method implementations, fields, and constructors.
+- **Interfaces** can only have method signatures (until C# 8.0 introduced default methods).
+
+### Example:
+```csharp
+abstract class Animal
+{
+    public abstract void MakeSound();
+    public void Sleep() => Console.WriteLine("Sleeping...");
+}
+
+interface IWalkable
+{
+    void Walk();
+}
+
+class Dog : Animal, IWalkable
+{
+    public override void MakeSound() => Console.WriteLine("Bark!");
+    public void Walk() => Console.WriteLine("Dog is walking");
+}
+
+class Program
+{
+    static void Main()
+    {
+        Dog dog = new Dog();
+        dog.MakeSound();
+        dog.Walk();
+        dog.Sleep();
+    }
+}
+```
+Here, `Dog` inherits from `Animal` (abstract class) and implements `IWalkable` (interface).
+
+---
+
+## 36. What is the purpose of the `using` statement in C#?
+The `using` statement ensures that `IDisposable` objects (like file streams) are automatically disposed of after use.
+
+### Example:
+```csharp
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        using (StreamWriter writer = new StreamWriter("test.txt"))
+        {
+            writer.WriteLine("Hello, World!");
+        } // File is automatically closed here
+    }
+}
+```
+The file stream is disposed of automatically when the `using` block exits.
+
+---
+
+## 37. Explain the concept of delegates in C#.
+A delegate is a type that references a method, allowing functions to be passed as parameters.
+
+### Example:
+```csharp
+using System;
+
+delegate void MyDelegate(string message);
+
+class Program
+{
+    static void PrintMessage(string message) => Console.WriteLine(message);
+    
+    static void Main()
+    {
+        MyDelegate del = PrintMessage;
+        del("Hello from delegate!");
+    }
+}
+```
+Here, `MyDelegate` points to `PrintMessage`, allowing it to be called dynamically.
+
+---
+
+## 38. What is LINQ in .NET?
+LINQ (Language Integrated Query) allows querying collections, databases, and XML in a declarative way.
+
+### Example:
+```csharp
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] numbers = { 1, 2, 3, 4, 5 };
+        var evens = numbers.Where(n => n % 2 == 0);
+        
+        foreach (var num in evens)
+        {
+            Console.WriteLine(num);
+        }
+    }
+}
+```
+LINQ simplifies working with data collections using query-like expressions.
+
