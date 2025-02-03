@@ -1212,7 +1212,8 @@ This command installs MyAssembly.dll into the GAC.
 Note: With the introduction of .NET Core and its focus on application-local deployment models, the GAC is less emphasized and is specific to the .NET Framework. .NET Core and .NET 5+ applications typically rely on package management systems like NuGet to handle dependencies and do not use the GAC.
 
 The GAC plays a critical role in assembly sharing and versioning in the .NET Framework, facilitating the management of common libraries across applications on a single machine.
-## 1. How would you secure a web application in ASP.NET Core?
+
+## 30. How would you secure a web application in ASP.NET Core?
 Securing an ASP.NET Core web application involves multiple strategies, including authentication, authorization, data protection, and HTTPS enforcement.
 
 ### Example: Enforcing HTTPS in ASP.NET Core
@@ -1226,7 +1227,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 ```
 ---
 
-## 2. What is MVC (Model-View-Controller)?
+## 31. What is MVC (Model-View-Controller)?
 MVC is a software design pattern that separates an application into three components:
 
 - **Model**: Represents the data and business logic.
@@ -1247,7 +1248,7 @@ public class HomeController : Controller
 ```
 ---
 
-## 3. Can you explain the difference between Razor Pages and MVC in ASP.NET Core?
+## 32. Can you explain the difference between Razor Pages and MVC in ASP.NET Core?
 - **MVC** uses a Controller to handle requests, while **Razor Pages** has built-in page handlers (`OnGet`, `OnPost`).
 - Razor Pages is more suitable for simple, page-focused applications, whereas MVC is better for larger applications.
 
@@ -1263,7 +1264,7 @@ public class IndexModel : PageModel
 ```
 ---
 
-## 4. How do you perform validations in ASP.NET Core?
+## 33. How do you perform validations in ASP.NET Core?
 ASP.NET Core provides validation using **Data Annotations** and **Fluent Validation**.
 
 ### Example: Using Data Annotations
@@ -1281,7 +1282,7 @@ public class UserModel
 ```
 ---
 
-## 5. Describe SignalR and its use cases.
+## 34. Describe SignalR and its use cases.
 SignalR is a real-time communication library in ASP.NET Core that enables WebSockets for interactive web applications.
 
 ### Example: SignalR Hub
@@ -1296,7 +1297,7 @@ public class ChatHub : Hub
 ```
 ---
 
-## 6. What are the benefits of using Blazor over traditional web technologies?
+## 35. What are the benefits of using Blazor over traditional web technologies?
 Blazor allows building web applications using **C# and .NET** instead of JavaScript.
 
 ### Example: Blazor Component
@@ -1308,7 +1309,7 @@ Blazor allows building web applications using **C# and .NET** instead of JavaScr
 ```
 ---
 
-## 7. How do you implement Web API versioning in ASP.NET Core?
+## 36. How do you implement Web API versioning in ASP.NET Core?
 API versioning ensures backward compatibility for REST APIs.
 
 ### Example: Using API Versioning Middleware
@@ -1322,7 +1323,7 @@ services.AddApiVersioning(o =>
 ```
 ---
 
-## 8. Explain the role of `IApplicationBuilder` in ASP.NET Core.
+## 37. Explain the role of `IApplicationBuilder` in ASP.NET Core.
 `IApplicationBuilder` is used in `Startup.Configure()` to define the middleware pipeline.
 
 ### Example:
@@ -1336,7 +1337,7 @@ public void Configure(IApplicationBuilder app)
 ```
 ---
 
-## 9. What are Areas in ASP.NET Core and how do you use them?
+## 38. What are Areas in ASP.NET Core and how do you use them?
 Areas help organize large MVC applications by grouping controllers, views, and models.
 
 ### Example: Defining an Area
@@ -1349,7 +1350,7 @@ public class DashboardController : Controller
 ```
 ---
 
-## 10. How do you manage sessions in ASP.NET Core applications?
+## 39. How do you manage sessions in ASP.NET Core applications?
 ASP.NET Core provides session state management using `ISession`.
 
 ### Example:
@@ -1363,7 +1364,7 @@ string user = HttpContext.Session.GetString("User");
 ```
 ---
 
-## 11. Describe how to implement caching in ASP.NET Core.
+## 40. Describe how to implement caching in ASP.NET Core.
 ASP.NET Core supports memory caching and distributed caching.
 
 ### Example: In-Memory Caching
@@ -1383,7 +1384,7 @@ public class MyService
 ```
 ---
 
-## 12. What is Unit Testing in .NET?
+## 41. What is Unit Testing in .NET?
 Unit testing is the practice of testing individual components of an application in isolation.
 
 ### Example: NUnit Unit Test
@@ -1397,7 +1398,7 @@ public void TestSum()
 ```
 ---
 
-## 13. How do you mock dependencies in unit tests using .NET?
+## 42. How do you mock dependencies in unit tests using .NET?
 Mocking is used to simulate dependencies in unit tests using **Moq**.
 
 ### Example:
@@ -1407,7 +1408,7 @@ mockRepo.Setup(repo => repo.GetData()).Returns("Mock Data");
 ```
 ---
 
-## 14. Can you explain SOLID principles?
+## 43. Can you explain SOLID principles?
 **SOLID** is a set of five principles for writing maintainable code:
 
 1. **S**ingle Responsibility Principle
@@ -1421,7 +1422,7 @@ mockRepo.Setup(repo => repo.GetData()).Returns("Mock Data");
 5. **D**ependency Inversion Principle
 ---
 
-## 15. What is Continuous Integration/Continuous Deployment (CI/CD)?
+## 44. What is Continuous Integration/Continuous Deployment (CI/CD)?
 CI/CD automates code integration, testing, and deployment.
 
 ### Example: GitHub Actions for CI/CD
@@ -1435,5 +1436,165 @@ jobs:
       - name: Build and Test
         run: dotnet test
 ```
+## 45. How do you ensure your C# code is secure?
+Writing secure C# code requires following best practices to prevent vulnerabilities such as SQL injection, cross-site scripting (XSS), and unauthorized access.
 
+### Key Security Measures:
+- **Use parameterized queries** to prevent SQL injection.
+- **Hash and salt passwords** using `BCrypt` or `PBKDF2`.
+- **Enable HTTPS** to encrypt communication.
+- **Validate user input** to prevent injection attacks.
+- **Use dependency injection (DI)** to avoid hardcoded secrets.
 
+### Example: Preventing SQL Injection
+```csharp
+using System.Data.SqlClient;
+
+public void GetUser(int userId)
+{
+    using (SqlConnection conn = new SqlConnection("connectionString"))
+    {
+        string query = "SELECT * FROM Users WHERE Id = @userId";
+        using (SqlCommand cmd = new SqlCommand(query, conn))
+        {
+            cmd.Parameters.AddWithValue("@userId", userId);
+            conn.Open();
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Console.WriteLine(reader["Name"]);
+            }
+        }
+    }
+}
+```
+Here, **parameterized queries** prevent SQL injection.
+
+---
+
+## 46. What are some common performance issues in .NET applications and how do you address them?
+Performance issues in .NET applications often arise due to inefficient memory usage, slow database queries, or excessive allocations.
+
+### Common Performance Issues and Fixes:
+- **Memory Leaks** → Use `IDisposable` and `using` statements.
+- **Slow Queries** → Optimize SQL queries and indexing.
+- **Excessive Object Allocations** → Use object pooling and struct types.
+
+### Example: Using Caching to Improve Performance
+```csharp
+public class DataService
+{
+    private readonly IMemoryCache _cache;
+    public DataService(IMemoryCache cache)
+    {
+        _cache = cache;
+    }
+
+    public string GetData()
+    {
+        return _cache.GetOrCreate("cachedData", entry =>
+        {
+            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+            return "Cached Data";
+        });
+    }
+}
+```
+Using **in-memory caching** reduces expensive database calls.
+
+---
+
+## 47. Describe the Repository pattern and its benefits.
+The **Repository Pattern** abstracts the data layer, providing a clean way to manage database operations.
+
+### Benefits:
+- **Separation of concerns** → Keeps data access logic separate.
+- **Easier testing** → Allows mocking of database operations.
+- **Code reusability** → Centralizes data access logic.
+
+### Example: Repository Pattern in ASP.NET Core
+```csharp
+public interface IUserRepository
+{
+    IEnumerable<User> GetAllUsers();
+    User GetUserById(int id);
+}
+
+public class UserRepository : IUserRepository
+{
+    private readonly AppDbContext _context;
+    public UserRepository(AppDbContext context) { _context = context; }
+
+    public IEnumerable<User> GetAllUsers() => _context.Users.ToList();
+
+    public User GetUserById(int id) => _context.Users.Find(id);
+}
+```
+Here, the `UserRepository` encapsulates database operations.
+
+---
+
+## 48. How do you handle database migrations in Entity Framework?
+Migrations in Entity Framework allow changes to the database schema while preserving existing data.
+
+### Steps to Apply Migrations:
+1. **Add a new migration:**
+   ```shell
+   dotnet ef migrations add InitialCreate
+   ```
+2. **Apply the migration to the database:**
+   ```shell
+   dotnet ef database update
+   ```
+
+### Example: Defining a Model with Migrations
+```csharp
+public class User
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
+```
+Adding a migration for this model will create a corresponding database table.
+
+---
+
+## 49. What tools do you use for debugging and profiling .NET applications?
+Effective debugging and profiling tools help identify performance bottlenecks and runtime errors.
+
+### Popular Tools:
+- **Visual Studio Debugger** → Step-through debugging.
+- **dotTrace** → Identifies CPU-intensive operations.
+- **BenchmarkDotNet** → Measures code performance.
+- **dotMemory** → Finds memory leaks.
+
+### Example: Using BenchmarkDotNet to Measure Performance
+```csharp
+[MemoryDiagnoser]
+public class PerformanceTests
+{
+    [Benchmark]
+    public void TestMethod()
+    {
+        var list = new List<int>();
+        for (int i = 0; i < 1000; i++)
+        {
+            list.Add(i);
+        }
+    }
+}
+```
+Here, **BenchmarkDotNet** measures memory usage and execution time.
+
+---
+
+## 50. How do you stay updated with the latest .NET technologies and practices?
+Staying current with .NET advancements ensures that you use the best tools and frameworks.
+
+### Recommended Ways to Stay Updated:
+- **Follow Microsoft’s .NET Blog** → [https://devblogs.microsoft.com/dotnet/](https://devblogs.microsoft.com/dotnet/)
+- **Attend Conferences/Webinars** → .NET Conf, Microsoft Build
+- **Join Online Communities** → GitHub, Stack Overflow, Twitter
+
+---
