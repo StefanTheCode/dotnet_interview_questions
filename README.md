@@ -1212,266 +1212,228 @@ This command installs MyAssembly.dll into the GAC.
 Note: With the introduction of .NET Core and its focus on application-local deployment models, the GAC is less emphasized and is specific to the .NET Framework. .NET Core and .NET 5+ applications typically rely on package management systems like NuGet to handle dependencies and do not use the GAC.
 
 The GAC plays a critical role in assembly sharing and versioning in the .NET Framework, facilitating the management of common libraries across applications on a single machine.
+## 1. How would you secure a web application in ASP.NET Core?
+Securing an ASP.NET Core web application involves multiple strategies, including authentication, authorization, data protection, and HTTPS enforcement.
 
-### 30. How would you secure a web application in ASP.NET Core?
-
-**Answer:** Securing a web application in ASP.NET Core involves implementing a series of best practices and utilizing built-in security features to protect against common vulnerabilities and threats. Here are key strategies to consider:
-
-1. **Authentication and Authorization:**
-   - Implement user authentication to verify user identities. ASP.NET Core supports various authentication schemes such as cookie-based authentication, JWT (JSON Web Tokens), and external providers (OAuth, OpenID Connect).
-   - Use authorization to ensure that authenticated users have appropriate permissions to access resources. ASP.NET Core offers role-based and policy-based authorization mechanisms.
-
-2. **Data Protection:**
-   - Use the ASP.NET Core Data Protection API to protect sensitive data, such as passwords and security tokens. This API provides cryptographic APIs for encryption and secure data storage.
-   - Always use HTTPS to encrypt data in transit. Configure the application to enforce SSL/TLS by using the `UseHttpsRedirection` middleware.
-
-3. **Cross-Site Scripting (XSS) Prevention:**
-   - Use Razor views for rendering HTML content. Razor automatically encodes output to prevent XSS attacks.
-   - Avoid directly injecting user input into web pages without proper validation and encoding.
-
-4. **Cross-Site Request Forgery (CSRF) Protection:**
-   - Utilize anti-forgery tokens in forms to prevent CSRF attacks. ASP.NET Core automatically includes anti-forgery tokens when using the Razor form helpers.
-
-5. **Input Validation:**
-   - Validate all user inputs using data annotations and custom validation logic to protect against SQL injection and other injection attacks.
-   - Use model binding to automatically map user inputs to models, providing an additional layer of protection by ensuring only expected data is processed.
-
-6. **Security Headers:**
-   - Implement security headers like Content Security Policy (CSP), X-Frame-Options, X-Content-Type-Options, and X-XSS-Protection to protect against various attacks such as clickjacking and content sniffing.
-
-7. **Dependency Management:**
-   - Regularly update dependencies to mitigate vulnerabilities in third-party libraries and frameworks. Use tools like NuGet Package Manager and .NET CLI for managing dependencies.
-
-8. **Logging and Monitoring:**
-   - Implement logging and monitoring to detect and respond to security incidents promptly. ASP.NET Core's built-in logging framework and third-party monitoring services can be used.
-
-9. **Secure Deployment:**
-   - Follow secure deployment practices, such as minimizing the attack surface by disabling unnecessary services, using secure configuration settings, and applying the principle of least privilege.
-
-Example: Enabling HTTPS redirection in `Startup.Configure` method:
-
+### Example: Enforcing HTTPS in ASP.NET Core
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
-    app.UseHttpsRedirection();
-    // Other middleware configurations
+    app.UseHttpsRedirection(); // Redirect HTTP requests to HTTPS
+    app.UseAuthentication();   // Enable authentication middleware
+    app.UseAuthorization();    // Enable authorization middleware
 }
 ```
+---
 
-Securing an ASP.NET Core web application is a comprehensive process that involves multiple layers of defense. By adhering to these practices and continuously monitoring for new vulnerabilities, you can significantly enhance the security of your application.
+## 2. What is MVC (Model-View-Controller)?
+MVC is a software design pattern that separates an application into three components:
 
-## 30. What is the .NET Framework?
-The .NET Framework is a development platform from Microsoft that provides a runtime environment (CLR) and a comprehensive class library (FCL) for building and running applications across different platforms.
+- **Model**: Represents the data and business logic.
 
-### Example: A Simple .NET Console Application
+- **View**: Handles the presentation layer.
+
+- **Controller**: Manages user input and updates the model.
+
+### Example: A Simple MVC Controller in ASP.NET Core
 ```csharp
-using System;
-
-class Program
+public class HomeController : Controller
 {
-    static void Main()
+    public IActionResult Index()
     {
-        Console.WriteLine("Welcome to .NET Framework!");
+        return View();
     }
 }
 ```
-The above program runs on the .NET Framework, demonstrating a basic console application.
-
 ---
 
-## 31. What is the Common Language Runtime (CLR)?
-CLR is the runtime environment in .NET that manages code execution, memory allocation, garbage collection, and security.
+## 3. Can you explain the difference between Razor Pages and MVC in ASP.NET Core?
+- **MVC** uses a Controller to handle requests, while **Razor Pages** has built-in page handlers (`OnGet`, `OnPost`).
+- Razor Pages is more suitable for simple, page-focused applications, whereas MVC is better for larger applications.
 
-### Example: Using CLR Features
+### Example: Razor Page Handler
 ```csharp
-using System;
-
-class Program
+public class IndexModel : PageModel
 {
-    static void Main()
+    public void OnGet()
     {
-        Console.WriteLine("Managed Code is executed within CLR.");
-        GC.Collect(); // Invoking Garbage Collection manually
+        // Handle GET request
     }
 }
 ```
-Here, we use `GC.Collect()`, which is a part of the CLR's garbage collection mechanism.
-
 ---
 
-## 32. Explain the concept of Garbage Collection in .NET.
-Garbage collection in .NET is an automated process that frees up memory by reclaiming objects that are no longer in use.
+## 4. How do you perform validations in ASP.NET Core?
+ASP.NET Core provides validation using **Data Annotations** and **Fluent Validation**.
 
-### Example: Forcing Garbage Collection
+### Example: Using Data Annotations
 ```csharp
-using System;
-
-class Program
+public class UserModel
 {
-    static void Main()
-    {
-        Example obj = new Example();
-        obj = null;  // Eligible for GC
+    [Required]
+    [EmailAddress]
+    public string Email { get; set; }
 
-        GC.Collect(); // Manually trigger garbage collection
-        Console.WriteLine("Garbage Collection triggered!");
-    }
-}
-
-class Example
-{
-    ~Example()
-    {
-        Console.WriteLine("Destructor called, object collected.");
-    }
+    [Required]
+    [MinLength(6)]
+    public string Password { get; set; }
 }
 ```
-Here, the destructor (`~Example`) gets called when the garbage collector removes an object.
-
 ---
 
-## 33. What is the difference between managed and unmanaged code?
-Managed code runs within the CLR and benefits from automatic memory management, while unmanaged code runs outside the CLR and requires manual memory management.
+## 5. Describe SignalR and its use cases.
+SignalR is a real-time communication library in ASP.NET Core that enables WebSockets for interactive web applications.
 
-### Example: Calling Unmanaged Code in .NET
+### Example: SignalR Hub
 ```csharp
-using System;
-using System.Runtime.InteropServices;
-
-class Program
+public class ChatHub : Hub
 {
-    [DllImport("kernel32.dll")]
-    public static extern void Beep(uint dwFreq, uint dwDuration);
-    
-    static void Main()
+    public async Task SendMessage(string user, string message)
     {
-        Console.WriteLine("Calling unmanaged code (Beep)...");
-        Beep(750, 300); // Calls the Windows API function
+        await Clients.All.SendAsync("ReceiveMessage", user, message);
     }
 }
 ```
-Here, `Beep` is an unmanaged function from `kernel32.dll`, which we invoke using `DllImport`.
-
 ---
 
-## 34. What is the Global Assembly Cache (GAC)?
-The GAC is a machine-wide cache for assemblies that allows multiple applications to share libraries while avoiding conflicts.
+## 6. What are the benefits of using Blazor over traditional web technologies?
+Blazor allows building web applications using **C# and .NET** instead of JavaScript.
 
-### Example: Registering an Assembly to the GAC
-Assemblies are added using the **GACUTIL** tool:
-```shell
-gacutil -i MyLibrary.dll
+### Example: Blazor Component
+```csharp
+@code {
+    string message = "Hello, Blazor!";
+}
+<p>@message</p>
 ```
-This registers `MyLibrary.dll` globally, making it accessible to all .NET applications.
-
 ---
 
-## 35. What is the difference between an abstract class and an interface in C#?
-- **Abstract classes** can have method implementations, fields, and constructors.
-- **Interfaces** can only have method signatures (until C# 8.0 introduced default methods).
+## 7. How do you implement Web API versioning in ASP.NET Core?
+API versioning ensures backward compatibility for REST APIs.
+
+### Example: Using API Versioning Middleware
+```csharp
+services.AddApiVersioning(o =>
+{
+    o.ReportApiVersions = true;
+    o.AssumeDefaultVersionWhenUnspecified = true;
+    o.DefaultApiVersion = new ApiVersion(1, 0);
+});
+```
+---
+
+## 8. Explain the role of `IApplicationBuilder` in ASP.NET Core.
+`IApplicationBuilder` is used in `Startup.Configure()` to define the middleware pipeline.
 
 ### Example:
 ```csharp
-abstract class Animal
+public void Configure(IApplicationBuilder app)
 {
-    public abstract void MakeSound();
-    public void Sleep() => Console.WriteLine("Sleeping...");
-}
-
-interface IWalkable
-{
-    void Walk();
-}
-
-class Dog : Animal, IWalkable
-{
-    public override void MakeSound() => Console.WriteLine("Bark!");
-    public void Walk() => Console.WriteLine("Dog is walking");
-}
-
-class Program
-{
-    static void Main()
-    {
-        Dog dog = new Dog();
-        dog.MakeSound();
-        dog.Walk();
-        dog.Sleep();
-    }
+    app.UseRouting();
+    app.UseAuthorization();
+    app.UseEndpoints(endpoints => endpoints.MapControllers());
 }
 ```
-Here, `Dog` inherits from `Animal` (abstract class) and implements `IWalkable` (interface).
-
 ---
 
-## 36. What is the purpose of the `using` statement in C#?
-The `using` statement ensures that `IDisposable` objects (like file streams) are automatically disposed of after use.
+## 9. What are Areas in ASP.NET Core and how do you use them?
+Areas help organize large MVC applications by grouping controllers, views, and models.
+
+### Example: Defining an Area
+```csharp
+[Area("Admin")]
+public class DashboardController : Controller
+{
+    public IActionResult Index() => View();
+}
+```
+---
+
+## 10. How do you manage sessions in ASP.NET Core applications?
+ASP.NET Core provides session state management using `ISession`.
 
 ### Example:
 ```csharp
-using System;
-using System.IO;
+services.AddSession();
 
-class Program
+app.UseSession();
+
+HttpContext.Session.SetString("User", "Admin");
+string user = HttpContext.Session.GetString("User");
+```
+---
+
+## 11. Describe how to implement caching in ASP.NET Core.
+ASP.NET Core supports memory caching and distributed caching.
+
+### Example: In-Memory Caching
+```csharp
+services.AddMemoryCache();
+
+public class MyService
 {
-    static void Main()
+    private readonly IMemoryCache _cache;
+    public MyService(IMemoryCache cache) { _cache = cache; }
+
+    public string GetData()
     {
-        using (StreamWriter writer = new StreamWriter("test.txt"))
-        {
-            writer.WriteLine("Hello, World!");
-        } // File is automatically closed here
+        return _cache.GetOrCreate("cachedData", entry => "Hello, Cache!"); 
     }
 }
 ```
-The file stream is disposed of automatically when the `using` block exits.
-
 ---
 
-## 37. Explain the concept of delegates in C#.
-A delegate is a type that references a method, allowing functions to be passed as parameters.
+## 12. What is Unit Testing in .NET?
+Unit testing is the practice of testing individual components of an application in isolation.
+
+### Example: NUnit Unit Test
+```csharp
+[Test]
+public void TestSum()
+{
+    int result = Calculator.Sum(2, 3);
+    Assert.AreEqual(5, result);
+}
+```
+---
+
+## 13. How do you mock dependencies in unit tests using .NET?
+Mocking is used to simulate dependencies in unit tests using **Moq**.
 
 ### Example:
 ```csharp
-using System;
-
-delegate void MyDelegate(string message);
-
-class Program
-{
-    static void PrintMessage(string message) => Console.WriteLine(message);
-    
-    static void Main()
-    {
-        MyDelegate del = PrintMessage;
-        del("Hello from delegate!");
-    }
-}
+var mockRepo = new Mock<IRepository>();
+mockRepo.Setup(repo => repo.GetData()).Returns("Mock Data");
 ```
-Here, `MyDelegate` points to `PrintMessage`, allowing it to be called dynamically.
-
 ---
 
-## 38. What is LINQ in .NET?
-LINQ (Language Integrated Query) allows querying collections, databases, and XML in a declarative way.
+## 14. Can you explain SOLID principles?
+**SOLID** is a set of five principles for writing maintainable code:
 
-### Example:
-```csharp
-using System;
-using System.Linq;
+1. **S**ingle Responsibility Principle
 
-class Program
-{
-    static void Main()
-    {
-        int[] numbers = { 1, 2, 3, 4, 5 };
-        var evens = numbers.Where(n => n % 2 == 0);
-        
-        foreach (var num in evens)
-        {
-            Console.WriteLine(num);
-        }
-    }
-}
+2. **O**pen/Closed Principle
+
+3. **L**iskov Substitution Principle
+
+4. **I**nterface Segregation Principle
+
+5. **D**ependency Inversion Principle
+---
+
+## 15. What is Continuous Integration/Continuous Deployment (CI/CD)?
+CI/CD automates code integration, testing, and deployment.
+
+### Example: GitHub Actions for CI/CD
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Build and Test
+        run: dotnet test
 ```
-LINQ simplifies working with data collections using query-like expressions.
+
 
