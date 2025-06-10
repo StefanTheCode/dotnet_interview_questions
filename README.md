@@ -1614,6 +1614,39 @@ Here, **BenchmarkDotNet** measures memory usage and execution time.
 ## 50. How do you stay updated with the latest .NET technologies and practices?
 Staying current with .NET advancements ensures that you use the best tools and frameworks.
 
+51. **What is the difference between INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN?**
+
+**Answer:**  
+These are types of SQL joins used to combine rows from two or more tables based on a related column.
+
+- **INNER JOIN**: Returns only rows that have matching values in both tables.
+- **LEFT JOIN**: Returns all rows from the left table, and the matched rows from the right table. If there is no match, NULLs are returned from the right side.
+- **RIGHT JOIN**: Returns all rows from the right table, and the matched rows from the left table. If there is no match, NULLs are returned from the left side.
+- **FULL JOIN (OUTER JOIN)**: Returns all rows when there is a match in either left or right table. Non-matching rows will have NULLs.
+
+```sql
+-- INNER JOIN
+SELECT Orders.Id, Customers.Name
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerId = Customers.Id;
+
+-- LEFT JOIN
+SELECT Orders.Id, Customers.Name
+FROM Orders
+LEFT JOIN Customers ON Orders.CustomerId = Customers.Id;
+
+-- RIGHT JOIN
+SELECT Orders.Id, Customers.Name
+FROM Orders
+RIGHT JOIN Customers ON Orders.CustomerId = Customers.Id;
+
+-- FULL JOIN
+SELECT Orders.Id, Customers.Name
+FROM Orders
+FULL OUTER JOIN Customers ON Orders.CustomerId = Customers.Id;
+```
+---
+
 ### Recommended Ways to Stay Updated:
 - **Follow Microsoft’s .NET Blog** → [https://devblogs.microsoft.com/dotnet/](https://devblogs.microsoft.com/dotnet/)
 - **Attend Conferences/Webinars** → .NET Conf, Microsoft Build
