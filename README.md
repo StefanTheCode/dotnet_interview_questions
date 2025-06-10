@@ -1624,32 +1624,108 @@ Staying current with .NET advancements ensures that you use the best tools and f
 ## 51. **What is the difference between INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN?**
 
 **Answer:**  
-These are types of SQL joins used to combine rows from two or more tables based on a related column.
+These SQL join types determine how rows from two tables are combined based on a related column.
 
-- **INNER JOIN**: Returns only rows that have matching values in both tables.
-- **LEFT JOIN**: Returns all rows from the left table, and the matched rows from the right table. If there is no match, NULLs are returned from the right side.
-- **RIGHT JOIN**: Returns all rows from the right table, and the matched rows from the left table. If there is no match, NULLs are returned from the left side.
-- **FULL JOIN (OUTER JOIN)**: Returns all rows when there is a match in either left or right table. Non-matching rows will have NULLs.
+- **INNER JOIN**: Returns only rows where there is a match in both tables.
+- **LEFT JOIN**: Returns all rows from the left table and matching rows from the right. NULLs if no match.
+- **RIGHT JOIN**: Returns all rows from the right table and matching rows from the left. NULLs if no match.
+- **FULL JOIN**: Returns all rows when there is a match in either table. NULLs where no match exists.
+
+---
+
+### Example Tables
+
+**Customers**
+
+| Id | Name     |
+|----|----------|
+| 1  | Alice    |
+| 2  | Bob      |
+| 3  | Charlie  |
+
+**Orders**
+
+| Id | CustomerId | Product   |
+|----|------------|-----------|
+| 1  | 1          | Keyboard  |
+| 2  | 1          | Mouse     |
+| 3  | 2          | Monitor   |
+| 4  | 4          | Webcam    |
+
+---
+
+### INNER JOIN
 
 ```sql
--- INNER JOIN
-SELECT Orders.Id, Customers.Name
-FROM Orders
-INNER JOIN Customers ON Orders.CustomerId = Customers.Id;
-
--- LEFT JOIN
-SELECT Orders.Id, Customers.Name
-FROM Orders
-LEFT JOIN Customers ON Orders.CustomerId = Customers.Id;
-
--- RIGHT JOIN
-SELECT Orders.Id, Customers.Name
-FROM Orders
-RIGHT JOIN Customers ON Orders.CustomerId = Customers.Id;
-
--- FULL JOIN
-SELECT Orders.Id, Customers.Name
-FROM Orders
-FULL OUTER JOIN Customers ON Orders.CustomerId = Customers.Id;
+SELECT Customers.Name, Orders.Product
+FROM Customers
+INNER JOIN Orders ON Customers.Id = Orders.CustomerId;
 ```
+
+**Result:**
+
+| Name  | Product  |
+|-------|----------|
+| Alice | Keyboard |
+| Alice | Mouse    |
+| Bob   | Monitor  |
+
 ---
+
+### LEFT JOIN
+
+```sql
+SELECT Customers.Name, Orders.Product
+FROM Customers
+LEFT JOIN Orders ON Customers.Id = Orders.CustomerId;
+```
+
+**Result:**
+
+| Name    | Product  |
+|---------|----------|
+| Alice   | Keyboard |
+| Alice   | Mouse    |
+| Bob     | Monitor  |
+| Charlie | NULL     |
+
+---
+
+### RIGHT JOIN
+
+```sql
+SELECT Customers.Name, Orders.Product
+FROM Customers
+RIGHT JOIN Orders ON Customers.Id = Orders.CustomerId;
+```
+
+**Result:**
+
+| Name  | Product  |
+|-------|----------|
+| Alice | Keyboard |
+| Alice | Mouse    |
+| Bob   | Monitor  |
+| NULL  | Webcam   |
+
+---
+
+### FULL JOIN
+
+```sql
+SELECT Customers.Name, Orders.Product
+FROM Customers
+FULL OUTER JOIN Orders ON Customers.Id = Orders.CustomerId;
+```
+
+**Result:**
+
+| Name    | Product  |
+|---------|----------|
+| Alice   | Keyboard |
+| Alice   | Mouse    |
+| Bob     | Monitor  |
+| Charlie | NULL     |
+| NULL    | Webcam   |
+
+
