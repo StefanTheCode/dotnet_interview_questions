@@ -70,6 +70,28 @@ For more content like this be sure to join 15,500+ engineers to my [TheCodeMan.n
 49. **What tools do you use for debugging and profiling .NET applications?**
 50. **How do you stay updated with the latest .NET technologies and practices?**
 
+## SQL
+51. **What is the difference between INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN?**  
+52. **What is a primary key and how does it differ from a unique key?**  
+53. **What are foreign keys and how do they enforce referential integrity?**  
+54. **Explain normalization and list the different normal forms.**  
+55. **What is a clustered index vs a non-clustered index?**  
+56. **What are transactions in SQL and what are ACID properties?**  
+57. **What is the difference between DELETE, TRUNCATE, and DROP?**  
+58. **What are window functions in SQL and when would you use them?**  
+59. **How does a Common Table Expression (CTE) work and how is it different from a subquery?**  
+60. **What are the advantages and disadvantages of using stored procedures?**  
+61. **How can you detect and prevent SQL injection?**  
+62. **What is the difference between EXISTS and IN operators in SQL?**  
+63. **How does indexing work and how can you identify slow queries?**  
+64. **What is the use of the `EXPLAIN` or `QUERY PLAN` statement?**  
+65. **What are aggregate functions and how are GROUP BY and HAVING used?**  
+66. **What is a composite key and when should it be used?**  
+67. **What is a materialized view and how does it differ from a regular view?**  
+68. **How do you handle NULL values in queries and constraints?**  
+69. **What is the difference between scalar functions and table-valued functions?**  
+70. **How would you design a schema for a multi-tenant application in SQL?**  
+
     
 ## Basic
 
