@@ -1728,4 +1728,50 @@ FULL OUTER JOIN Orders ON Customers.Id = Orders.CustomerId;
 | Charlie | NULL     |
 | NULL    | Webcam   |
 
+--- 
+
+## 52. **What is a primary key and how does it differ from a unique key?**
+
+**Answer:**  
+A **primary key** is a column or combination of columns that uniquely identifies each row in a table. It ensures that:
+
+- Values are **unique** across rows.
+- Values are **not NULL**.
+- Each table can only have **one primary key**.
+
+A **unique key** also ensures uniqueness of values, but:
+
+- It **can allow NULLs** (depending on the database system).
+- A table can have **multiple unique keys**.
+- It is typically used to enforce business rules, like ensuring email or username is unique.
+
+---
+
+### Example: Primary Key vs Unique Key
+
+```sql
+CREATE TABLE Employees (
+    EmployeeId INT PRIMARY KEY,          -- Primary key
+    Email NVARCHAR(100) UNIQUE,          -- Unique key
+    SSN CHAR(9) UNIQUE,                  -- Another unique key
+    FullName NVARCHAR(100)
+);
+```
+
+**Explanation:**
+- `EmployeeId` is the primary key — must be unique and cannot be NULL.
+- `Email` and `SSN` must also be unique, but can be NULL (depends on the RDBMS).
+- You can have only one primary key, but multiple unique keys.
+
+---
+
+### Comparison Table
+
+| Feature              | Primary Key        | Unique Key         |
+|----------------------|--------------------|---------------------|
+| Uniqueness           | ✅ Ensured          | ✅ Ensured           |
+| NULLs allowed        | ❌ Not allowed      | ✅ Allowed (usually) |
+| Number per table     | 1 only              | Multiple allowed     |
+| Default index type   | Clustered (default) | Non-clustered (usually) |
+| Used for             | Row identity        | Business rules       |
 
