@@ -1,0 +1,25 @@
+KNZ.CAP.Backend/Logs
+
+/node_modules
+/dist
+
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+
+.idea
+
+.vs/
+
+# misc
+.DS_Store
+*.pem
+agents.md
+
+# Visual Studio Code
+.vscode/*
+
+# Playwright
+src/playwright/output
