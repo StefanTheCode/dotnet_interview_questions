@@ -1,1352 +1,1020 @@
-**Aviso:** Esta tradução foi feita com a devida autorização do repositório [GitHub de StefanTheCode](https://github.com/StefanTheCode).
+# Perguntas e respostas de entrevista sobre .NET e C#
 
-**.NET (C#) Perguntas e Respostas de Entrevista**
+Este documento reúne **50 perguntas conceituais sobre .NET, C#, ASP.NET Core, testes e práticas de engenharia de software**.
 
-Este documento contém uma coleção de 50 perguntas de entrevista relacionadas ao .NET e à linguagem de programação C#, com o objetivo de avaliar candidatos em vários níveis de expertise.
+A tradução foi realizada com autorização do projeto original [`StefanTheCode/dotnet_interview_questions`](https://github.com/StefanTheCode/dotnet_interview_questions). As respostas foram revisadas para remover simplificações imprecisas, atualizar conceitos do .NET moderno e manter a terminologia consistente com o restante deste repositório.
 
-Para mais conteúdo como este, junte-se a mais de 15.500 engenheiros na minha [Newsletter TheCodeMan.net](https://thecodeman.net/?utm_source=github)
+> Conhecer respostas prontas não substitui experiência prática. Em uma entrevista, explique também decisões, limitações, alternativas e exemplos reais.
 
-***Observação: Estas são apenas perguntas técnicas. Saber todas as respostas não garante sua aprovação na entrevista.***
+## Índice
 
----
+### Fundamentos
 
-## Básico
+1. O que é .NET?
+2. O que é o Common Language Runtime — CLR?
+3. Qual é a diferença entre código gerenciado e não gerenciado?
+4. Qual é a estrutura básica de um programa em C#?
+5. Qual é a diferença entre tipos de valor e tipos de referência?
+6. O que é garbage collection no .NET?
+7. Como funciona o tratamento de exceções em C#?
+8. Quais modificadores e formatos de classe existem em C#?
+9. O que é um namespace?
+10. O que é encapsulamento?
 
-1. **O que é .NET?**  
-2. **Você pode explicar o Common Language Runtime (CLR)?**  
-3. **Qual é a diferença entre código gerenciado (managed) e não gerenciado (unmanaged)?**  
-4. **Explique a estrutura básica de um programa em C#.**  
-5. **O que são Value Types e Reference Types em C#?**  
-6. **O que é garbage collection no .NET?**  
-7. **Explique o conceito de tratamento de exceções (exception handling) em C#.**  
-8. **Quais são os diferentes tipos de classes em C#?**  
-9. **Descreva o que é um namespace e como ele é usado em C#.**  
-10. **O que é encapsulamento?**
+### C# intermediário
 
-## Intermediário
+11. O que é polimorfismo?
+12. O que são delegates?
+13. O que é LINQ?
+14. Qual é a diferença entre classe abstrata e interface?
+15. Como gerenciar memória e recursos em aplicações .NET?
+16. Como funciona concorrência e threading no .NET?
+17. Como `async` e `await` funcionam?
+18. O que é Entity Framework Core?
+19. O que são extension methods?
+20. Como tratar exceções em métodos assíncronos?
 
-11. **Explique polimorfismo e seus tipos em C#.**  
-12. **O que são delegates e como são usados em C#?**  
-13. **Descreva o que é LINQ e dê um exemplo de onde poderia ser usado.**  
-14. **Qual a diferença entre uma classe abstrata e uma interface?**  
-15. **Como você gerencia memória em aplicações .NET?**  
-16. **Explique o conceito de threading no .NET.**  
-17. **O que são async/await e como funcionam?**  
-18. **Descreva o Entity Framework e suas vantagens.**  
-19. **O que são extension methods e onde você os utilizaria?**  
-20. **Como você trata exceções em um método que retorna uma Task?**
+### .NET avançado
 
-## Avançado
+21. O que é reflection?
+22. O que é middleware no ASP.NET Core?
+23. Como funciona injeção de dependência no .NET?
+24. Qual é o propósito do .NET Standard?
+25. Qual é a diferença entre .NET, .NET Framework e .NET MAUI?
+26. Como o garbage collector funciona e como reduzir sua pressão?
+27. O que são attributes em C#?
+28. Como o código .NET é compilado e executado?
+29. O que é o Global Assembly Cache — GAC?
+30. Como proteger uma aplicação ASP.NET Core?
 
-21. **O que é reflection no .NET e como você o utilizaria?**  
-22. **Você pode explicar o conceito de middleware no ASP.NET Core?**  
-23. **Descreva o padrão de Injeção de Dependência (DI) e como ele é implementado no .NET Core.**  
-24. **Qual é o propósito do .NET Standard?**  
-25. **Explique as diferenças entre .NET Core, .NET Framework e Xamarin.**  
-26. **Como funciona a garbage collection no .NET e como otimizá-la?**  
-27. **O que são atributos (attributes) em C# e como podem ser utilizados?**  
-28. **Você pode descrever o processo de compilação de código no .NET?**  
-29. **O que é o Global Assembly Cache (GAC) e quando deve ser usado?**  
-30. **Como você protegeria (securizaria) uma aplicação web em ASP.NET Core?**
+### ASP.NET Core
 
-## Específico do Framework
+31. O que é MVC?
+32. Qual é a diferença entre Razor Pages e MVC?
+33. Como realizar validações no ASP.NET Core?
+34. O que é SignalR?
+35. Quais são os benefícios e limitações do Blazor?
+36. Como versionar uma Web API?
+37. Qual é o papel de `IApplicationBuilder` e `WebApplication`?
+38. O que são Areas no ASP.NET Core?
+39. Como gerenciar sessão no ASP.NET Core?
+40. Como implementar cache no ASP.NET Core?
 
-31. **O que é MVC (Model-View-Controller)?**  
-32. **Você pode explicar a diferença entre Razor Pages e MVC no ASP.NET Core?**  
-33. **Como fazer validações no ASP.NET Core?**  
-34. **Descreva o SignalR e seus casos de uso.**  
-35. **Quais são os benefícios de usar Blazor em vez de tecnologias web tradicionais?**  
-36. **Como implementar versionamento de Web API no ASP.NET Core?**  
-37. **Explique o papel de IApplicationBuilder no ASP.NET Core.**  
-38. **O que são Areas no ASP.NET Core e como você as utiliza?**  
-39. **Como gerenciar sessões em aplicações ASP.NET Core?**  
-40. **Descreva como implementar caching no ASP.NET Core.**
+### Testes e práticas de engenharia
 
-## Testes e Melhores Práticas
-
-41. **O que é Teste Unitário (Unit Testing) em .NET?**  
-42. **Como simular (mock) dependências em testes unitários usando .NET?**  
-43. **Você pode explicar os princípios SOLID?**  
-44. **O que é Integração Contínua/Implantação Contínua (CI/CD) e como se aplica ao desenvolvimento .NET?**  
-45. **Como você garante que seu código C# seja seguro?**  
-46. **Quais são alguns problemas comuns de desempenho em aplicações .NET e como você os resolve?**  
-47. **Descreva o padrão de Repositório (Repository) e seus benefícios.**  
-48. **Como você lida com migrações de banco de dados no Entity Framework?**  
-49. **Quais ferramentas você usa para depurar e fazer perfil (profiling) de aplicações .NET?**  
-50. **Como você se mantém atualizado com as últimas tecnologias e práticas .NET?**
+41. O que é teste unitário?
+42. Como substituir dependências em testes?
+43. O que são os princípios SOLID?
+44. O que são CI e CD?
+45. Como desenvolver código C# seguro?
+46. Como investigar problemas de desempenho?
+47. O que é o padrão Repository?
+48. Como trabalhar com migrations do Entity Framework Core?
+49. Quais ferramentas podem ser usadas para depuração e profiling?
+50. Como se manter atualizado no ecossistema .NET?
 
 ---
 
-## Básico
+## Fundamentos
 
 ### 1. O que é .NET?
 
-**Resposta:**  
-.NET é uma plataforma de desenvolvimento abrangente para a criação de diversos tipos de aplicações, como web, mobile, desktop e jogos. Ela suporta várias linguagens de programação, como C#, F# e Visual Basic. O .NET fornece uma biblioteca de classes extensa, chamada Framework Class Library (FCL), e executa o código em um Common Language Runtime (CLR), que oferece serviços como gerenciamento de memória, segurança e tratamento de exceções.
+**Resposta:**
+
+.NET é uma plataforma de desenvolvimento composta por runtime, SDK, bibliotecas e frameworks de aplicação. Ela permite criar aplicações web, APIs, serviços, aplicações de desktop, mobile, cloud, IoT e jogos usando linguagens como C#, F# e Visual Basic.
+
+Os principais componentes incluem:
+
+- **runtime:** executa o código gerenciado;
+- **bibliotecas base:** fornecem coleções, I/O, rede, criptografia, concorrência e outras APIs;
+- **SDK:** oferece compilador, CLI, templates, restore, build, testes e publicação;
+- **frameworks de aplicação:** como ASP.NET Core e .NET MAUI.
+
+Desde o .NET 5, a implementação multiplataforma antes chamada de .NET Core passou a usar o nome **.NET**.
 
 ---
 
-### 2. Você pode explicar o Common Language Runtime (CLR)?
+### 2. O que é o Common Language Runtime — CLR?
 
-**Resposta:**  
-O CLR é o componente de máquina virtual do .NET que gerencia a execução de programas .NET. Ele fornece serviços importantes como gerenciamento de memória, segurança de tipos, tratamento de exceções, garbage collection e gerenciamento de threads. O CLR converte o código em Linguagem Intermediária (IL) para código nativo de máquina por meio de um processo chamado compilação Just-In-Time (JIT). Isso garante que as aplicações .NET possam ser executadas em qualquer dispositivo ou plataforma que ofereça suporte ao .NET.
+**Resposta:**
+
+O CLR é o ambiente de execução do .NET. Ele carrega assemblies, verifica tipos, gerencia exceções, threads e memória, executa garbage collection e transforma Intermediate Language — IL — em código de máquina.
+
+A execução pode utilizar:
+
+- compilação **Just-In-Time — JIT**, durante a execução;
+- compilação antecipada, como **ReadyToRun** ou **Native AOT**, em cenários compatíveis;
+- otimizações em níveis, conhecidas como **tiered compilation**.
+
+O CLR não torna um assembly automaticamente executável em qualquer dispositivo: o destino precisa possuir um runtime compatível ou receber uma publicação autocontida.
 
 ---
 
-### 3. Qual é a diferença entre código gerenciado (managed) e não gerenciado (unmanaged)?
+### 3. Qual é a diferença entre código gerenciado e não gerenciado?
 
-**Resposta:**  
-- **Código gerenciado (managed):** É executado pelo CLR, que fornece serviços como garbage collection, tratamento de exceções e verificação de tipos. Esse código é chamado de “gerenciado” porque o CLR gerencia grande parte das funcionalidades que, de outra forma, o desenvolvedor precisaria implementar manualmente.  
-- **Código não gerenciado (unmanaged):** É executado diretamente pelo sistema operacional. Nesse caso, todo o gerenciamento de memória, segurança de tipos e tratamento de exceções deve ser feito pelo programador. Exemplos incluem aplicações escritas em C ou C++ nativo.
+**Resposta:**
+
+**Código gerenciado** é executado sob os serviços do runtime .NET. O CLR controla aspectos como verificação de tipos, exceções, garbage collection e metadados.
+
+**Código não gerenciado** é código nativo executado fora do modelo de gerenciamento do CLR, como bibliotecas C e C++. Ele pode possuir seu próprio runtime e suas próprias regras de alocação e liberação de memória.
+
+Aplicações .NET podem interoperar com código nativo por mecanismos como P/Invoke e COM interop. Essa fronteira exige cuidados com:
+
+- representação e cópia de dados;
+- convenção de chamada;
+- tempo de vida dos recursos;
+- pinning de memória;
+- tratamento de erros nativos.
 
 ---
 
-### 4. Explique a estrutura básica de um programa em C#.
+### 4. Qual é a estrutura básica de um programa em C#?
 
-**Resposta:**  
-Um programa básico em C# geralmente contém:
+**Resposta:**
 
-- **Declaração de namespace:** Uma forma de organizar o código e controlar o escopo de classes e métodos em projetos maiores.  
-- **Declaração de classe:** Define um novo tipo com membros de dados (campos, propriedades) e membros de função (métodos, construtores).  
-- **Método Main:** O ponto de entrada do programa, onde a execução começa e termina.  
-- **Declarações e expressões:** Realizam ações, como manipular variáveis, chamar métodos, laços de repetição etc.
+Projetos modernos podem usar **top-level statements**, sem declarar explicitamente uma classe e um método `Main`:
 
 ```csharp
-using System;
+Console.WriteLine("Olá, mundo!");
+```
 
-namespace HelloWorld
+O compilador gera o ponto de entrada necessário. A forma clássica continua válida:
+
+```csharp
+namespace Example;
+
+internal static class Program
 {
-    class Program
+    private static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
+        Console.WriteLine("Olá, mundo!");
     }
 }
 ```
 
+Um projeto normalmente também contém um arquivo `.csproj`, referências a pacotes ou projetos, namespaces e tipos organizados em arquivos `.cs`.
+
 ---
 
-### 5. O que são Value Types e Reference Types em C#?
+### 5. Qual é a diferença entre tipos de valor e tipos de referência?
 
-**Resposta:**  
-Em C#, os tipos de dados são divididos em duas categorias: Value Types (tipos de valor) e Reference Types (tipos de referência). Essa distinção afeta como os valores são armazenados e manipulados na memória.
+**Resposta:**
 
-- **Value Types (Tipos de Valor):** Armazenam diretamente os dados e são alocados na stack (pilha). Ao atribuir um tipo de valor a outro, é feita uma cópia do valor. Exemplos: `int`, `double`, `bool` e structs.  
-- **Reference Types (Tipos de Referência):** Armazenam um ponteiro para o local onde o valor efetivamente reside na heap. Ao atribuir um tipo de referência a outro, ambos apontam para o mesmo objeto na memória. Exemplos: `class`, arrays, delegates e `string`.
+A diferença principal é a **semântica de armazenamento e cópia**, não uma regra absoluta de “stack versus heap”.
 
-Exemplo:
+- **Tipos de valor**, como `int`, `bool`, `enum` e `struct`, armazenam seus dados diretamente. Uma atribuição normalmente copia o valor completo.
+- **Tipos de referência**, como classes, arrays, delegates e `string`, armazenam uma referência para um objeto. Uma atribuição copia a referência, não o objeto apontado.
 
 ```csharp
-// Exemplo de Value Type
-int a = 10;
-int b = a;
-b = 20;
-Console.WriteLine(a); // Saída: 10
-Console.WriteLine(b); // Saída: 20
+int first = 10;
+int second = first;
+second = 20;
+// first continua 10.
 
-// Exemplo de Reference Type
-var list1 = new List<int> { 1, 2, 3 };
+var list1 = new List<int> { 1, 2 };
 var list2 = list1;
-list2.Add(4);
-Console.WriteLine(list1.Count); // Saída: 4
-Console.WriteLine(list2.Count); // Saída: 4
+list2.Add(3);
+// list1 e list2 referenciam a mesma lista.
 ```
+
+A localização física depende do contexto. Um tipo de valor pode estar dentro de um objeto no heap, e otimizações do runtime podem alterar detalhes de alocação.
 
 ---
 
 ### 6. O que é garbage collection no .NET?
 
-**Resposta:**  
-O garbage collection (GC) no .NET é um recurso de gerenciamento automático de memória que libera a memória utilizada por objetos que não são mais acessíveis no programa. Ele elimina a necessidade de o desenvolvedor liberar memória manualmente, reduzindo problemas como vazamentos de memória. O GC funciona em três fases: marcação (identifica objetos em uso), realocação (atualiza referências de objetos a serem mantidos) e compactação (recolhe e libera a memória dos objetos não utilizados).
+**Resposta:**
+
+Garbage collection — GC — é o gerenciamento automático da memória ocupada por objetos gerenciados que deixaram de ser alcançáveis por referências ativas.
+
+O GC é geracional:
+
+- **geração 0:** objetos recém-alocados e normalmente de vida curta;
+- **geração 1:** área intermediária;
+- **geração 2:** objetos de vida longa;
+- **Large Object Heap — LOH:** objetos grandes, administrados com políticas específicas.
+
+O GC libera memória gerenciada, mas não substitui a liberação determinística de recursos como arquivos, sockets, conexões e handles. Esses recursos devem ser encapsulados por `IDisposable` ou `IAsyncDisposable` e utilizados com `using` ou `await using`.
 
 ---
 
-### 7. Explique o conceito de tratamento de exceções (exception handling) em C#.
+### 7. Como funciona o tratamento de exceções em C#?
 
-**Resposta:**  
-O tratamento de exceções em C# é um mecanismo que lida com erros em tempo de execução, permitindo que o programa continue rodando ou falhe de forma controlada em vez de simplesmente encerrar de forma abrupta. Isso é feito com os blocos `try`, `catch` e `finally`. O bloco `try` contém o código que pode gerar uma exceção, enquanto `catch` trata a exceção e o `finally` executa instruções (como limpeza de recursos) independente de ter havido exceção ou não.
+**Resposta:**
+
+C# usa `try`, `catch`, `finally` e `throw` para representar e tratar falhas excepcionais.
 
 ```csharp
 try
 {
-    // Código que pode gerar exceção
-    int divide = 10 / 0;
+    await ProcessAsync();
 }
-catch (DivideByZeroException ex)
+catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
 {
-    Console.WriteLine("Não é possível dividir por zero.");
+    // Cancelamento esperado pelo chamador.
+}
+catch (IOException exception)
+{
+    logger.LogError(exception, "Falha de I/O");
+    throw;
 }
 finally
 {
-    Console.WriteLine("Operação finalizada.");
+    // Executado com sucesso ou falha.
 }
 ```
 
----
+Boas práticas:
 
-### 8. Quais são os diferentes tipos de classes em C#?
-
-**Resposta:**  
-Em C#, as classes podem ser categorizadas com base em sua funcionalidade e acessibilidade:
-
-- **Static classes:** Não podem ser instanciadas e só contêm membros estáticos.  
-- **Sealed classes:** Não podem ser herdadas.  
-- **Abstract classes:** Não podem ser instanciadas, mas servem como base para outras classes.  
-- **Partial classes:** Permitem que a definição de uma classe seja dividida em vários arquivos.  
-- **Generic classes:** Definem classes com parâmetros de tipo, permitindo a criação de coleções e métodos fortemente tipados.
+- capture exceções específicas;
+- não use exceções para fluxo normal esperado;
+- não silencie falhas sem uma decisão explícita;
+- use `throw;` para preservar o stack trace;
+- registre contexto, evitando dados sensíveis;
+- libere recursos com `using`, mesmo quando ocorrer uma exceção.
 
 ---
 
-### 9. Descreva o que é um namespace e como ele é usado em C#.
+### 8. Quais modificadores e formatos de classe existem em C#?
 
-**Resposta:**  
-Um namespace em C# é usado para organizar e agrupar tipos (classes, structs, interfaces, enums, delegates) de forma hierárquica. Ele ajuda a evitar conflitos de nomes, permitindo que tipos com o mesmo nome coexistam em diferentes namespaces. Por exemplo, o namespace `System` contém classes para operações básicas do sistema, como entrada/saída de console, leitura/escrita de arquivos e manipulação de dados.
+**Resposta:**
+
+Algumas formas comuns são:
+
+- **`abstract`:** não pode ser instanciada e pode declarar membros abstratos;
+- **`sealed`:** não pode ser herdada;
+- **`static`:** não pode ser instanciada nem herdada e contém somente membros estáticos;
+- **`partial`:** permite dividir a declaração entre arquivos;
+- **genérica:** recebe parâmetros de tipo, como `Repository<T>`;
+- **record class:** oferece semântica orientada a dados, igualdade por valor e suporte a expressões `with`.
+
+Essas categorias podem se combinar quando permitido pela linguagem. Modificadores de acesso como `public`, `internal`, `protected` e `private` controlam a visibilidade.
+
+---
+
+### 9. O que é um namespace?
+
+**Resposta:**
+
+Um namespace organiza tipos e reduz colisões de nomes. Ele não representa necessariamente uma pasta nem cria isolamento de assembly.
 
 ```csharp
-using System;
+namespace Company.Billing.Payments;
 
-namespace MyApplication
+public sealed class PaymentProcessor
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Olá, Mundo!");
-        }
-    }
 }
 ```
+
+Um tipo pode ser referenciado pelo nome totalmente qualificado ou importado com `using`. Aliases também podem resolver ambiguidades entre tipos com o mesmo nome.
 
 ---
 
 ### 10. O que é encapsulamento?
 
-**Resposta:**  
-Encapsulamento é um princípio fundamental de Programação Orientada a Objetos (POO) que consiste em agrupar dados (atributos) e métodos (operações) em uma única unidade (classe), restringindo o acesso aos detalhes internos dessa classe. Geralmente, isso é feito com modificadores de acesso como `private`, `public`, `protected` e `internal`. O encapsulamento protege o estado interno de um objeto contra acessos e modificações indevidos, promovendo integridade dos dados.
+**Resposta:**
 
-Exemplo simples:
+Encapsulamento consiste em proteger invariantes e esconder detalhes internos de uma abstração. O consumidor interage por uma API controlada, em vez de alterar livremente o estado.
 
 ```csharp
-public class Person
+public sealed class BankAccount
 {
-    private string name; // campo privado
+    public decimal Balance { get; private set; }
 
-    public string Name // propriedade pública
+    public void Deposit(decimal amount)
     {
-        get { return name; }
-        set { name = value; }
-    }
+        if (amount <= 0)
+            throw new ArgumentOutOfRangeException(nameof(amount));
 
-    public Person(string name)
-    {
-        this.name = name;
-    }
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Person person = new Person("João");
-        Console.WriteLine(person.Name); // Acesso por propriedade
+        Balance += amount;
     }
 }
 ```
 
+O objetivo não é apenas tornar campos privados, mas garantir que o objeto permaneça válido após cada operação pública.
+
 ---
 
-## Intermediário
+## C# intermediário
 
-### 11. Explique polimorfismo e seus tipos em C#.
+### 11. O que é polimorfismo?
 
-**Resposta:**  
-Polimorfismo é um conceito central em POO que permite que objetos sejam tratados como instâncias de sua classe base, enquanto exibem comportamentos específicos de suas classes derivadas. Em C#, o polimorfismo pode ser:
+**Resposta:**
 
-- **Polimorfismo Estático (compile-time):** Conquistado por meio de sobrecarga de métodos (method overloading) e operadores (operator overloading).  
-- **Polimorfismo Dinâmico (runtime):** Conquistado por meio de sobrescrita de métodos (method overriding) usando `virtual` e `override`.
+Polimorfismo permite usar uma abstração comum enquanto diferentes implementações fornecem comportamentos específicos.
 
-Exemplo:
+Em C#, aparece principalmente por:
+
+- sobrescrita de membros `virtual` ou `abstract` com `override`;
+- implementação de interfaces;
+- sobrecarga de métodos e operadores, resolvida em tempo de compilação;
+- generics, que permitem algoritmos independentes do tipo concreto.
+
+O despacho virtual acontece em runtime. Sobrecarga é selecionada pelo compilador com base nos tipos conhecidos no ponto da chamada.
+
+---
+
+### 12. O que são delegates?
+
+**Resposta:**
+
+Delegate é um tipo que representa referências para métodos com uma assinatura compatível. Ele permite callbacks, composição de comportamento, eventos e APIs funcionais.
 
 ```csharp
-// Polimorfismo Estático - Sobrecarga
-public class Calculator
+Func<int, int, int> operation = static (left, right) => left + right;
+int result = operation(2, 3);
+```
+
+Delegates podem ser multicast. Ao combiná-los, os métodos são chamados na ordem registrada. Eventos usam delegates, mas restringem quem pode disparar ou substituir a lista de assinantes.
+
+---
+
+### 13. O que é LINQ?
+
+**Resposta:**
+
+Language Integrated Query — LINQ — fornece operadores de consulta integrados à linguagem para coleções, bancos de dados e outras fontes.
+
+```csharp
+IEnumerable<string> names = users
+    .Where(user => user.IsActive)
+    .OrderBy(user => user.Name)
+    .Select(user => user.Name);
+```
+
+Pontos importantes:
+
+- muitas operações sobre `IEnumerable<T>` usam execução adiada;
+- materializações como `ToList` e `ToArray` executam a consulta;
+- `IQueryable<T>` constrói uma expressão que um provider pode traduzir;
+- nem todo código C# pode ser traduzido para SQL;
+- múltiplas enumerações podem repetir trabalho ou consultas remotas.
+
+---
+
+### 14. Qual é a diferença entre classe abstrata e interface?
+
+**Resposta:**
+
+Uma **classe abstrata** pode compartilhar estado, construtores, campos e implementações entre tipos relacionados. Uma classe só pode herdar diretamente de uma classe base.
+
+Uma **interface** define um contrato que pode ser implementado por tipos sem relação de herança. Uma classe ou struct pode implementar várias interfaces. Interfaces modernas podem conter implementações padrão, membros estáticos abstratos e outros recursos, mas continuam sem representar o estado de instância de uma classe base.
+
+Use classe abstrata quando existe uma relação forte de especialização e comportamento compartilhado. Use interface para capacidades, contratos e baixo acoplamento.
+
+---
+
+### 15. Como gerenciar memória e recursos em aplicações .NET?
+
+**Resposta:**
+
+O runtime gerencia a memória dos objetos, mas o desenvolvedor ainda deve controlar padrões de alocação e recursos externos.
+
+Práticas comuns:
+
+- aplicar `using` ou `await using` a recursos descartáveis;
+- evitar manter referências desnecessárias em caches, eventos e singletons;
+- reduzir alocações em caminhos críticos somente após medição;
+- usar `Span<T>`, `Memory<T>`, pooling ou structs quando houver benefício comprovado;
+- evitar finalizers, salvo quando o tipo encapsula diretamente um recurso nativo;
+- analisar dumps, contadores e traces antes de otimizar.
+
+Chamar `GC.Collect()` manualmente raramente é a solução correta e pode prejudicar o desempenho.
+
+---
+
+### 16. Como funciona concorrência e threading no .NET?
+
+**Resposta:**
+
+Uma aplicação pode executar trabalho concorrente por threads dedicadas, Thread Pool, `Task`, operações assíncronas e primitivas de paralelismo.
+
+Ferramentas comuns incluem:
+
+- `Task` e `Task<T>`;
+- `Parallel` e PLINQ para trabalho CPU-bound;
+- `lock`, `Monitor`, `SemaphoreSlim`, `Mutex` e tipos interlocked;
+- coleções concorrentes e channels;
+- `CancellationToken` para cancelamento cooperativo.
+
+Concorrência introduz riscos como race conditions, deadlocks, starvation e visibilidade de memória. Prefira estado imutável ou confinado e mantenha regiões críticas pequenas.
+
+---
+
+### 17. Como `async` e `await` funcionam?
+
+**Resposta:**
+
+`async` permite usar `await` e faz o compilador gerar uma máquina de estados. Quando a operação aguardada ainda não terminou, o método devolve o controle ao chamador e continua depois da conclusão.
+
+```csharp
+public async Task<string> DownloadAsync(
+    HttpClient client,
+    Uri uri,
+    CancellationToken cancellationToken)
 {
-    public int Add(int a, int b) => a + b;
-    public int Add(int a, int b, int c) => a + b + c;
-}
-
-// Polimorfismo Dinâmico - Sobrescrita
-public class Animal
-{
-    public virtual void Speak() => Console.WriteLine("O animal faz um som.");
-}
-
-public class Dog : Animal
-{
-    public override void Speak() => Console.WriteLine("O cachorro late.");
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        // Polimorfismo Estático
-        Calculator calc = new Calculator();
-        Console.WriteLine(calc.Add(2, 3));
-        Console.WriteLine(calc.Add(2, 3, 4));
-
-        // Polimorfismo Dinâmico
-        Animal a = new Animal();
-        a.Speak();
-
-        Animal d = new Dog();
-        d.Speak();
-    }
+    return await client.GetStringAsync(uri, cancellationToken);
 }
 ```
 
----
+`async` não cria automaticamente uma nova thread. Operações de I/O podem permanecer aguardando sem ocupar uma thread. Trabalho CPU-bound pode ser paralelizado conscientemente, por exemplo com `Task.Run` fora de ambientes onde isso prejudique o escalonamento.
 
-### 12. O que são delegates e como são usados em C#?
-
-**Resposta:**  
-Delegates em C# são ponteiros de função seguros, permitindo que métodos sejam passados como parâmetros ou armazenados em variáveis. Eles servem de base para eventos e callbacks, permitindo código mais flexível. Há três principais tipos de delegates:
-
-- **Single-cast:** Aponta para um único método.  
-- **Multicast:** Pode apontar para vários métodos na mesma lista de invocação.  
-- **Expressões lambda e métodos anônimos:** Formas concisas de criar delegates sem definir métodos nomeados.
-
-Exemplo:
-
-```csharp
-public delegate void Operation(int num);
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Operation op = Double;
-        op(5);  // Chama Double(5)
-
-        op = Triple;
-        op(5);  // Chama Triple(5)
-
-        // Delegate multicast
-        op = Double;
-        op += Triple;
-        op(5);  // Chama Double(5) e depois Triple(5)
-    }
-
-    static void Double(int num) => Console.WriteLine($"{num} * 2 = {num * 2}");
-    static void Triple(int num) => Console.WriteLine($"{num} * 3 = {num * 3}");
-}
-```
+Evite `async void`, exceto em event handlers. Propague `CancellationToken` e não bloqueie tarefas com `.Result` ou `.Wait()`.
 
 ---
 
-### 13. Descreva o que é LINQ e dê um exemplo de onde poderia ser usado.
+### 18. O que é Entity Framework Core?
 
-**Resposta:**  
-LINQ (Language Integrated Query) é um recurso do C# que permite escrever consultas de forma expressiva e fortemente tipada para diferentes fontes de dados (coleções em memória, bancos de dados, XML etc.). Ele unifica o modo como dados são consultados, proporcionando benefícios como verificação em tempo de compilação e IntelliSense.
+**Resposta:**
 
-Exemplo simples de LINQ com lista de inteiros:
+Entity Framework Core — EF Core — é um Object-Relational Mapper — ORM — para .NET. Ele permite mapear entidades para um banco relacional, consultar com LINQ, rastrear alterações e persistir modificações.
 
-```csharp
-using System;
-using System.Linq;
-using System.Collections.Generic;
+Recursos incluem:
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+- `DbContext` e `DbSet<T>`;
+- LINQ traduzido pelo provider;
+- change tracking;
+- migrations;
+- transações e concorrência otimista;
+- carregamento explícito, eager e, quando configurado, lazy loading.
 
-        var evenNumbers = from num in numbers
-                          where num % 2 == 0
-                          select num;
-
-        Console.WriteLine("Números pares:");
-        foreach (var num in evenNumbers)
-        {
-            Console.WriteLine(num);
-        }
-    }
-}
-```
+EF Core reduz código repetitivo, mas não elimina a necessidade de compreender SQL, índices, cardinalidade, transações e planos de execução. Para leituras, avalie projeções e `AsNoTracking` quando o rastreamento não for necessário.
 
 ---
 
-### 14. Qual a diferença entre uma classe abstrata e uma interface?
+### 19. O que são extension methods?
 
-**Resposta:**  
-- **Classe Abstrata:**
-  - Pode conter implementação de métodos, propriedades e campos.  
-  - Pode ter modificadores de acesso (public, protected etc.).  
-  - Só permite herança simples (uma classe só pode herdar de uma classe abstrata).  
-  - Pode ter construtores (para inicialização interna).  
-  - Ideal quando há métodos ou propriedades em comum que podem ser parcialmente implementados.
+**Resposta:**
 
-- **Interface:**
-  - Não contém implementação — apenas declara membros.  
-  - Todos os membros são implicitamente `public`.  
-  - Uma classe ou struct pode implementar várias interfaces (herança múltipla de interfaces).  
-  - Não contém campos nem construtores.  
-  - Ideal para definir contratos sem impor detalhes de implementação.
-
-Exemplo:
-
-```csharp
-public abstract class Animal
-{
-    public abstract void Eat();
-    public void Sleep() => Console.WriteLine("Dormindo...");
-}
-
-public interface IMovable
-{
-    void Move();
-}
-
-public class Dog : Animal, IMovable
-{
-    public override void Eat() => Console.WriteLine("Cachorro comendo.");
-    public void Move() => Console.WriteLine("Cachorro correndo.");
-}
-```
-
----
-
-### 15. Como você gerencia memória em aplicações .NET?
-
-**Resposta:**  
-O gerenciamento de memória em aplicações .NET é principalmente automatizado pelo Garbage Collector (GC). No entanto, é importante entender boas práticas:
-
-- **Garbage Collection:** O GC roda em segundo plano e libera memória de objetos que não estão mais em uso.  
-- **Padrão Dispose:** Implementar `IDisposable` para liberar recursos não gerenciados (file handles, conexões de banco etc.).  
-- **Finalizers:** Podem ser usados para limpeza, mas podem impactar performance se usados em excesso.  
-- **Using Statements:** Chamadas automáticas a `Dispose()` ao final do bloco `using`.  
-- **Menos alocações desnecessárias:** Minimizar instâncias supérfluas ou criação de grandes quantidades de objetos.
-
-Exemplo de `IDisposable`:
-
-```csharp
-public class ResourceHolder : IDisposable
-{
-    private bool disposed = false;
-    IntPtr unmanagedResource = Marshal.AllocHGlobal(100);
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!disposed)
-        {
-            if (disposing)
-            {
-                // Liberar recursos gerenciados
-            }
-            Marshal.FreeHGlobal(unmanagedResource);
-            disposed = true;
-        }
-    }
-
-    ~ResourceHolder()
-    {
-        Dispose(false);
-    }
-}
-```
-
----
-
-### 16. Explique o conceito de threading no .NET.
-
-**Resposta:**  
-Threading no .NET permite a execução simultânea de múltiplas tarefas dentro do mesmo processo, melhorando a capacidade de resposta (responsiveness) e o desempenho de aplicações. Existem várias maneiras de criar e gerenciar threads:
-
-- **System.Threading.Thread:** Criação e controle direto de threads.  
-- **ThreadPool:** Conjunto de threads reutilizáveis mantidas pelo runtime.  
-- **Task Parallel Library (TPL):** Abstrai o uso de threads por meio de `Task`, facilitando programação assíncrona.  
-- **async/await:** Simplifica o código assíncrono, permitindo que seja escrito de forma mais clara.
-
-Exemplo usando `System.Threading.Thread`:
-
-```csharp
-using System;
-using System.Threading;
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Thread thread = new Thread(DoWork);
-        thread.Start();
-
-        Console.WriteLine("Thread principal fazendo trabalho...");
-        thread.Join();
-        Console.WriteLine("Thread de segundo plano finalizada.");
-    }
-
-    static void DoWork()
-    {
-        Console.WriteLine("Thread de segundo plano em execução...");
-        Thread.Sleep(1000);
-        Console.WriteLine("Thread de segundo plano finalizada.");
-    }
-}
-```
-
----
-
-### 17. O que são async/await e como funcionam?
-
-**Resposta:**  
-`async` e `await` são palavras-chave que simplificam a programação assíncrona em C#. Um método `async` pode conter uma ou mais expressões `await`. Quando o código encontra `await` em uma `Task`, o fluxo assíncrono é liberado para que outras operações sejam executadas enquanto a `Task` não termina, evitando bloqueio de threads.
-
-Exemplo:
-
-```csharp
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-class Program
-{
-    static async Task Main(string[] args)
-    {
-        string result = await DownloadContentAsync();
-        Console.WriteLine(result);
-    }
-
-    static async Task<string> DownloadContentAsync()
-    {
-        using HttpClient client = new HttpClient();
-        string result = await client.GetStringAsync("http://example.com");
-        return result;
-    }
-}
-```
-
-Nesse exemplo, o método `DownloadContentAsync` realiza uma chamada HTTP de forma assíncrona, e `await` libera a thread até que a resposta esteja disponível.
-
----
-
-### 18. Descreva o Entity Framework e suas vantagens.
-
-**Resposta:**  
-O Entity Framework (EF) é um ORM (Object-Relational Mapping) de código aberto para .NET, que permite aos desenvolvedores trabalhar com bancos de dados usando objetos .NET, sem precisar escrever a maior parte do código de acesso a dados (SQL).
-
-**Vantagens:**  
-- **Produtividade:** Reduz o código manual para acesso a dados.  
-- **Manutenção facilitada:** Mapeamento de banco de dados e código sincronizados via migrações.  
-- **Suporte a LINQ:** Consultas poderosas e fortemente tipadas.  
-- **Independente de banco:** Pode ser usado com múltiplos SGBDs.  
-- **Carregamento de dados (lazy, eager, explicit):** Diversas opções de performance.
-
-Exemplo simples:
-
-```csharp
-public class BloggingContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Name { get; set; }
-}
-
-using (var db = new BloggingContext())
-{
-    var blog = new Blog { Name = "Meu Blog" };
-    db.Blogs.Add(blog);
-    db.SaveChanges();
-
-    var query = from b in db.Blogs
-                orderby b.Name
-                select b;
-
-    foreach (var item in query)
-    {
-        Console.WriteLine(item.Name);
-    }
-}
-```
-
----
-
-### 19. O que são extension methods e onde você os utilizaria?
-
-**Resposta:**  
-Extension methods permitem adicionar novos métodos a tipos existentes (inclusive tipos de terceiros) sem precisar modificar, herdar ou recompilar esses tipos. São definidos como métodos estáticos em uma classe estática, mas são chamados como se fossem métodos de instância do tipo estendido.
-
-Exemplo:
+Extension methods são métodos estáticos chamados com sintaxe de método de instância quando o primeiro parâmetro usa `this`.
 
 ```csharp
 public static class StringExtensions
 {
-    public static string ToPascalCase(this string input)
-    {
-        if (string.IsNullOrEmpty(input))
-            return input;
-
-        string[] words = input.Split(new[] { ' ', '-' }, StringSplitOptions.RemoveEmptyEntries);
-        for (int i = 0; i < words.Length; i++)
-        {
-            words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1).ToLower();
-        }
-        return string.Join("", words);
-    }
-}
-
-class Program
-{
-    static void Main()
-    {
-        string title = "o gato-branco saltou";
-        Console.WriteLine(title.ToPascalCase()); // "OGatoBrancoSaltou"
-    }
+    public static bool HasValue(this string? value) =>
+        !string.IsNullOrWhiteSpace(value);
 }
 ```
+
+Eles não alteram o tipo original, não acessam membros privados e são resolvidos estaticamente pelo compilador. Um membro de instância compatível tem prioridade sobre um extension method.
 
 ---
 
-### 20. Como você trata exceções em um método que retorna uma Task?
+### 20. Como tratar exceções em métodos assíncronos?
 
-**Resposta:**  
-Em métodos assíncronos (`async`/`await`) que retornam `Task` ou `Task<T>`, as exceções são encapsuladas no objeto Task. Para tratá-las:
+**Resposta:**
 
-1. **Dentro do método assíncrono:** Use `try/catch` dentro do próprio método.  
-2. **Ao fazer await:** Envolva a chamada `await` em um `try/catch`.  
-3. **ContinueWith:** Use `task.ContinueWith` para capturar exceções na continuação.  
-4. **Task.WhenAny:** Verifique se a task falhou (`IsFaulted`) após a conclusão.
-
-Exemplo:
+Exceções de métodos que retornam `Task` ou `Task<T>` são observadas ao usar `await`.
 
 ```csharp
-public async Task<int> DivideAsync(int numerator, int denominator)
+try
 {
-    return await Task.Run(() =>
-    {
-        if (denominator == 0)
-            throw new DivideByZeroException("Denominador não pode ser zero.");
-        return numerator / denominator;
-    });
+    await service.ExecuteAsync(cancellationToken);
 }
-
-public async Task ExecuteAsync()
+catch (DomainException exception)
 {
-    try
-    {
-        int result = await DivideAsync(10, 0);
-        Console.WriteLine($"Resultado: {result}");
-    }
-    catch (DivideByZeroException ex)
-    {
-        Console.WriteLine($"Erro: {ex.Message}");
-    }
+    logger.LogWarning(exception, "Operação rejeitada");
 }
 ```
+
+Em operações paralelas, `Task.WhenAll` permite aguardar o grupo. Mais de uma tarefa pode falhar; registre ou inspecione as tarefas quando for necessário conhecer todas as falhas.
+
+Diferencie cancelamento de erro e preserve `OperationCanceledException` quando o token foi cancelado pelo chamador.
 
 ---
 
-## Avançado
+## .NET avançado
 
-### 21. O que é reflection no .NET e como você o utilizaria?
+### 21. O que é reflection?
 
-**Resposta:**  
-Reflection é um recurso que permite inspecionar assemblies, tipos e seus membros (métodos, campos, propriedades, eventos) em tempo de execução. Também possibilita criar instâncias de tipos, invocar métodos e acessar propriedades dinamicamente. Pode ser usado para:
+**Resposta:**
 
-- Carregar assemblies e tipos dinamicamente.  
-- Implementar navegadores de objetos ou depuradores.  
-- Frameworks de injeção de dependência.  
-- Leitura de atributos personalizados (custom attributes).
+Reflection permite inspecionar assemblies, tipos, membros, attributes e metadados em runtime, além de criar objetos e invocar membros dinamicamente.
 
-Exemplo simples:
+Casos de uso incluem serialização, containers de DI, frameworks de teste, mapeamento e descoberta de plugins.
 
-```csharp
-using System;
-using System.Reflection;
-
-public class MyClass
-{
-    public void MethodToInvoke() => Console.WriteLine("Método invocado.");
-}
-
-class Program
-{
-    static void Main()
-    {
-        Type myClassType = typeof(MyClass);
-        object instance = Activator.CreateInstance(myClassType);
-        MethodInfo methodInfo = myClassType.GetMethod("MethodToInvoke");
-        methodInfo.Invoke(instance, null);
-    }
-}
-```
+Reflection oferece flexibilidade, mas reduz garantias em tempo de compilação, pode ter custo maior e exige atenção em aplicações com trimming ou Native AOT. Quando o caminho é crítico, considere cache de metadados, delegates compilados ou source generators.
 
 ---
 
-### 22. Você pode explicar o conceito de middleware no ASP.NET Core?
+### 22. O que é middleware no ASP.NET Core?
 
-**Resposta:**  
-Middleware em ASP.NET Core são componentes que compõem o pipeline de requisição/resposta de uma aplicação. Cada componente pode executar alguma lógica e, em seguida, chamar o próximo componente ou encerrar o fluxo. Exemplos: autenticação, roteamento, tratamento de erros, log, etc.
+**Resposta:**
 
-Exemplo:
+Middleware é um componente do pipeline HTTP. Cada componente pode executar lógica antes e depois do próximo middleware, encerrar o pipeline ou modificar request e response.
 
 ```csharp
-public class CustomMiddleware
+app.Use(async (context, next) =>
 {
-    private readonly RequestDelegate _next;
-
-    public CustomMiddleware(RequestDelegate next) => _next = next;
-
-    public async Task InvokeAsync(HttpContext context)
-    {
-        Console.WriteLine("Antes do próximo middleware");
-        await _next(context);
-        Console.WriteLine("Depois do próximo middleware");
-    }
-}
-
-public static class CustomMiddlewareExtensions
-{
-    public static IApplicationBuilder UseCustomMiddleware(this IApplicationBuilder builder)
-    {
-        return builder.UseMiddleware<CustomMiddleware>();
-    }
-}
-
-// Em Startup.Configure
-app.UseCustomMiddleware();
+    var startedAt = Stopwatch.GetTimestamp();
+    await next(context);
+    logger.LogInformation("Status {StatusCode}", context.Response.StatusCode);
+});
 ```
+
+A ordem é parte do comportamento da aplicação. Tratamento de exceções, arquivos estáticos, roteamento, autenticação, autorização e endpoints devem ser organizados segundo suas dependências.
 
 ---
 
-### 23. Descreva o padrão de Injeção de Dependência (DI) e como ele é implementado no .NET Core.
+### 23. Como funciona injeção de dependência no .NET?
 
-**Resposta:**  
-A Injeção de Dependência (Dependency Injection) é um padrão que visa reduzir o acoplamento entre componentes, fornecendo dependências externas em vez de criá-las diretamente dentro das classes. No .NET Core, há um contêiner de DI embutido que permite registrar e resolver serviços.
+**Resposta:**
 
-- **Registrar Serviços:** Geralmente feito em `Startup.ConfigureServices()`.  
-- **Resolver Serviços:** Através de injeção de construtor, injeção de método ou injeção de propriedade.
-
-Exemplo:
+Injeção de dependência separa a criação de objetos do uso de suas abstrações. O container nativo do .NET registra serviços e resolve seus grafos de dependência.
 
 ```csharp
-public interface IGreetingService
-{
-    string Greet(string name);
-}
-
-public class GreetingService : IGreetingService
-{
-    public string Greet(string name) => $"Olá, {name}!";
-}
-
-public class HomeController : Controller
-{
-    private readonly IGreetingService _greetingService;
-
-    public HomeController(IGreetingService greetingService)
-    {
-        _greetingService = greetingService;
-    }
-
-    public IActionResult Index()
-    {
-        var greeting = _greetingService.Greet("Mundo");
-        return Content(greeting);
-    }
-}
-
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-        services.AddControllersWithViews();
-        services.AddTransient<IGreetingService, GreetingService>();
-    }
-
-    // ...
-}
+builder.Services.AddSingleton<ISystemClock, SystemClock>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddTransient<IValidator<Order>, OrderValidator>();
 ```
+
+Lifetimes comuns:
+
+- **singleton:** uma instância por container;
+- **scoped:** uma instância por escopo, normalmente uma requisição HTTP;
+- **transient:** uma nova instância por resolução.
+
+Evite capturar um serviço scoped dentro de um singleton. Construtores com dependências excessivas podem indicar responsabilidade demais, mesmo que o container consiga resolvê-los.
 
 ---
 
 ### 24. Qual é o propósito do .NET Standard?
 
-**Resposta:**  
-O .NET Standard é uma especificação formal de APIs do .NET que devem estar disponíveis em todas as implementações .NET (por exemplo, .NET Framework, .NET Core, Xamarin). Seu objetivo é unificar a base de APIs para permitir que bibliotecas sejam escritas uma só vez e funcionem em várias plataformas .NET.
+**Resposta:**
 
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-</Project>
-```
+.NET Standard é uma especificação de APIs que diferentes implementações do .NET se comprometeram a oferecer. Ele foi criado para facilitar bibliotecas compartilhadas entre .NET Framework, .NET Core, Xamarin e outras implementações.
+
+Para aplicações e bibliotecas que usam apenas versões modernas do .NET, normalmente é preferível direcionar um Target Framework Moniker específico, como `net10.0`, ou usar multitargeting.
+
+`netstandard2.0` ainda é relevante quando uma biblioteca precisa atender simultaneamente ao .NET Framework e ao .NET moderno. Não estão previstas novas versões do .NET Standard.
 
 ---
 
-### 25. Explique as diferenças entre .NET Core, .NET Framework e Xamarin.
+### 25. Qual é a diferença entre .NET, .NET Framework e .NET MAUI?
 
-**Resposta:**  
-- **.NET Framework:** Implementação original do .NET, criada para Windows. Suporta Windows Forms, WPF, ASP.NET clássico. Recebe apenas atualizações de segurança e correções críticas.  
-- **.NET Core (agora .NET 5+):** Multiplataforma (Windows, macOS, Linux), open source, modular e otimizado para aplicativos web, microserviços e cenários em nuvem.  
-- **Xamarin:** Plataforma .NET para criar aplicativos móveis nativos em iOS, Android e Windows, usando C#. Permite compartilhamento de código entre plataformas.
+**Resposta:**
 
----
+- **.NET:** implementação moderna, multiplataforma e de código aberto usada para novos serviços, APIs, aplicações web, console, cloud e vários outros tipos de aplicação.
+- **.NET Framework:** implementação anterior, vinculada ao Windows e mantida principalmente para aplicações legadas que dependem de tecnologias específicas.
+- **.NET MAUI:** framework de interface multiplataforma construído sobre o .NET para aplicações Android, iOS, macOS e Windows.
 
-### 26. Como funciona a garbage collection no .NET e como otimizá-la?
+**Xamarin** foi a tecnologia móvel anterior. Seu suporte terminou, e projetos Xamarin existentes devem ser avaliados para migração ao .NET e ao .NET MAUI.
 
-**Resposta:**  
-A Garbage Collection (GC) no .NET roda automaticamente, localizando objetos não mais acessíveis e liberando sua memória. Usa um modelo de gerações (0, 1, 2) para otimizar a coleta:
-
-1. **Marcar (Mark):** Identifica objetos que ainda estão em uso.  
-2. **Compactar (Compact):** Remove os objetos não acessíveis, liberando espaço na heap.  
-3. **Gerações:** Objetos de vida curta ficam na Gen 0; objetos de vida mais longa são promovidos para Gen 1 ou Gen 2.
-
-**Otimizações:**
-
-- Minimizar alocações desnecessárias.  
-- Usar padrões de descarte (`IDisposable`) para recursos não gerenciados.  
-- Reaproveitar objetos (pools).  
-- Profilar o uso de memória e ajustar o código conforme necessário.
+A escolha depende das plataformas, bibliotecas e tecnologias exigidas. Para novos backends, o .NET moderno é normalmente a opção padrão.
 
 ---
 
-### 27. O que são atributos (attributes) em C# e como podem ser utilizados?
+### 26. Como o garbage collector funciona e como reduzir sua pressão?
 
-**Resposta:**  
-Atributos em C# adicionam metadados declarativos ao código, utilizados pelo compilador ou em tempo de execução (via reflection). São usados para:
+**Resposta:**
 
-- Indicar como serializar ou validar campos.  
-- Marcar classes ou métodos para testes unitários.  
-- Controlar comportamento de frameworks (ASP.NET, WCF etc.).  
-- Criar anotações personalizadas para ferramentas e bibliotecas.
+O GC encontra objetos alcançáveis a partir de raízes, recupera memória de objetos inalcançáveis e pode compactar áreas do heap. Coleções de gerações mais antigas costumam ser mais caras.
 
-Exemplo:
+Para reduzir pressão de GC:
+
+- diminua alocações somente em caminhos comprovadamente críticos;
+- evite criar objetos temporários em loops intensivos;
+- reutilize buffers com pools quando o ganho justificar a complexidade;
+- evite promover objetos de vida curta mantendo referências desnecessárias;
+- reduza pinning prolongado;
+- descarte recursos externos corretamente;
+- meça alocações e pausas com ferramentas de profiling.
+
+Não presuma que structs são sempre mais rápidos: cópias grandes, boxing e uso incorreto também podem gerar custo.
+
+---
+
+### 27. O que são attributes em C#?
+
+**Resposta:**
+
+Attributes associam metadados declarativos a assemblies, tipos, membros, parâmetros e outros elementos.
 
 ```csharp
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
-public class MyCustomAttribute : Attribute
+[Obsolete("Use ProcessAsync em vez deste método.")]
+public void Process()
 {
-    public string Description { get; set; }
-    public MyCustomAttribute(string description)
-    {
-        Description = description;
-    }
-}
-
-[MyCustomAttribute("Descrição da classe.")]
-public class MyClass
-{
-    [MyCustomAttribute("Descrição do método.")]
-    public void MyMethod() { }
 }
 ```
 
----
+Frameworks podem consultar attributes por reflection ou processá-los em build time. Exemplos incluem configuração de serialização, validação, interoperabilidade e geração de código.
 
-### 28. Você pode descrever o processo de compilação de código no .NET?
-
-**Resposta:**  
-1. **Código-fonte para IL:** O compilador (por exemplo, `csc.exe` para C#) converte o código para Intermediate Language (IL) e gera metadados.  
-2. **IL para código nativo:** Em tempo de execução, o CLR faz a compilação Just-In-Time (JIT), convertendo IL em código de máquina específico da plataforma.  
-3. **Execução:** O código nativo é executado no hardware do sistema, com o CLR fornecendo serviços como GC, segurança e verificação de tipos.
-
-As instruções IL e os metadados são armazenados em assemblies (`.dll` ou `.exe`), que podem ser fortes (strong name) e colocados no GAC se desejado.
+Um attribute não altera o comportamento sozinho; algum compilador, runtime, framework ou código da aplicação precisa interpretá-lo.
 
 ---
 
-### 29. O que é o Global Assembly Cache (GAC) e quando deve ser usado?
+### 28. Como o código .NET é compilado e executado?
 
-**Resposta:**  
-O GAC é um cache global de assemblies no .NET Framework que armazena assemblies compartilhados com nome forte (strong name). Ele:
+**Resposta:**
 
-- **Permite compartilhamento de assemblies** entre múltiplas aplicações.  
-- **Requer strong name** (versão, chave pública, etc.).  
-- **Suporta side-by-side** de diferentes versões do mesmo assembly.
+O compilador C# transforma o código-fonte em IL e metadados armazenados em assemblies `.dll` ou `.exe`. Na execução, o runtime carrega o assembly e produz código nativo.
 
-Use o GAC para bibliotecas comuns e versionadas que precisam ser usadas por vários aplicativos no mesmo computador. Em .NET Core e .NET modernos (a partir do .NET 5), o GAC não é utilizado; é mais comum fazer implantação via NuGet/local.
+Caminhos possíveis incluem:
+
+- **JIT:** compila métodos conforme são executados;
+- **tiered compilation:** recompila métodos quentes com otimizações adicionais;
+- **ReadyToRun:** inclui código pré-compilado para reduzir trabalho inicial;
+- **Native AOT:** produz um executável nativo com restrições de compatibilidade específicas.
+
+A publicação também pode ser dependente do runtime instalado ou autocontida.
 
 ---
 
-### 30. Como você protegeria (securizaria) uma aplicação web em ASP.NET Core?
+### 29. O que é o Global Assembly Cache — GAC?
 
-**Resposta:**  
-Algumas estratégias para proteger aplicações ASP.NET Core:
+**Resposta:**
 
-1. **Autenticação e Autorização:** Usar Identity, JWT ou outros provedores.  
-2. **Validação de Entrada:** Prevenir injeção de script (XSS) e SQL injection.  
-3. **Proteção de Dados:** Usar HTTPS, encriptação de dados sensíveis.  
-4. **Política de Cookies e CSRF:** Usar antiforgery tokens.  
-5. **Configurações Seguras:** Proteger chaves e segredos com serviços como Azure Key Vault.
+O GAC é um repositório global de assemblies fortemente nomeados do **.NET Framework** no Windows. Ele permite compartilhar versões de assemblies entre aplicações instaladas na máquina.
 
-Exemplo simples (forçar HTTPS):
+O .NET moderno não usa o GAC como mecanismo padrão de dependências. Projetos SDK-style resolvem frameworks, projetos e pacotes NuGet por arquivos do projeto e artefatos de restore.
+
+Em sistemas atuais, o GAC deve ser tratado principalmente como conhecimento de manutenção de aplicações .NET Framework legadas.
+
+---
+
+### 30. Como proteger uma aplicação ASP.NET Core?
+
+**Resposta:**
+
+Segurança deve ser aplicada em camadas:
+
+- autenticação e autorização com políticas explícitas;
+- HTTPS e configuração segura de cookies e headers;
+- validação de entrada e codificação contextual de saída;
+- proteção contra CSRF quando autenticação baseada em cookie for usada;
+- consultas SQL parametrizadas;
+- segredos fora do código-fonte;
+- menor privilégio para aplicação, banco e infraestrutura;
+- atualização de dependências e análise de vulnerabilidades;
+- rate limiting e limites de tamanho e tempo;
+- logs e auditoria sem expor credenciais ou dados pessoais.
+
+Model binding ou validação de modelo não substituem autorização. O servidor deve verificar que o usuário pode executar a ação sobre o recurso específico.
+
+---
+
+## ASP.NET Core
+
+### 31. O que é MVC?
+
+**Resposta:**
+
+Model-View-Controller separa responsabilidades de uma aplicação de interface:
+
+- **Model:** dados, regras e objetos usados pela aplicação;
+- **View:** apresentação;
+- **Controller:** recebe a requisição, coordena o caso de uso e escolhe a resposta.
+
+No ASP.NET Core MVC, controllers e actions usam routing, model binding, filtros e views Razor. MVC melhora organização, mas controllers devem permanecer finos e delegar regras de domínio ou aplicação a serviços apropriados.
+
+---
+
+### 32. Qual é a diferença entre Razor Pages e MVC?
+
+**Resposta:**
+
+**Razor Pages** organiza a aplicação por página. Cada arquivo `.cshtml` normalmente possui um `PageModel` com handlers como `OnGet` e `OnPost`.
+
+**MVC** organiza a entrada por controllers e actions e é apropriado quando várias rotas compartilham comportamentos, filtros ou modelos de resposta.
+
+As duas opções usam a infraestrutura do ASP.NET Core e podem coexistir. A escolha é de organização e adequação ao domínio, não de capacidade absoluta.
+
+---
+
+### 33. Como realizar validações no ASP.NET Core?
+
+**Resposta:**
+
+O model binding preenche os modelos e registra erros em `ModelState`. Data Annotations, `IValidatableObject`, validações customizadas ou bibliotecas especializadas podem declarar regras.
 
 ```csharp
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    app.UseHttpsRedirection();
-    app.UseAuthentication();
-    app.UseAuthorization();
-    // ...
-}
-```
-
----
-
-## Específico do Framework
-
-### 31. O que é MVC (Model-View-Controller)?
-
-**Resposta:**  
-MVC é um padrão de arquitetura que separa a aplicação em três componentes:
-
-- **Model:** Regras de negócio e acesso aos dados.  
-- **View:** Camada de apresentação (UI).  
-- **Controller:** Recebe entradas do usuário e coordena as interações entre Model e View.
-
-Exemplo de um Controller básico:
-
-```csharp
-public class HomeController : Controller
-{
-    public IActionResult Index()
-    {
-        return View();
-    }
-}
-```
-
----
-
-### 32. Você pode explicar a diferença entre Razor Pages e MVC no ASP.NET Core?
-
-**Resposta:**  
-- **MVC:** Usa Controllers para lidar com solicitações; cada Controller pode ter várias Actions.  
-- **Razor Pages:** É mais focado em páginas, cada página tem seu próprio modelo de página (PageModel) com métodos `OnGet`, `OnPost`, etc. Ideal para aplicativos menores ou com abordagem orientada a páginas.
-
-Exemplo de Razor Page:
-
-```csharp
-public class IndexModel : PageModel
-{
-    public void OnGet()
-    {
-        // Lógica de GET
-    }
-}
-```
-
----
-
-### 33. Como fazer validações no ASP.NET Core?
-
-**Resposta:**  
-ASP.NET Core suporta validação com **Data Annotations** e também com **Fluent Validation**. As Data Annotations são atributos aplicados às propriedades do modelo, como `[Required]`, `[Range]`, `[EmailAddress]` etc.
-
-Exemplo:
-
-```csharp
-public class UserModel
+public sealed class CreateUserRequest
 {
     [Required]
     [EmailAddress]
-    public string Email { get; set; }
+    public string Email { get; init; } = string.Empty;
 
-    [Required]
-    [MinLength(6)]
-    public string Password { get; set; }
+    [Range(18, 120)]
+    public int Age { get; init; }
 }
 ```
 
+A validação de entrada deve acontecer no servidor. Ela não substitui regras de domínio, autorização, constraints no banco ou validação de concorrência.
+
 ---
 
-### 34. Descreva o SignalR e seus casos de uso.
+### 34. O que é SignalR?
 
-**Resposta:**  
-SignalR é uma biblioteca em tempo real para ASP.NET Core que usa transporte via WebSockets (ou fallback) para permitir comunicação bidirecional entre servidor e cliente. Casos de uso incluem:
+**Resposta:**
 
-- Aplicativos de chat em tempo real.  
-- Dashboards com atualização em tempo real.  
-- Colaboração multiusuário (documentos colaborativos).
+SignalR é uma biblioteca para comunicação em tempo real entre servidor e clientes. Ela abstrai conexões persistentes e pode usar WebSockets, Server-Sent Events ou long polling conforme cliente e infraestrutura.
 
-Exemplo de Hub:
+Casos de uso incluem chats, notificações, dashboards, acompanhamento de progresso e colaboração.
+
+Hubs simplificam a chamada de métodos e o envio para usuários ou grupos. Em escala horizontal, é necessário considerar afinidade, backplane ou serviço gerenciado, além de autenticação, autorização e limites de mensagens.
+
+---
+
+### 35. Quais são os benefícios e limitações do Blazor?
+
+**Resposta:**
+
+Blazor permite construir componentes web com C# e Razor. Componentes podem usar renderização estática no servidor, interatividade no servidor, interatividade WebAssembly no cliente ou uma combinação por modos de renderização.
+
+Benefícios:
+
+- reutilização de conhecimento e bibliotecas .NET;
+- componentes fortemente tipados;
+- integração com ASP.NET Core;
+- possibilidade de compartilhar componentes com aplicações Blazor Hybrid.
+
+Trade-offs incluem tamanho inicial no cliente, latência e dependência de conexão no modo interativo de servidor, limites de APIs no navegador e necessidade eventual de JavaScript interop.
+
+---
+
+### 36. Como versionar uma Web API?
+
+**Resposta:**
+
+Versionamento permite evoluir contratos sem quebrar consumidores existentes. A versão pode ser informada por:
+
+- segmento da rota;
+- query string;
+- header;
+- media type.
+
+A estratégia deve definir suporte, depreciação, documentação e observabilidade. Nem toda mudança exige uma nova versão: adicionar um campo opcional costuma ser compatível, enquanto remover ou reinterpretar campos pode quebrar clientes.
+
+Bibliotecas de versionamento podem automatizar seleção de endpoints e documentação, mas não substituem governança de contrato nem testes de compatibilidade.
+
+---
+
+### 37. Qual é o papel de `IApplicationBuilder` e `WebApplication`?
+
+**Resposta:**
+
+`IApplicationBuilder` representa a construção do pipeline de middleware por métodos como `Use`, `Run` e `Map`.
+
+No modelo de hospedagem moderno, `WebApplication` implementa as capacidades necessárias para configurar o pipeline e mapear endpoints:
 
 ```csharp
-public class ChatHub : Hub
-{
-    public async Task SendMessage(string user, string message)
-    {
-        await Clients.All.SendAsync("ReceiveMessage", user, message);
-    }
-}
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+
+var app = builder.Build();
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
 ```
+
+Classes `Startup` e métodos `Configure(IApplicationBuilder)` ainda podem aparecer em aplicações antigas ou em estilos compatíveis, mas os templates atuais usam `WebApplicationBuilder` e `WebApplication`.
 
 ---
 
-### 35. Quais são os benefícios de usar Blazor em vez de tecnologias web tradicionais?
+### 38. O que são Areas no ASP.NET Core?
 
-**Resposta:**  
-- **Código em C#:** Permite reusar lógica de .NET no frontend em vez de JavaScript.  
-- **Ecossistema .NET:** Compartilhamento de bibliotecas e código.  
-- **Renderização no lado do cliente (WebAssembly) ou servidor:** Flexibilidade de implantação.  
-- **Produtividade:** Menos alternância entre C# e JS.
+**Resposta:**
 
-Exemplo simples de componente Blazor:
-
-```csharp
-@page "/counter"
-
-<h3>Contador</h3>
-<p>Valor: @count</p>
-<button @onclick="IncrementCount">Incrementar</button>
-
-@code {
-    private int count = 0;
-    private void IncrementCount() => count++;
-}
-```
-
----
-
-### 36. Como implementar versionamento de Web API no ASP.NET Core?
-
-**Resposta:**  
-Utiliza-se o pacote de **API Versioning** do ASP.NET Core (`Microsoft.AspNetCore.Mvc.Versioning`). Permite gerenciar diferentes versões via URL, cabeçalho ou query string.
-
-```csharp
-services.AddApiVersioning(o =>
-{
-    o.ReportApiVersions = true;
-    o.AssumeDefaultVersionWhenUnspecified = true;
-    o.DefaultApiVersion = new ApiVersion(1, 0);
-});
-```
-
----
-
-### 37. Explique o papel de IApplicationBuilder no ASP.NET Core.
-
-**Resposta:**  
-`IApplicationBuilder` configura o pipeline de requisições. Em `Startup.Configure()`, você encadeia middlewares com métodos de extensão como `UseRouting()`, `UseAuthorization()`, etc.
-
-Exemplo:
-
-```csharp
-public void Configure(IApplicationBuilder app)
-{
-    app.UseRouting();
-    app.UseAuthorization();
-    app.UseEndpoints(endpoints => endpoints.MapControllers());
-}
-```
-
----
-
-### 38. O que são Areas no ASP.NET Core e como você as utiliza?
-
-**Resposta:**  
-Areas ajudam a organizar uma aplicação MVC em módulos, agrupando Controllers, Views e Models relacionados. Útil em aplicações grandes. Para usar:
-
-1. Criar pasta `Areas/Admin/Controllers`, `Areas/Admin/Views` etc.  
-2. Marcar o controller com `[Area("Admin")]`.  
-3. Incluir a área na rota (por exemplo, `/{area=Admin}/{controller=Home}/{action=Index}`).
-
-Exemplo:
+Areas particionam uma aplicação MVC em grupos funcionais, cada um com controllers, views e rotas próprias. São úteis em aplicações grandes, por exemplo para separar administração, faturamento e suporte.
 
 ```csharp
 [Area("Admin")]
-public class DashboardController : Controller
+public sealed class DashboardController : Controller
 {
     public IActionResult Index() => View();
 }
 ```
 
----
-
-### 39. Como gerenciar sessões em aplicações ASP.NET Core?
-
-**Resposta:**  
-ASP.NET Core oferece `ISession` para gerenciar dados de sessão. É preciso configurar em `Startup`:
-
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddSession();
-}
-
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    app.UseSession();
-    // ...
-}
-```
-
-Uso:
-
-```csharp
-HttpContext.Session.SetString("User", "Admin");
-string user = HttpContext.Session.GetString("User");
-```
+Areas são uma técnica de organização da camada web. Elas não criam limites de segurança; autorização continua necessária.
 
 ---
 
-### 40. Descreva como implementar caching no ASP.NET Core.
+### 39. Como gerenciar sessão no ASP.NET Core?
 
-**Resposta:**  
-Há suporte para **Memory Cache** (em memória) e **Distributed Cache** (por exemplo, Redis). Para memória local:
+**Resposta:**
+
+Session armazena dados associados a um identificador enviado normalmente por cookie. Os valores permanecem no servidor ou em um cache distribuído; o cookie contém o identificador, não todo o estado.
+
+Em múltiplas instâncias, use armazenamento distribuído e configure proteção de dados de forma compartilhada quando necessário.
+
+Sessão deve guardar poucos dados temporários. Não é adequada como fonte principal de verdade, mecanismo de autorização ou armazenamento de informações que precisam sobreviver indefinidamente.
+
+---
+
+### 40. Como implementar cache no ASP.NET Core?
+
+**Resposta:**
+
+Opções comuns incluem:
+
+- `IMemoryCache` para dados locais ao processo;
+- `IDistributedCache` para cache compartilhado;
+- response caching ou output caching para respostas HTTP, conforme os requisitos;
+- cache no cliente, CDN e reverse proxy por headers HTTP.
 
 ```csharp
-services.AddMemoryCache();
-
-public class MyService
+public async Task<Product?> GetAsync(int id, CancellationToken token)
 {
-    private readonly IMemoryCache _cache;
-    public MyService(IMemoryCache cache)
+    return await cache.GetOrCreateAsync($"product:{id}", async entry =>
     {
-        _cache = cache;
-    }
-
-    public string GetData()
-    {
-        return _cache.GetOrCreate("cachedData", entry =>
-        {
-            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
-            return "Dados em cache";
-        });
-    }
+        entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+        return await repository.GetAsync(id, token);
+    });
 }
 ```
 
+Defina expiração, invalidação, tolerância a dados obsoletos, comportamento em falhas e proteção contra cache stampede. Nunca armazene dados de usuários diferentes sob a mesma chave sem isolamento apropriado.
+
 ---
 
-## Testes e Melhores Práticas
+## Testes e práticas de engenharia
 
-### 41. O que é Teste Unitário (Unit Testing) em .NET?
+### 41. O que é teste unitário?
 
-**Resposta:**  
-Teste unitário verifica partes específicas do código (métodos/classes) de forma isolada, garantindo que funcionem conforme esperado. Ferramentas comuns incluem MSTest, xUnit e NUnit.
+**Resposta:**
 
-Exemplo usando NUnit:
+Teste unitário verifica uma unidade pequena e observável de comportamento, com execução rápida e resultado determinístico. Ele normalmente não depende de rede, relógio real, banco externo ou filesystem compartilhado.
 
 ```csharp
-[Test]
-public void TestSum()
+[Fact]
+public void Deposit_ShouldIncreaseBalance()
 {
-    int result = Calculator.Sum(2, 3);
-    Assert.AreEqual(5, result);
+    var account = new BankAccount();
+
+    account.Deposit(100m);
+
+    Assert.Equal(100m, account.Balance);
 }
 ```
 
+O teste deve verificar comportamento relevante, não a implementação interna. Integrações reais devem ser cobertas também por testes de integração, contrato, sistema ou end-to-end.
+
 ---
 
-### 42. Como simular (mock) dependências em testes unitários usando .NET?
+### 42. Como substituir dependências em testes?
 
-**Resposta:**  
-Utiliza-se bibliotecas como **Moq** para criar objetos falsos que simulam comportamentos de dependências:
+**Resposta:**
 
-```csharp
-var mockRepo = new Mock<IRepository>();
-mockRepo.Setup(repo => repo.GetData()).Returns("Mock Data");
+Dependências podem ser substituídas por:
 
-// Injetar mock em classe que depende de IRepository
-var service = new MyService(mockRepo.Object);
+- **fake:** implementação funcional simplificada, como um repositório em memória;
+- **stub:** fornece respostas predefinidas;
+- **mock:** verifica interações esperadas;
+- **spy:** registra chamadas para inspeção posterior.
+
+Frameworks como Moq e NSubstitute ajudam, mas objetos manuais podem ser mais claros. Evite simular detalhes internos demais: testes excessivamente acoplados a chamadas quebram durante refatorações que não alteram o comportamento.
+
+---
+
+### 43. O que são os princípios SOLID?
+
+**Resposta:**
+
+- **Single Responsibility:** um módulo deve ter uma razão coerente para mudar.
+- **Open/Closed:** o comportamento deve poder ser estendido sem exigir alterações espalhadas em código estável.
+- **Liskov Substitution:** implementações de uma abstração devem respeitar seu contrato e expectativas.
+- **Interface Segregation:** consumidores não devem depender de membros que não utilizam.
+- **Dependency Inversion:** regras de alto nível devem depender de abstrações estáveis, não de detalhes voláteis.
+
+SOLID são heurísticas de design, não metas isoladas. Aplicação mecânica pode produzir excesso de interfaces, classes e indireções.
+
+---
+
+### 44. O que são CI e CD?
+
+**Resposta:**
+
+**Continuous Integration — CI** integra alterações frequentemente e executa validações automáticas, como restore, build, análise estática e testes.
+
+**Continuous Delivery** mantém o software em estado implantável e permite promover uma versão por decisão explícita.
+
+**Continuous Deployment** automatiza também a implantação em produção quando todos os critérios são aprovados.
+
+Um pipeline confiável deve ser reproduzível, rápido o suficiente para feedback e protegido por controles de segredo, permissões, rastreabilidade e ambientes.
+
+---
+
+### 45. Como desenvolver código C# seguro?
+
+**Resposta:**
+
+Práticas essenciais:
+
+- validar dados nas fronteiras do sistema;
+- parametrizar consultas e comandos;
+- aplicar autenticação, autorização e menor privilégio;
+- armazenar senhas com algoritmos próprios para password hashing;
+- proteger segredos fora do repositório;
+- usar criptografia e TLS por bibliotecas consolidadas;
+- manter dependências e runtime atualizados;
+- evitar desserialização insegura e exposição excessiva de dados;
+- analisar ameaças, logs, rate limits e falhas de dependências.
+
+Dependência injetada não é, por si só, mais segura. Segurança depende do desenho, configuração, implementação e operação.
+
+---
+
+### 46. Como investigar problemas de desempenho?
+
+**Resposta:**
+
+Comece por uma hipótese baseada em métricas, não por otimizações aleatórias.
+
+Investigue:
+
+- latência, throughput e taxa de erros;
+- CPU, memória, GC e alocações;
+- contenção, Thread Pool e bloqueios;
+- I/O, chamadas remotas e filas;
+- consultas, planos, índices e cardinalidade;
+- logs, traces distribuídos e perfis;
+- diferenças entre ambiente, carga e dados.
+
+Use benchmarks para microcenários e testes de carga para comportamento sistêmico. Compare antes e depois e verifique se a otimização piorou legibilidade, corretude ou consumo em outra área.
+
+---
+
+### 47. O que é o padrão Repository?
+
+**Resposta:**
+
+Repository fornece uma abstração orientada ao domínio para acessar e persistir agregados ou coleções de objetos.
+
+Benefícios possíveis:
+
+- concentra consultas e regras de persistência relevantes;
+- reduz dependência direta da camada de aplicação em detalhes de armazenamento;
+- facilita substituição ou testes quando existe uma fronteira real.
+
+Riscos:
+
+- um `GenericRepository<T>` pode esconder capacidades úteis do ORM e produzir uma API limitada;
+- abstrações podem apenas duplicar `DbSet<T>` e `DbContext`;
+- retornar `IQueryable<T>` expõe detalhes de consulta para fora da fronteira.
+
+No EF Core, `DbContext` já possui características de Unit of Work e Repository. Adicione outra camada quando ela representar uma abstração útil ao domínio, não apenas por regra arquitetural.
+
+---
+
+### 48. Como trabalhar com migrations do Entity Framework Core?
+
+**Resposta:**
+
+Migrations registram alterações de modelo e geram operações para evoluir o schema.
+
+Comandos comuns:
+
+```shell
+dotnet ef migrations add AddOrders
+dotnet ef migrations script --idempotent
+dotnet ef database update
 ```
 
----
+Boas práticas:
 
-### 43. Você pode explicar os princípios SOLID?
+- revisar o código gerado e o SQL;
+- versionar migrations no repositório;
+- testar upgrade e, quando aplicável, rollback ou estratégia de correção;
+- fazer backup e avaliar bloqueios, volume e duração;
+- separar alterações incompatíveis em etapas de expansão e contração;
+- aplicar em produção por um processo controlado, não necessariamente no startup de todas as instâncias.
 
-**Resposta:**  
-**SOLID** é um conjunto de princípios para escrever código mais limpo e sustentável:
-
-1. **S**ingle Responsibility Principle (Responsabilidade Única)  
-2. **O**pen/Closed Principle (Aberto para extensão, fechado para modificação)  
-3. **L**iskov Substitution Principle (Subtipos devem ser substituíveis por seus tipos base)  
-4. **I**nterface Segregation Principle (Muitas interfaces específicas em vez de uma interface geral)  
-5. **D**ependency Inversion Principle (Depender de abstrações, não de implementações concretas)
+Alterar o modelo não garante uma migration segura para grandes tabelas ou implantação sem downtime.
 
 ---
 
-### 44. O que é Integração Contínua/Implantação Contínua (CI/CD) e como se aplica ao desenvolvimento .NET?
+### 49. Quais ferramentas podem ser usadas para depuração e profiling?
 
-**Resposta:**  
-CI/CD é um conjunto de práticas que automatizam integração de código (build, testes) e implantação em produção. Isso assegura que cada commit seja testado e, se aprovado, possa ser implantado automaticamente, aumentando a velocidade e a confiabilidade no processo de desenvolvimento.
+**Resposta:**
 
-Exemplo de GitHub Actions:
+Ferramentas comuns incluem:
 
-```yaml
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Build and Test
-        run: dotnet test
-```
+- depuradores do Visual Studio, Visual Studio Code ou Rider;
+- `dotnet-counters` para métricas em tempo real;
+- `dotnet-trace` para traces;
+- `dotnet-dump` para coleta e análise de dumps;
+- PerfView e Windows Performance Recorder em cenários Windows;
+- ferramentas como dotTrace e dotMemory;
+- BenchmarkDotNet para microbenchmarks;
+- OpenTelemetry e Application Performance Monitoring para produção.
 
----
-
-### 45. Como você garante que seu código C# seja seguro?
-
-**Resposta:**  
-Boas práticas para segurança incluem:
-
-- **Queries parametrizadas** para evitar SQL injection.  
-- **Hash e salt de senhas** com algoritmos seguros (BCrypt, PBKDF2 etc.).  
-- **Comunicação via HTTPS** para criptografar dados em trânsito.  
-- **Validação de entrada** para evitar injeções de script (XSS).  
-- **Gerenciamento de segredos** (não armazenar chaves em código; usar ferramentas como Azure Key Vault).
-
-Exemplo de uso de parâmetro em SQL:
-
-```csharp
-using (SqlConnection conn = new SqlConnection("connectionString"))
-{
-    string query = "SELECT * FROM Users WHERE Id = @userId";
-    using (SqlCommand cmd = new SqlCommand(query, conn))
-    {
-        cmd.Parameters.AddWithValue("@userId", userId);
-        // ...
-    }
-}
-```
+Escolha a ferramenta conforme a pergunta: CPU, memória, exceções, bloqueios, GC, alocações ou latência distribuída exigem evidências diferentes.
 
 ---
 
-### 46. Quais são alguns problemas comuns de desempenho em aplicações .NET e como você os resolve?
+### 50. Como se manter atualizado no ecossistema .NET?
 
-**Resposta:**  
-Problemas comuns:
+**Resposta:**
 
-- **Vazamentos de memória:** Objetos não descartados corretamente.  
-- **Consultas lentas:** Falta de otimização ou índices no banco.  
-- **Excesso de alocação de objetos:** Pode gerar muita carga para o GC.  
-- **Uso inadequado de I/O sincrono:** Pode bloquear threads.
+Uma estratégia sustentável combina:
 
-Soluções:
+- documentação e blogs oficiais do .NET e ASP.NET Core;
+- release notes, breaking changes e políticas de suporte;
+- repositórios e issues oficiais no GitHub;
+- conferências como .NET Conf e Microsoft Build;
+- leitura de código-fonte, amostras e propostas de linguagem;
+- atualização periódica de projetos pequenos para praticar migrations;
+- comunidades técnicas, livros e artigos revisados criticamente.
 
-- Usar `IDisposable` e `using` para liberar recursos.  
-- Otimizar consultas e índices no banco.  
-- Aplicar caching em áreas de acesso frequente.  
-- Usar async/await para operações I/O.
-
-Exemplo de caching:
-
-```csharp
-public class DataService
-{
-    private readonly IMemoryCache _cache;
-    public DataService(IMemoryCache cache) => _cache = cache;
-
-    public string GetData()
-    {
-        return _cache.GetOrCreate("cachedData", entry =>
-        {
-            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
-            return "Dados em cache";
-        });
-    }
-}
-```
-
----
-
-### 47. Descreva o padrão de Repositório (Repository) e seus benefícios.
-
-**Resposta:**  
-O padrão de Repositório cria uma camada de abstração entre a lógica de negócio e a lógica de acesso a dados. Benefícios:
-
-- **Separação de preocupações:** Acesso a dados fica isolado.  
-- **Testabilidade:** Mais fácil criar mocks para testes unitários.  
-- **Reutilização:** Lógica de acesso a dados centralizada.
-
-Exemplo:
-
-```csharp
-public interface IUserRepository
-{
-    IEnumerable<User> GetAllUsers();
-    User GetUserById(int id);
-}
-
-public class UserRepository : IUserRepository
-{
-    private readonly AppDbContext _context;
-    public UserRepository(AppDbContext context) => _context = context;
-
-    public IEnumerable<User> GetAllUsers() => _context.Users.ToList();
-    public User GetUserById(int id) => _context.Users.Find(id);
-}
-```
-
----
-
-### 48. Como você lida com migrações de banco de dados no Entity Framework?
-
-**Resposta:**  
-As migrações permitem evoluir o esquema do banco de dados mantendo os dados existentes. Os comandos comuns são:
-
-1. **Criar migração:**
-   ```shell
-   dotnet ef migrations add InitialCreate
-   ```
-2. **Aplicar migração:**
-   ```shell
-   dotnet ef database update
-   ```
-
----
-
-### 49. Quais ferramentas você usa para depurar e fazer perfil (profiling) de aplicações .NET?
-
-**Resposta:**  
-Ferramentas populares incluem:
-
-- **Visual Studio Debugger:** Depuração passo a passo.  
-- **dotTrace:** Profiling de desempenho (CPU).  
-- **BenchmarkDotNet:** Medir performance de trechos de código.  
-- **dotMemory:** Detecção de vazamentos de memória.
-
-Exemplo de BenchmarkDotNet:
-
-```csharp
-[MemoryDiagnoser]
-public class PerformanceTests
-{
-    [Benchmark]
-    public void TestMethod()
-    {
-        var list = new List<int>();
-        for (int i = 0; i < 1000; i++)
-        {
-            list.Add(i);
-        }
-    }
-}
-```
-
----
-
-### 50. Como você se mantém atualizado com as últimas tecnologias e práticas .NET?
-
-**Resposta:**  
-Algumas formas de se manter atualizado:
-
-- **Acompanhar blogs oficiais da Microsoft (.NET Blog).**  
-- **Participar de conferências e webinars** (por exemplo, .NET Conf, Microsoft Build).  
-- **Comunidades online** (GitHub, Stack Overflow, Twitter).  
-- **Estudar documentação oficial** e fazer projetos pessoais de prática.
+Não acompanhe apenas novidades. Entenda também suporte, compatibilidade, segurança e custo operacional antes de adotar uma tecnologia em produção.
