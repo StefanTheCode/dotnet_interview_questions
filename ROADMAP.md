@@ -24,10 +24,12 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - [x] Incorporar e revisar as 20 questões de listas.
   - [x] Questões 1 a 10.
   - [x] Questões 11 a 20.
-- [ ] Incorporar e revisar as 20 questões de árvores.
+- [x] Incorporar e revisar as 20 questões de árvores.
   - [x] Questões 1 a 10.
-  - [ ] Questões 11 a 20.
+  - [x] Questões 11 a 20.
 - [ ] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
+  - [ ] Questões 51 a 60.
+  - [ ] Questões 61 a 70.
 - [ ] Executar revisão técnica, ortográfica e de consistência terminológica.
 - [x] Validar a compilação da solução no estado atual.
 
@@ -81,7 +83,9 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - Maior soma contígua rejeita entrada vazia e usa prefixos na abordagem LINQ.
 - Igualdade sensível à ordem e igualdade por conteúdo foram diferenciadas explicitamente.
 
-## Ajustes técnicos realizados nas questões 1 a 10 de árvores
+## Ajustes técnicos realizados no módulo de árvores
+
+### Questões 1 a 10
 
 - Modelo compartilhado `TreeNode` documentado como estrutura mínima e acíclica.
 - Espaço de algoritmos BFS expresso em função da largura máxima `w`.
@@ -93,7 +97,21 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - Busca em BST documenta a pré-condição de árvore válida.
 - Inserção iterativa foi reescrita sem supressões desnecessárias de nulabilidade.
 - Inversão e inserção documentam que modificam a árvore recebida.
-- `Trees/Program.cs` contém exemplos representativos das dez questões.
+
+### Questões 11 a 20
+
+- Busca de mínimo e máximo documenta a pré-condição de BST válida.
+- LCA verifica a existência dos dois valores antes de retornar um ancestral.
+- Diâmetro é medido explicitamente pela quantidade de arestas.
+- Espaço da verificação iterativa de simetria é expresso em função de `w`.
+- Serialização e desserialização rejeitam payloads vazios, truncados ou excedentes.
+- Marcadores de nós nulos e cultura invariável tornam o formato determinístico.
+- Somas de caminhos usam `long` para evitar overflow intermediário.
+- Complexidades de caminhos consideram o tamanho efetivo da saída.
+- Busca pelo k-ésimo menor rejeita valores de `k` não positivos.
+- Construção de hierarquias valida IDs duplicados, pais ausentes, raízes múltiplas, ciclos e componentes desconectados.
+- Filhos de `OrgNode` são expostos como coleção somente leitura.
+- `Trees/Program.cs` contém exemplos representativos do módulo completo.
 
 ## Validação automatizada
 
@@ -103,7 +121,7 @@ A solução é validada novamente após cada bloco incorporado.
 
 ## Próxima etapa
 
-Incorporar as questões 11 a 20 do módulo de árvores, mantendo o mesmo padrão de tradução, revisão técnica, documentação e validação automatizada.
+Incorporar, traduzir e revisar as questões gerais 51 a 60, com foco no bloco de SQL do repositório original.
 
 ## Convenções de tradução
 
