@@ -1,11 +1,11 @@
 # Perguntas de entrevista sobre arrays em .NET
 
-Este módulo reúne **20 exercícios sobre arrays** voltados à preparação para entrevistas técnicas com C#.
+Este módulo reúne **20 questões sobre arrays** voltadas à preparação para entrevistas técnicas com C#.
 
 Cada questão procura apresentar:
 
 - explicação do problema;
-- mais de uma estratégia de solução;
+- mais de uma estratégia de solução quando aplicável;
 - evolução de uma abordagem simples para outra mais eficiente;
 - análise de complexidade de tempo e espaço;
 - tratamento dos casos extremos mais relevantes;
@@ -13,7 +13,7 @@ Cada questão procura apresentar:
 
 ## Progresso
 
-As questões **1 a 10** já foram incorporadas, traduzidas e revisadas. As questões 11 a 20 serão adicionadas na próxima etapa.
+As **20 questões** foram incorporadas, traduzidas e revisadas tecnicamente.
 
 | # | Questão | Arquivo | Situação |
 |---:|---|---|---|
@@ -27,16 +27,16 @@ As questões **1 a 10** já foram incorporadas, traduzidas e revisadas. As quest
 | 8 | Rotacionar um array em K posições | `RotateArray.cs` | Concluída |
 | 9 | Verificar se um array é palíndromo | `CheckPalindromeArray.cs` | Concluída |
 | 10 | Transformar um array jagged em um array linear | `Flatten2DArray.cs` | Concluída |
-| 11 | Encontrar o elemento majoritário | `MajorityElementFinder.cs` | Pendente |
-| 12 | Encontrar pares com uma soma específica | `FindPairsWithSum.cs` | Pendente |
-| 13 | Implementar busca binária | `BinarySearchArray.cs` | Pendente |
-| 14 | Encontrar a maior soma de subarray | `MaxSubarraySum.cs` | Pendente |
-| 15 | Contar a frequência dos elementos | `ElementFrequencyCounter.cs` | Pendente |
-| 16 | Comparar arrays jagged e multidimensionais | `JaggedVsMultidimensionalArray.cs` | Pendente |
-| 17 | Embaralhar um array com Fisher–Yates | `ShuffleArray.cs` | Pendente |
-| 18 | Redimensionar um array | `ResizeArray.cs` | Pendente |
-| 19 | Ordenar objetos personalizados | `SortCustomObjects.cs` | Pendente |
-| 20 | Complexidade das operações com arrays | Conteúdo conceitual | Pendente |
+| 11 | Encontrar o elemento majoritário | `MajorityElementFinder.cs` | Concluída |
+| 12 | Encontrar pares com uma soma específica | `FindPairsWithSum.cs` | Concluída |
+| 13 | Implementar busca binária | `BinarySearchArray.cs` | Concluída |
+| 14 | Encontrar a maior soma de subarray | `MaxSubarraySum.cs` | Concluída |
+| 15 | Contar a frequência dos elementos | `ElementFrequencyCounter.cs` | Concluída |
+| 16 | Comparar arrays jagged e multidimensionais | `JaggedVsMultidimensionalArray.cs` | Concluída |
+| 17 | Embaralhar um array com Fisher–Yates | `ShuffleArray.cs` | Concluída |
+| 18 | Redimensionar um array | `ResizeArray.cs` | Concluída |
+| 19 | Ordenar objetos personalizados | `SortCustomObjects.cs` | Concluída |
+| 20 | Complexidade das operações com arrays | `ArrayOperationsComplexity.md` | Concluída |
 
 ## Como estudar as implementações
 
@@ -46,20 +46,27 @@ Para cada problema:
 2. identifique os gargalos de tempo e memória;
 3. avance para a próxima solução e compare as complexidades;
 4. teste entradas vazias, um único elemento, valores negativos e duplicidades quando forem aplicáveis;
-5. explique quando uma solução modifica o array original.
+5. explique quando uma solução modifica o array original;
+6. descreva as premissas do algoritmo, como a exigência de ordenação para busca binária.
 
 ## Ajustes técnicos aplicados nesta tradução
 
-Durante a revisão das primeiras dez questões, foram feitos alguns ajustes em relação ao código original:
+Durante a revisão das questões, foram realizados ajustes em relação ao código original:
 
-- validação de argumentos nulos;
-- tratamento de arrays vazios nas operações que antes causavam divisão por zero ou acesso inválido;
-- cópia dos arrays antes da ordenação, evitando mutação inesperada das entradas;
-- suporte a valores negativos de `k` na rotação;
-- uso de `long` nos cálculos intermediários da fórmula da soma;
-- preservação de uma ordem determinística na interseção baseada em `HashSet`;
-- correção da numeração das questões para acompanhar o índice do README principal;
-- distinção explícita entre array jagged e array multidimensional.
+- numeração alinhada ao índice do README principal;
+- validação de argumentos nulos, arrays vazios e tamanhos inválidos;
+- ordenação realizada sobre cópias para evitar mutações inesperadas;
+- rotação corrigida para arrays vazios e valores negativos de `k`;
+- cálculos intermediários promovidos para `long` quando a soma poderia exceder `int`;
+- resultados baseados em `HashSet` ordenados para manter saída determinística;
+- pares duplicados eliminados também na abordagem de força bruta;
+- busca binária protegida por validação da ordenação crescente;
+- versão LINQ da maior soma reescrita com prefixos de soma e complexidade corrigida;
+- descrição da abordagem ingênua de embaralhamento corrigida para custo esperado O(n log n);
+- `Random` injetável para permitir exemplos e testes reproduzíveis;
+- nulabilidade corrigida na implementação de objetos personalizados;
+- distinção explícita entre array jagged e array multidimensional;
+- questão conceitual de complexidade adicionada como documento próprio.
 
 ## Execução
 
@@ -70,4 +77,4 @@ dotnet build Arrays/Arrays.csproj
 dotnet run --project Arrays/Arrays.csproj
 ```
 
-O `Program.cs` ainda possui apenas um ponto de entrada mínimo. Exemplos executáveis serão acrescentados depois que o conjunto das 20 questões estiver completo.
+O `Program.cs` contém exemplos representativos de elemento majoritário, pares com soma, busca binária, algoritmo de Kadane e Fisher–Yates.
