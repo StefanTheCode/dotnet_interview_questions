@@ -12,9 +12,9 @@ Este repositório é uma tradução e adaptação autorizada do projeto [`Stefan
 |---|---:|---|---|
 | Arrays | 20 | Implementações C# e análise de complexidade | Concluído |
 | `List<T>` | 20 | Implementações C# e análise de complexidade | Concluído |
-| Árvores | 20 | Implementações C# e análise de complexidade | Em preparação |
+| Árvores | 20 | Implementações C# e análise de complexidade | 10 disponíveis |
 | .NET, C#, frameworks, testes e SQL | 70 | Perguntas, respostas e exemplos | 50 disponíveis |
-| **Total** | **130** |  | **90 disponíveis** |
+| **Total** | **130** |  | **100 disponíveis** |
 
 ## Conteúdo disponível
 
@@ -33,6 +33,14 @@ As 20 questões de listas estão disponíveis em:
 - [Exercícios e implementações com listas](./Lists/README.md)
 
 O módulo inclui duplicados, segundo maior valor, reversão, ordenação, frequências, interseção, mesclagem, número ausente, rotação, embaralhamento, palíndromo, agrupamento, pares, blocos, achatamento, soma contígua, movimentação de zeros e comparação de igualdade.
+
+### Árvores
+
+As primeiras dez questões de árvores estão disponíveis em:
+
+- [Exercícios e implementações com árvores](./Trees/README.md)
+
+O módulo já inclui DFS, BFS, travessia em zigue-zague, profundidades máxima e mínima, balanceamento, comparação de árvores, inversão, validação, busca e inserção em Binary Search Tree.
 
 ### Perguntas gerais de .NET e C#
 
@@ -54,7 +62,7 @@ Elas abrangem:
 .
 ├── Arrays/                    # 20 questões concluídas sobre arrays
 ├── Lists/                     # 20 questões concluídas sobre List<T>
-├── Trees/                     # 20 exercícios e implementações com árvores
+├── Trees/                     # 10 de 20 questões concluídas sobre árvores
 ├── Interview Questions/       # Perguntas conceituais de .NET, C# e SQL
 ├── InterviewQuestions.sln     # Solução .NET
 ├── ROADMAP.md                 # Progresso da atualização
@@ -93,7 +101,7 @@ dotnet run --project Lists/Lists.csproj
 dotnet run --project Trees/Trees.csproj
 ```
 
-Os projetos `Arrays` e `Lists` já contêm exemplos executáveis. O ponto de entrada de árvores será atualizado quando o módulo começar a ser incorporado.
+Os três projetos já contêm exemplos executáveis das questões incorporadas.
 
 ## Validação
 
