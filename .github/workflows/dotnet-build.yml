@@ -30,3 +30,12 @@ jobs:
 
       - name: Compilar solução
         run: dotnet build InterviewQuestions.sln --configuration Release --no-restore
+
+      - name: Executar exemplos de arrays
+        run: dotnet run --project Arrays/Arrays.csproj --configuration Release --no-build
+
+      - name: Executar exemplos de listas
+        run: dotnet run --project Lists/Lists.csproj --configuration Release --no-build
+
+      - name: Executar exemplos de árvores
+        run: dotnet run --project Trees/Trees.csproj --configuration Release --no-build
