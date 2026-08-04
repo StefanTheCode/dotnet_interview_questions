@@ -27,7 +27,7 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - [ ] Incorporar e revisar as 20 questões de árvores.
 - [ ] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
 - [ ] Executar revisão técnica, ortográfica e de consistência terminológica.
-- [ ] Validar a compilação completa da solução.
+- [x] Validar a compilação da solução no estado atual.
 
 ## Ajustes técnicos realizados no módulo de arrays
 
@@ -69,7 +69,9 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 
 ## Validação automatizada
 
-O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10. Ele será executado em alterações nas branches de trabalho e em pull requests direcionados à `main`.
+O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10.
+
+A execução nº 31 foi concluída com sucesso após a inclusão das questões 1 a 10 de listas. As etapas de checkout, configuração do SDK, restauração das dependências e compilação da solução foram aprovadas.
 
 ## Próxima etapa
 
