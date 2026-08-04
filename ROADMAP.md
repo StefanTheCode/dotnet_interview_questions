@@ -16,8 +16,8 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - [x] Criar a solução e os projetos `Arrays`, `Lists` e `Trees` em .NET 10.
 - [x] Adicionar configuração de arquivos ignorados pelo Git.
 - [x] Adicionar validação automática da solução com GitHub Actions.
-- [x] Reorganizar as 50 perguntas existentes em `Interview Questions/README.md`.
-- [x] Traduzir e adaptar o novo README principal.
+- [x] Reorganizar e modernizar as 50 perguntas em `Interview Questions/README.md`.
+- [x] Traduzir e adaptar o README principal.
 - [x] Incorporar e revisar as 20 questões de arrays.
   - [x] Questões 1 a 10.
   - [x] Questões 11 a 20.
@@ -30,8 +30,8 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - [x] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
   - [x] Questões 51 a 60.
   - [x] Questões 61 a 70.
-- [ ] Executar revisão técnica, ortográfica e de consistência terminológica final.
-- [x] Validar a compilação da solução no estado atual.
+- [x] Executar revisão técnica, ortográfica e de consistência terminológica final.
+- [x] Validar compilação e execução dos exemplos no estado final.
 
 ## Ajustes técnicos realizados no módulo de arrays
 
@@ -117,7 +117,7 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 
 ### Questões 51 a 60
 
-- O bloco foi separado em `Interview Questions/SQL.md` para preservar o documento original com as 50 perguntas .NET/C#.
+- O bloco foi separado em `Interview Questions/SQL.md` para preservar a organização das perguntas .NET/C#.
 - A numeração duplicada das perguntas 57 e 58 no upstream foi corrigida.
 - Os exemplos foram contextualizados principalmente para SQL Server/T-SQL.
 - Diferenças de comportamento entre SGBDs foram indicadas quando relevantes.
@@ -147,19 +147,42 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - O exemplo multitenant fictício foi substituído por chaves contendo `TenantId`, Row-Level Security e `SESSION_CONTEXT`.
 - O desenho multitenant passou a considerar pooling, backups, restore, noisy neighbors, migrations e isolamento fora do banco.
 
+## Revisão final das perguntas .NET e C#
+
+- O documento com as 50 perguntas foi reescrito para manter a numeração e os assuntos, mas atualizar as respostas para o .NET moderno.
+- A diferença entre tipos de valor e referência passou a ser explicada por semântica de cópia, sem a regra incorreta de que todo tipo de valor fica na stack.
+- CLR, JIT, ReadyToRun, Native AOT e tiered compilation foram diferenciados.
+- `IDisposable`, `IAsyncDisposable`, gerações do GC, LOH e pressão de alocação foram esclarecidos.
+- LINQ passou a diferenciar `IEnumerable<T>`, `IQueryable<T>`, execução adiada e materialização.
+- `async`/`await` deixou de ser associado à criação automática de threads.
+- EF Core passou a incluir tracking, traduções de LINQ, concorrência e limitações do ORM.
+- .NET Standard foi contextualizado para compatibilidade com .NET Framework; .NET MAUI substituiu Xamarin como tecnologia ativa.
+- GAC foi mantido como conceito específico de aplicações .NET Framework legadas.
+- ASP.NET Core foi atualizado para o modelo com `WebApplicationBuilder` e `WebApplication`.
+- Blazor passou a ser descrito por modos de renderização e trade-offs de servidor, WebAssembly e Hybrid.
+- Repository foi tratado como decisão arquitetural, considerando que `DbContext` e `DbSet<T>` já oferecem comportamentos relacionados.
+- Migrations passaram a considerar revisão de SQL, implantação controlada e estratégias de expansão e contração.
+- Terminologia foi padronizada para português do Brasil, preservando termos técnicos quando úteis para pesquisa.
+
 ## Validação automatizada
 
-O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10.
+O arquivo `Directory.Build.props` configura warnings de compilação como erros para todos os projetos.
 
-A solução é validada novamente após cada bloco incorporado. Alterações exclusivamente documentais também passam pelo mesmo workflow para garantir que a branch permaneça íntegra.
+O workflow `.github/workflows/dotnet-build.yml`:
 
-## Próxima etapa
+1. restaura as dependências;
+2. compila `InterviewQuestions.sln` em modo Release com o SDK do .NET 10;
+3. executa os programas de Arrays, Lists e Trees como smoke tests.
 
-Executar a revisão técnica, ortográfica e de consistência terminológica final em todo o repositório. Depois dessa revisão, avaliar se o pull request deve ser marcado como pronto para revisão.
+Alterações documentais também passam pelo workflow para garantir que a branch permaneça íntegra.
+
+## Situação
+
+Os 130 conteúdos foram incorporados e a revisão final foi concluída. O pull request pode ser avaliado para mudança de draft para pronto para revisão.
 
 ## Convenções de tradução
 
-- Termos técnicos amplamente usados podem manter o termo original entre parênteses na primeira ocorrência.
-- Identificadores de código não serão traduzidos.
-- Os comentários devem explicar a abordagem, sua complexidade de tempo e espaço e os principais casos extremos.
-- Ajustes técnicos no código original devem ser documentados no pull request correspondente.
+- Termos técnicos amplamente usados podem manter o termo original entre parênteses ou após travessão na primeira ocorrência.
+- Identificadores de código não são traduzidos.
+- Comentários explicam abordagem, complexidade de tempo e espaço e casos extremos relevantes.
+- Ajustes técnicos no conteúdo original são registrados neste documento e no pull request.
