@@ -86,6 +86,8 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 
 O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10.
 
+Após a conclusão do módulo de listas, o workflow executou com sucesso o checkout, a configuração do SDK, o restore e o build Release da solução.
+
 ## Próxima etapa
 
 Incorporar as questões 1 a 10 do módulo de árvores, mantendo o mesmo padrão de tradução, revisão técnica, documentação e validação automatizada.
