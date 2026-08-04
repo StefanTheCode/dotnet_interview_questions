@@ -12,9 +12,9 @@ Este repositório é uma tradução e adaptação autorizada do projeto [`Stefan
 |---|---:|---|---|
 | Arrays | 20 | Implementações C# e análise de complexidade | Concluído |
 | `List<T>` | 20 | Implementações C# e análise de complexidade | Concluído |
-| Árvores | 20 | Implementações C# e análise de complexidade | 10 disponíveis |
+| Árvores | 20 | Implementações C# e análise de complexidade | Concluído |
 | .NET, C#, frameworks, testes e SQL | 70 | Perguntas, respostas e exemplos | 50 disponíveis |
-| **Total** | **130** |  | **100 disponíveis** |
+| **Total** | **130** |  | **110 disponíveis** |
 
 ## Conteúdo disponível
 
@@ -36,11 +36,11 @@ O módulo inclui duplicados, segundo maior valor, reversão, ordenação, frequ�
 
 ### Árvores
 
-As primeiras dez questões de árvores estão disponíveis em:
+As 20 questões de árvores estão disponíveis em:
 
 - [Exercícios e implementações com árvores](./Trees/README.md)
 
-O módulo já inclui DFS, BFS, travessia em zigue-zague, profundidades máxima e mínima, balanceamento, comparação de árvores, inversão, validação, busca e inserção em Binary Search Tree.
+O módulo inclui DFS, BFS, profundidade, balanceamento, igualdade, inversão, operações de BST, ancestral comum, diâmetro, simetria, serialização, somas e caminhos, contagem, k-ésimo menor valor e construção de hierarquias a partir de relações pai-filho.
 
 ### Perguntas gerais de .NET e C#
 
@@ -62,14 +62,14 @@ Elas abrangem:
 .
 ├── Arrays/                    # 20 questões concluídas sobre arrays
 ├── Lists/                     # 20 questões concluídas sobre List<T>
-├── Trees/                     # 10 de 20 questões concluídas sobre árvores
+├── Trees/                     # 20 questões concluídas sobre árvores
 ├── Interview Questions/       # Perguntas conceituais de .NET, C# e SQL
 ├── InterviewQuestions.sln     # Solução .NET
 ├── ROADMAP.md                 # Progresso da atualização
 └── README.md
 ```
 
-Os projetos de código utilizam **.NET 10** e estão sendo incorporados gradualmente conforme cada módulo é traduzido e revisado.
+Os projetos de código utilizam **.NET 10** e foram incorporados com tradução e revisão técnica das implementações originais.
 
 ## Abordagem dos exercícios práticos
 
@@ -101,7 +101,7 @@ dotnet run --project Lists/Lists.csproj
 dotnet run --project Trees/Trees.csproj
 ```
 
-Os três projetos já contêm exemplos executáveis das questões incorporadas.
+Os três projetos contêm exemplos executáveis dos respectivos módulos completos.
 
 ## Validação
 
