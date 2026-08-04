@@ -1,0 +1,29 @@
+# Build
+[Bb]in/
+[Oo]bj/
+artifacts/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# JetBrains Rider / ReSharper
+.idea/
+_ReSharper*/
+*.DotSettings.user
+
+# Visual Studio Code
+.vscode/
+
+# Testes e cobertura
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
