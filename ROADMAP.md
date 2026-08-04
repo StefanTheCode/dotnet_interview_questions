@@ -22,7 +22,7 @@ Este documento acompanha a atualização da tradução brasileira com base no re
   - [x] Questões 1 a 10.
   - [x] Questões 11 a 20.
 - [ ] Incorporar e revisar as 20 questões de listas.
-  - [ ] Questões 1 a 10.
+  - [x] Questões 1 a 10.
   - [ ] Questões 11 a 20.
 - [ ] Incorporar e revisar as 20 questões de árvores.
 - [ ] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
@@ -53,13 +53,27 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - Questão conceitual de complexidade criada como documento independente.
 - `Program.cs` atualizado com exemplos executáveis do módulo completo.
 
+## Ajustes técnicos realizados nas questões 1 a 10 de listas
+
+- Todos os construtores passaram a validar argumentos nulos e usar cópias defensivas.
+- Remoção de duplicados por ordenação passou a tratar listas vazias.
+- Segundo maior valor passou a usar estado anulável, permitindo que `int.MinValue` seja um resultado válido.
+- Bubble sort documentado com melhor caso O(n) devido à interrupção antecipada.
+- Interseções com `HashSet` passaram a preservar uma ordem determinística.
+- Complexidade da mesclagem que ordena as entradas corrigida para O(n log n + m log m).
+- Sequência de número ausente passou a validar intervalo e duplicidades.
+- Soma esperada do número ausente passou a usar `long` nos cálculos intermediários.
+- Rotação passou a tratar listas vazias e valores negativos de `k`.
+- Embaralhamento ingênuo documentado como O(n log n) esperado e `Random` tornou-se injetável.
+- `Lists/Program.cs` atualizado com exemplos executáveis do primeiro bloco.
+
 ## Validação automatizada
 
 O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10. Ele será executado em alterações nas branches de trabalho e em pull requests direcionados à `main`.
 
 ## Próxima etapa
 
-Incorporar as questões 1 a 10 do módulo de listas, mantendo o mesmo padrão de tradução, revisão técnica e documentação aplicado ao módulo de arrays.
+Incorporar as questões 11 a 20 do módulo de listas, mantendo o mesmo padrão de tradução, revisão técnica e documentação.
 
 ## Convenções de tradução
 
