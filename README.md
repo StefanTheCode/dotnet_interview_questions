@@ -95,6 +95,10 @@ dotnet run --project Trees/Trees.csproj
 
 Os projetos `Arrays` e `Lists` já contêm exemplos executáveis. O ponto de entrada de árvores será atualizado quando o módulo começar a ser incorporado.
 
+## Validação
+
+A solução é validada por GitHub Actions com o SDK do .NET 10. A execução mais recente após a inclusão das questões 1 a 10 de listas concluiu o restore e o build em modo Release com sucesso.
+
 ## Escopo desta tradução
 
 Nesta fase, o trabalho inclui:
