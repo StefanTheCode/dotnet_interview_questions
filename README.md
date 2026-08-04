@@ -10,21 +10,21 @@ Este repositório é uma tradução e adaptação autorizada do projeto [`Stefan
 
 | Categoria | Quantidade | Formato | Situação |
 |---|---:|---|---|
-| Arrays | 20 | Implementações C# e análise de complexidade | 10 disponíveis |
+| Arrays | 20 | Implementações C# e análise de complexidade | Concluído |
 | `List<T>` | 20 | Implementações C# e análise de complexidade | Em preparação |
 | Árvores | 20 | Implementações C# e análise de complexidade | Em preparação |
 | .NET, C#, frameworks, testes e SQL | 70 | Perguntas, respostas e exemplos | 50 disponíveis |
-| **Total** | **130** |  | **60 disponíveis** |
+| **Total** | **130** |  | **70 disponíveis** |
 
 ## Conteúdo disponível
 
 ### Arrays
 
-As primeiras dez questões práticas de arrays estão disponíveis em:
+As 20 questões de arrays estão disponíveis em:
 
 - [Exercícios e implementações com arrays](./Arrays/README.md)
 
-O módulo já inclui inversão, rotação, remoção de duplicados, interseção, número ausente, palíndromo, maior produto de subarray e achatamento de array jagged.
+O módulo inclui operações fundamentais, inversão, rotação, duplicados, interseção, número ausente, palíndromo, subarrays, busca binária, frequências, Fisher–Yates, redimensionamento, ordenação de objetos e análise de complexidade.
 
 ### Perguntas gerais de .NET e C#
 
@@ -44,7 +44,7 @@ Elas abrangem:
 
 ```text
 .
-├── Arrays/                    # 20 exercícios e implementações com arrays
+├── Arrays/                    # 20 questões concluídas sobre arrays
 ├── Lists/                     # 20 exercícios e implementações com List<T>
 ├── Trees/                     # 20 exercícios e implementações com árvores
 ├── Interview Questions/       # Perguntas conceituais de .NET, C# e SQL
@@ -85,7 +85,7 @@ dotnet run --project Lists/Lists.csproj
 dotnet run --project Trees/Trees.csproj
 ```
 
-Os pontos de entrada ainda são mínimos. Eles serão atualizados conforme os exercícios forem adicionados.
+O projeto `Arrays` já contém exemplos executáveis. Os pontos de entrada de listas e árvores serão atualizados conforme seus módulos forem incorporados.
 
 ## Escopo desta tradução
 
