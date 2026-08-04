@@ -13,8 +13,8 @@ Este repositório é uma tradução e adaptação autorizada do projeto [`Stefan
 | Arrays | 20 | Implementações C# e análise de complexidade | Concluído |
 | `List<T>` | 20 | Implementações C# e análise de complexidade | Concluído |
 | Árvores | 20 | Implementações C# e análise de complexidade | Concluído |
-| .NET, C#, frameworks, testes e SQL | 70 | Perguntas, respostas e exemplos | 50 disponíveis |
-| **Total** | **130** |  | **110 disponíveis** |
+| .NET, C#, frameworks, testes e SQL | 70 | Perguntas, respostas e exemplos | 60 disponíveis |
+| **Total** | **130** |  | **120 disponíveis** |
 
 ## Conteúdo disponível
 
@@ -44,7 +44,7 @@ O módulo inclui DFS, BFS, profundidade, balanceamento, igualdade, inversão, op
 
 ### Perguntas gerais de .NET e C#
 
-As 50 perguntas conceituais já traduzidas estão disponíveis em:
+As 50 perguntas conceituais preservadas e revisadas estão disponíveis em:
 
 - [Perguntas gerais de .NET e C#](./Interview%20Questions/README.md)
 
@@ -56,6 +56,16 @@ Elas abrangem:
 - ASP.NET Core, MVC, Razor Pages, SignalR e Blazor;
 - testes, SOLID, CI/CD, segurança e desempenho.
 
+### SQL
+
+As questões 51 a 60 estão disponíveis em:
+
+- [Perguntas de entrevista sobre SQL](./Interview%20Questions/SQL.md)
+
+O primeiro bloco de SQL aborda junções, chaves e integridade referencial, normalização, índices clustered e nonclustered, transações ACID, diferenças entre `DELETE`, `TRUNCATE TABLE` e `DROP TABLE`, funções de janela, CTEs e stored procedures.
+
+Os exemplos são apresentados principalmente em SQL Server/T-SQL e indicam quando o comportamento pode variar entre SGBDs.
+
 ## Estrutura do repositório
 
 ```text
@@ -63,7 +73,9 @@ Elas abrangem:
 ├── Arrays/                    # 20 questões concluídas sobre arrays
 ├── Lists/                     # 20 questões concluídas sobre List<T>
 ├── Trees/                     # 20 questões concluídas sobre árvores
-├── Interview Questions/       # Perguntas conceituais de .NET, C# e SQL
+├── Interview Questions/
+│   ├── README.md              # 50 perguntas de .NET e C#
+│   └── SQL.md                 # Questões 51 a 60 de SQL
 ├── InterviewQuestions.sln     # Solução .NET
 ├── ROADMAP.md                 # Progresso da atualização
 └── README.md
