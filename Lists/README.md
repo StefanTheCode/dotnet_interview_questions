@@ -73,4 +73,4 @@ dotnet build Lists/Lists.csproj
 dotnet run --project Lists/Lists.csproj
 ```
 
-O `Program.cs` contém exemplos das questões já incorporadas.
+O `Program.cs` contém exemplos das questões já incorporadas. O projeto foi restaurado e compilado com sucesso no GitHub Actions usando o SDK do .NET 10.
