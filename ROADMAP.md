@@ -21,10 +21,12 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - [x] Incorporar e revisar as 20 questões de arrays.
   - [x] Questões 1 a 10.
   - [x] Questões 11 a 20.
-- [ ] Incorporar e revisar as 20 questões de listas.
+- [x] Incorporar e revisar as 20 questões de listas.
   - [x] Questões 1 a 10.
-  - [ ] Questões 11 a 20.
+  - [x] Questões 11 a 20.
 - [ ] Incorporar e revisar as 20 questões de árvores.
+  - [ ] Questões 1 a 10.
+  - [ ] Questões 11 a 20.
 - [ ] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
 - [ ] Executar revisão técnica, ortográfica e de consistência terminológica.
 - [x] Validar a compilação da solução no estado atual.
@@ -43,39 +45,50 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 
 ### Questões 11 a 20
 
-- Pares duplicados removidos em todas as abordagens e somas protegidas contra overflow.
+- Pares duplicados removidos e somas protegidas contra overflow.
 - Busca binária passou a validar a ordenação crescente exigida pelo algoritmo.
-- Maior soma de subarray passou a usar `long` e a versão LINQ foi corrigida com prefixos de soma.
+- Maior soma de subarray passou a usar `long` e prefixos de soma na versão LINQ.
 - Complexidade da seleção aleatória com rejeição corrigida para O(n log n) esperado.
-- `Random` pode ser injetado para produzir testes e exemplos reproduzíveis.
-- Redimensionamento passou a rejeitar tamanhos negativos explicitamente.
-- Nulabilidade e critérios de desempate corrigidos na ordenação de objetos personalizados.
+- `Random` tornou-se injetável para testes reproduzíveis.
+- Redimensionamento passou a rejeitar tamanhos negativos.
+- Nulabilidade e critérios de desempate corrigidos na ordenação de objetos.
 - Questão conceitual de complexidade criada como documento independente.
-- `Program.cs` atualizado com exemplos executáveis do módulo completo.
 
-## Ajustes técnicos realizados nas questões 1 a 10 de listas
+## Ajustes técnicos realizados no módulo de listas
+
+### Questões 1 a 10
 
 - Todos os construtores passaram a validar argumentos nulos e usar cópias defensivas.
 - Remoção de duplicados por ordenação passou a tratar listas vazias.
-- Segundo maior valor passou a usar estado anulável, permitindo que `int.MinValue` seja um resultado válido.
+- Segundo maior valor passou a aceitar `int.MinValue` como resultado válido.
 - Bubble sort documentado com melhor caso O(n) devido à interrupção antecipada.
 - Interseções com `HashSet` passaram a preservar uma ordem determinística.
-- Complexidade da mesclagem que ordena as entradas corrigida para O(n log n + m log m).
+- Complexidade da mesclagem com ordenação corrigida para O(n log n + m log m).
 - Sequência de número ausente passou a validar intervalo e duplicidades.
-- Soma esperada do número ausente passou a usar `long` nos cálculos intermediários.
+- Soma esperada passou a usar `long` nos cálculos intermediários.
 - Rotação passou a tratar listas vazias e valores negativos de `k`.
-- Embaralhamento ingênuo documentado como O(n log n) esperado e `Random` tornou-se injetável.
-- `Lists/Program.cs` atualizado com exemplos executáveis do primeiro bloco.
+- Embaralhamento ingênuo corrigido para O(n log n) esperado e `Random` tornou-se injetável.
+
+### Questões 11 a 20
+
+- Operações mutáveis trabalham sobre cópias internas e documentam seus efeitos.
+- Pares duplicados foram eliminados e os resultados tornados determinísticos.
+- Somas utilizam `long` para evitar overflow intermediário.
+- Abordagem de dois ponteiros documentada com O(n) de espaço devido à cópia ordenada.
+- Tamanho dos blocos é validado antes da divisão da lista.
+- Listas aninhadas são copiadas profundamente e validadas contra elementos nulos.
+- Complexidade do achatamento usa N como o total de elementos internos.
+- Maior soma contígua rejeita entrada vazia e usa prefixos na abordagem LINQ.
+- Igualdade sensível à ordem e igualdade por conteúdo foram diferenciadas explicitamente.
+- `Lists/Program.cs` contém exemplos representativos do módulo completo.
 
 ## Validação automatizada
 
 O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10.
 
-A execução nº 31 foi concluída com sucesso após a inclusão das questões 1 a 10 de listas. As etapas de checkout, configuração do SDK, restauração das dependências e compilação da solução foram aprovadas.
-
 ## Próxima etapa
 
-Incorporar as questões 11 a 20 do módulo de listas, mantendo o mesmo padrão de tradução, revisão técnica e documentação.
+Incorporar as questões 1 a 10 do módulo de árvores, mantendo o mesmo padrão de tradução, revisão técnica, documentação e validação automatizada.
 
 ## Convenções de tradução
 
