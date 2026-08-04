@@ -4,7 +4,7 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 
 ## Escopo
 
-- Incorporar as 130 perguntas atualmente presentes no projeto original.
+- Incorporar os 130 conteúdos presentes no projeto original.
 - Traduzir documentação, enunciados, explicações e comentários para português do Brasil.
 - Manter nomes de classes, métodos, variáveis e APIs em inglês, seguindo as convenções do ecossistema .NET.
 - Preservar e revisar as 50 perguntas já traduzidas.
@@ -27,10 +27,10 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - [x] Incorporar e revisar as 20 questões de árvores.
   - [x] Questões 1 a 10.
   - [x] Questões 11 a 20.
-- [ ] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
+- [x] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
   - [x] Questões 51 a 60.
-  - [ ] Questões 61 a 70.
-- [ ] Executar revisão técnica, ortográfica e de consistência terminológica.
+  - [x] Questões 61 a 70.
+- [ ] Executar revisão técnica, ortográfica e de consistência terminológica final.
 - [x] Validar a compilação da solução no estado atual.
 
 ## Ajustes técnicos realizados no módulo de arrays
@@ -132,6 +132,21 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - CTEs foram documentadas como não materializadas automaticamente no SQL Server.
 - Stored procedures deixaram de ser apresentadas como automaticamente mais rápidas ou simplesmente pré-compiladas.
 
+### Questões 61 a 70
+
+- Prevenção de SQL injection passou a priorizar parametrização, privilégio mínimo e tipos explícitos, sem apresentar ORM ou stored procedure como proteção automática.
+- `EXISTS` e `IN` foram explicados semanticamente, sem regra absoluta de desempenho; o risco de `NOT IN` com `NULL` foi destacado.
+- Diagnóstico de consultas passou a incluir Query Store, leituras lógicas, CPU, waits, estatísticas, cardinalidade e regressões de plano.
+- Planos estimados e reais foram diferenciados, incluindo os riscos de executar comandos para obter o plano real.
+- Scans e recomendações de missing index deixaram de ser classificados automaticamente como problemas.
+- Agregações diferenciam `COUNT(*)` de `COUNT(coluna)` e posicionam corretamente `WHERE` e `HAVING`.
+- Chave composta foi diferenciada de índice composto e comparada com o uso de chave substituta mais restrição `UNIQUE`.
+- View materializada foi contextualizada por SGBD; no SQL Server, foi apresentada como indexed view, com custos e restrições de manutenção.
+- Tratamento de `NULL` passou a explicar lógica de três valores, propagação e diferenças entre `COALESCE` e `ISNULL`.
+- Funções escalares, inline TVFs e multi-statement TVFs foram separadas, incluindo as limitações do scalar UDF inlining.
+- O exemplo multitenant fictício foi substituído por chaves contendo `TenantId`, Row-Level Security e `SESSION_CONTEXT`.
+- O desenho multitenant passou a considerar pooling, backups, restore, noisy neighbors, migrations e isolamento fora do banco.
+
 ## Validação automatizada
 
 O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10.
@@ -140,7 +155,7 @@ A solução é validada novamente após cada bloco incorporado. Alterações exc
 
 ## Próxima etapa
 
-Incorporar, traduzir e revisar as questões gerais 61 a 70, concluindo o bloco de SQL antes da revisão técnica e ortográfica final.
+Executar a revisão técnica, ortográfica e de consistência terminológica final em todo o repositório. Depois dessa revisão, avaliar se o pull request deve ser marcado como pronto para revisão.
 
 ## Convenções de tradução
 
