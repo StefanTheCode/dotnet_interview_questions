@@ -41,21 +41,21 @@ As 20 questões de árvores estão disponíveis em:
 
 - [Exercícios e implementações com árvores](./Trees/README.md)
 
-O módulo inclui DFS, BFS, profundidade, balanceamento, igualdade, inversão, operações de BST, ancestral comum, diâmetro, simetria, serialização, somas e caminhos, contagem, k-ésimo menor valor e construção de hierarquias a partir de relações pai-filho.
+O módulo inclui DFS, BFS, profundidade, balanceamento, igualdade, inversão, operações de árvore binária de busca — BST —, ancestral comum, diâmetro, simetria, serialização, somas e caminhos, contagem, k-ésimo menor valor e construção de hierarquias a partir de relações pai-filho.
 
 ### Perguntas gerais de .NET e C#
 
-As 50 perguntas conceituais preservadas e revisadas estão disponíveis em:
+As 50 perguntas conceituais revisadas e modernizadas estão disponíveis em:
 
 - [Perguntas gerais de .NET e C#](./Interview%20Questions/README.md)
 
 Elas abrangem:
 
-- fundamentos de .NET e CLR;
-- orientação a objetos em C#;
-- delegates, LINQ, threading e `async`/`await`;
+- fundamentos de .NET, CLR, memória e compilação;
+- orientação a objetos, delegates, LINQ, concorrência e `async`/`await`;
+- Entity Framework Core, reflection, injeção de dependência e segurança;
 - ASP.NET Core, MVC, Razor Pages, SignalR e Blazor;
-- testes, SOLID, CI/CD, segurança e desempenho.
+- testes, SOLID, CI/CD, migrations, profiling e desempenho.
 
 ### SQL
 
@@ -84,6 +84,7 @@ Os exemplos são apresentados principalmente em SQL Server/T-SQL e indicam quand
 ├── Interview Questions/
 │   ├── README.md              # 50 perguntas de .NET e C#
 │   └── SQL.md                 # 20 perguntas de SQL
+├── Directory.Build.props      # Warnings de compilação tratados como erros
 ├── InterviewQuestions.sln     # Solução .NET
 ├── ROADMAP.md                 # Histórico e revisão técnica
 └── README.md
@@ -110,22 +111,29 @@ Com o SDK do .NET 10 instalado:
 
 ```bash
 dotnet restore InterviewQuestions.sln
-dotnet build InterviewQuestions.sln
+dotnet build InterviewQuestions.sln --configuration Release
 ```
 
-Para executar um dos projetos:
+Para executar os projetos:
 
 ```bash
-dotnet run --project Arrays/Arrays.csproj
-dotnet run --project Lists/Lists.csproj
-dotnet run --project Trees/Trees.csproj
+dotnet run --project Arrays/Arrays.csproj --configuration Release
+dotnet run --project Lists/Lists.csproj --configuration Release
+dotnet run --project Trees/Trees.csproj --configuration Release
 ```
 
 Os três projetos contêm exemplos executáveis dos respectivos módulos completos.
 
 ## Validação
 
-A solução é validada por GitHub Actions com o SDK do .NET 10. O workflow executa restore e build em modo Release a cada atualização da branch de trabalho e nos pull requests direcionados à `main`.
+A solução é validada por GitHub Actions com o SDK do .NET 10. O workflow:
+
+1. restaura as dependências;
+2. compila a solução em modo Release;
+3. trata warnings de compilação como erros por meio de `Directory.Build.props`;
+4. executa os exemplos de Arrays, Lists e Trees como smoke tests.
+
+A validação ocorre em atualizações da branch de trabalho e em pull requests direcionados à `main`.
 
 ## Escopo desta tradução
 
