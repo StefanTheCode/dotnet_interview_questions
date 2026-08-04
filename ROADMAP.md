@@ -15,14 +15,18 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 
 - [x] Criar a solução e os projetos `Arrays`, `Lists` e `Trees` em .NET 10.
 - [x] Adicionar configuração de arquivos ignorados pelo Git.
-- [ ] Reorganizar as 50 perguntas existentes em `Interview Questions/README.md`.
-- [ ] Traduzir e adaptar o novo README principal.
+- [x] Reorganizar as 50 perguntas existentes em `Interview Questions/README.md`.
+- [x] Traduzir e adaptar o novo README principal.
 - [ ] Incorporar e revisar as 20 questões de arrays.
 - [ ] Incorporar e revisar as 20 questões de listas.
 - [ ] Incorporar e revisar as 20 questões de árvores.
 - [ ] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
 - [ ] Executar revisão técnica, ortográfica e de consistência terminológica.
 - [ ] Validar a compilação completa da solução.
+
+## Próxima etapa
+
+Incorporar as questões 1 a 10 do módulo de arrays, traduzindo os comentários e revisando a correção técnica das implementações.
 
 ## Convenções de tradução
 
