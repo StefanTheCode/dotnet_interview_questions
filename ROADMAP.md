@@ -28,7 +28,7 @@ Este documento acompanha a atualização da tradução brasileira com base no re
   - [x] Questões 1 a 10.
   - [x] Questões 11 a 20.
 - [ ] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
-  - [ ] Questões 51 a 60.
+  - [x] Questões 51 a 60.
   - [ ] Questões 61 a 70.
 - [ ] Executar revisão técnica, ortográfica e de consistência terminológica.
 - [x] Validar a compilação da solução no estado atual.
@@ -113,15 +113,34 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - Filhos de `OrgNode` são expostos como coleção somente leitura.
 - `Trees/Program.cs` contém exemplos representativos do módulo completo.
 
+## Ajustes técnicos realizados no bloco SQL
+
+### Questões 51 a 60
+
+- O bloco foi separado em `Interview Questions/SQL.md` para preservar o documento original com as 50 perguntas .NET/C#.
+- A numeração duplicada das perguntas 57 e 58 no upstream foi corrigida.
+- Os exemplos foram contextualizados principalmente para SQL Server/T-SQL.
+- Diferenças de comportamento entre SGBDs foram indicadas quando relevantes.
+- Chave primária foi separada da decisão física de usar índice clustered.
+- Tratamento de `NULL` em restrições `UNIQUE` foi documentado como dependente do SGBD.
+- Chaves estrangeiras passaram a discutir ações referenciais e a ausência de criação automática de índice na coluna filha no SQL Server.
+- Normalização passou a incluir BCNF, 4FN, 5FN e o uso deliberado de desnormalização.
+- Índices clustered e nonclustered foram explicados pelos níveis folha e localizadores de linha.
+- Transações receberam exemplo com `TRY`, `CATCH`, `XACT_STATE` e `XACT_ABORT`.
+- `DELETE`, `TRUNCATE TABLE` e `DROP TABLE` foram comparados sem afirmações universais incorretas sobre rollback.
+- Funções de janela passaram a explicar partição, ordenação, frame e desempates determinísticos.
+- CTEs foram documentadas como não materializadas automaticamente no SQL Server.
+- Stored procedures deixaram de ser apresentadas como automaticamente mais rápidas ou simplesmente pré-compiladas.
+
 ## Validação automatizada
 
 O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10.
 
-A solução é validada novamente após cada bloco incorporado.
+A solução é validada novamente após cada bloco incorporado. Alterações exclusivamente documentais também passam pelo mesmo workflow para garantir que a branch permaneça íntegra.
 
 ## Próxima etapa
 
-Incorporar, traduzir e revisar as questões gerais 51 a 60, com foco no bloco de SQL do repositório original.
+Incorporar, traduzir e revisar as questões gerais 61 a 70, concluindo o bloco de SQL antes da revisão técnica e ortográfica final.
 
 ## Convenções de tradução
 
