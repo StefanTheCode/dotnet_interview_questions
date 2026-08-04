@@ -11,10 +11,10 @@ Este repositório é uma tradução e adaptação autorizada do projeto [`Stefan
 | Categoria | Quantidade | Formato | Situação |
 |---|---:|---|---|
 | Arrays | 20 | Implementações C# e análise de complexidade | Concluído |
-| `List<T>` | 20 | Implementações C# e análise de complexidade | Em preparação |
+| `List<T>` | 20 | Implementações C# e análise de complexidade | 10 disponíveis |
 | Árvores | 20 | Implementações C# e análise de complexidade | Em preparação |
 | .NET, C#, frameworks, testes e SQL | 70 | Perguntas, respostas e exemplos | 50 disponíveis |
-| **Total** | **130** |  | **70 disponíveis** |
+| **Total** | **130** |  | **80 disponíveis** |
 
 ## Conteúdo disponível
 
@@ -25,6 +25,14 @@ As 20 questões de arrays estão disponíveis em:
 - [Exercícios e implementações com arrays](./Arrays/README.md)
 
 O módulo inclui operações fundamentais, inversão, rotação, duplicados, interseção, número ausente, palíndromo, subarrays, busca binária, frequências, Fisher–Yates, redimensionamento, ordenação de objetos e análise de complexidade.
+
+### `List<T>`
+
+As primeiras dez questões de listas estão disponíveis em:
+
+- [Exercícios e implementações com listas](./Lists/README.md)
+
+O módulo já inclui remoção de duplicados, segundo maior valor, reversão, ordenação, frequência, elementos comuns, mesclagem, número ausente, rotação e Fisher–Yates.
 
 ### Perguntas gerais de .NET e C#
 
@@ -45,7 +53,7 @@ Elas abrangem:
 ```text
 .
 ├── Arrays/                    # 20 questões concluídas sobre arrays
-├── Lists/                     # 20 exercícios e implementações com List<T>
+├── Lists/                     # 10 de 20 questões concluídas sobre List<T>
 ├── Trees/                     # 20 exercícios e implementações com árvores
 ├── Interview Questions/       # Perguntas conceituais de .NET, C# e SQL
 ├── InterviewQuestions.sln     # Solução .NET
@@ -85,7 +93,7 @@ dotnet run --project Lists/Lists.csproj
 dotnet run --project Trees/Trees.csproj
 ```
 
-O projeto `Arrays` já contém exemplos executáveis. Os pontos de entrada de listas e árvores serão atualizados conforme seus módulos forem incorporados.
+Os projetos `Arrays` e `Lists` já contêm exemplos executáveis. O ponto de entrada de árvores será atualizado quando o módulo começar a ser incorporado.
 
 ## Escopo desta tradução
 
