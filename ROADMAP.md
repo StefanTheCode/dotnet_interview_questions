@@ -25,7 +25,7 @@ Este documento acompanha a atualização da tradução brasileira com base no re
   - [x] Questões 1 a 10.
   - [x] Questões 11 a 20.
 - [ ] Incorporar e revisar as 20 questões de árvores.
-  - [ ] Questões 1 a 10.
+  - [x] Questões 1 a 10.
   - [ ] Questões 11 a 20.
 - [ ] Incorporar e revisar as questões gerais de SQL, do número 51 ao 70.
 - [ ] Executar revisão técnica, ortográfica e de consistência terminológica.
@@ -80,17 +80,30 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - Complexidade do achatamento usa N como o total de elementos internos.
 - Maior soma contígua rejeita entrada vazia e usa prefixos na abordagem LINQ.
 - Igualdade sensível à ordem e igualdade por conteúdo foram diferenciadas explicitamente.
-- `Lists/Program.cs` contém exemplos representativos do módulo completo.
+
+## Ajustes técnicos realizados nas questões 1 a 10 de árvores
+
+- Modelo compartilhado `TreeNode` documentado como estrutura mínima e acíclica.
+- Espaço de algoritmos BFS expresso em função da largura máxima `w`.
+- Classes exclusivamente consultivas usam campos somente de leitura.
+- Métodos auxiliares sem dependência de estado foram transformados em estáticos.
+- Serialização usada na comparação de árvores foi reescrita com `StringBuilder`.
+- Marcadores de nós nulos preservam a estrutura durante a serialização.
+- Validação de BST usa limites `long` e rejeita valores duplicados explicitamente.
+- Busca em BST documenta a pré-condição de árvore válida.
+- Inserção iterativa foi reescrita sem supressões desnecessárias de nulabilidade.
+- Inversão e inserção documentam que modificam a árvore recebida.
+- `Trees/Program.cs` contém exemplos representativos das dez questões.
 
 ## Validação automatizada
 
 O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10.
 
-Após a conclusão do módulo de listas, o workflow executou com sucesso o checkout, a configuração do SDK, o restore e o build Release da solução.
+A solução é validada novamente após cada bloco incorporado.
 
 ## Próxima etapa
 
-Incorporar as questões 1 a 10 do módulo de árvores, mantendo o mesmo padrão de tradução, revisão técnica, documentação e validação automatizada.
+Incorporar as questões 11 a 20 do módulo de árvores, mantendo o mesmo padrão de tradução, revisão técnica, documentação e validação automatizada.
 
 ## Convenções de tradução
 
