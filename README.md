@@ -1,230 +1,240 @@
-# 🧩 .NET Interview Questions – Complete Study Guide
+# 🧩 Perguntas de Entrevista .NET – Guia Completo de Estudos
 
-> **A comprehensive collection of 130 interview questions for .NET developers**
-> Covering **Arrays**, **Lists**, **Trees**, and **General .NET / C# / SQL** — with clean C# implementations, multiple solutions per problem, and full complexity analysis.
+> **Uma coleção abrangente de 130 perguntas de entrevista para desenvolvedores .NET**  
+> Abrangendo **Arrays**, **Listas**, **Árvores** e **.NET / C# / SQL** — com implementações claras em C#, diferentes soluções por problema e análise completa de complexidade.
 
 Este repositório é uma tradução e adaptação autorizada do projeto StefanTheCode/dotnet_interview_questions. A atualização acompanha a estrutura do projeto original e reúne 130 conteúdos sobre .NET, C#, SQL, estruturas de dados e algoritmos.
 
 ---
 
-## 📖 Table of Contents
+## 📖 Sumário
 
-- [Overview](#-overview)
-- [What's Inside](#-whats-inside)
-- [Question Categories at a Glance](#-question-categories-at-a-glance)
-- [Interview Question Types](#-interview-question-types)
-- [Arrays — 20 Questions](#-arrays--20-questions)
-- [Lists — 20 Questions](#-listst--20-questions)
-- [Trees — 20 Questions](#-trees--20-questions)
-- [General .NET / C# / SQL — 70 Questions](#-general-net--c--sql--70-questions)
-- [Repository Structure](#-repository-structure)
-- [How to Use](#-how-to-use)
-- [Probability of Being Asked](#-probability-of-being-asked)
-- [Key Data Structures Comparison](#-key-data-structures-comparison)
-- [Common Algorithm Patterns](#-common-algorithm-patterns)
-- [Big-O Complexity Cheat Sheet](#-big-o-complexity-cheat-sheet)
-- [Interview Tips and Strategy](#-interview-tips--strategy)
-- [Coverage and Confidence](#-coverage--confidence)
-- [Author Notes](#-author-notes)
-
----
-
-## 🔎 Overview
-
-This repository is built for **.NET interview preparation** and contains:
-
-| Category | Questions | Format | Focus |
-|----------|-----------|--------|-------|
-| **Arrays** | 20 | C# class implementations | Algorithms, manipulation, searching, sorting |
-| **List\<T\>** | 20 | C# class implementations | Collections, LINQ, dynamic data |
-| **Trees** | 20 | C# class implementations | Recursion, BST, traversals, tree properties |
-| **General .NET** | 70 | Q&A with code examples | Language fundamentals, frameworks, SQL, best practices |
-
-**Total: 130 interview questions** covering the most commonly asked topics in .NET coding interviews — from junior to mid-senior level.
+- [Visão geral](#-visão-geral)
+- [O que está incluído](#-o-que-está-incluído)
+- [Categorias de perguntas](#-categorias-de-perguntas)
+- [Tipos de perguntas de entrevista](#-tipos-de-perguntas-de-entrevista)
+- [Arrays — 20 questões](#-arrays--20-questões)
+- [Listas — 20 questões](#-listt--20-questões)
+- [Árvores — 20 questões](#-árvores--20-questões)
+- [.NET / C# / SQL — 70 questões](#-net--c--sql--70-questões)
+- [Estrutura do repositório](#-estrutura-do-repositório)
+- [Como utilizar](#-como-utilizar)
+- [Probabilidade de aparecer em entrevistas](#-probabilidade-de-aparecer-em-entrevistas)
+- [Comparação entre estruturas de dados](#-comparação-entre-estruturas-de-dados)
+- [Padrões comuns de algoritmos](#-padrões-comuns-de-algoritmos)
+- [Resumo de complexidade Big O](#-resumo-de-complexidade-big-o)
+- [Dicas e estratégia para entrevistas](#-dicas-e-estratégia-para-entrevistas)
+- [Cobertura e preparação](#-cobertura-e-preparação)
+- [Notas do autor](#-notas-do-autor)
 
 ---
 
-## 📦 What's Inside
+## 🔎 Visão geral
 
-Every coding question (Arrays, Lists, Trees) includes:
+Este repositório foi criado para a **preparação de entrevistas .NET** e contém:
 
-- ✅ **Problem explanation** in the class summary
-- ✅ **2–3 solutions** per problem (brute force → optimal)
-- ✅ **Time & space complexity** analysis for each approach
-- ✅ **Clean, commented C# code** ready to run
-- ✅ **Edge case discussion** (empty inputs, nulls, duplicates, negatives)
+| Categoria | Questões | Formato | Foco |
+|---|---:|---|---|
+| **Arrays** | 20 | Implementações em classes C# | Algoritmos, manipulação, busca e ordenação |
+| **`List<T>`** | 20 | Implementações em classes C# | Coleções, LINQ e dados dinâmicos |
+| **Árvores** | 20 | Implementações em classes C# | Recursão, BST, travessias e propriedades de árvores |
+| **.NET geral** | 70 | Perguntas e respostas com exemplos | Fundamentos da linguagem, frameworks, SQL e boas práticas |
 
-The General .NET section provides:
-
-- ✅ **Detailed answers** to conceptual and framework questions
-- ✅ **Code examples** demonstrating key concepts
-- ✅ **Coverage of Basic → Intermediate → Advanced → Framework-Specific → Testing & Best Practices → SQL**
+**Total: 130 questões de entrevista**, cobrindo os assuntos mais comuns em entrevistas técnicas .NET — do nível júnior ao intermediário/sênior.
 
 ---
 
-## 🗂 Question Categories at a Glance
+## 📦 O que está incluído
 
+Cada questão prática de código, nos módulos de Arrays, Listas e Árvores, inclui:
+
+- ✅ **Explicação do problema** na documentação da classe;
+- ✅ **Duas ou três soluções** por problema, evoluindo da força bruta para abordagens mais eficientes;
+- ✅ Análise de **complexidade de tempo e espaço** para cada abordagem;
+- ✅ **Código C# claro e comentado**, pronto para execução;
+- ✅ Discussão de **casos extremos**, como entradas vazias, valores nulos, duplicados e números negativos.
+
+A seção geral de .NET oferece:
+
+- ✅ **Respostas detalhadas** para questões conceituais e de frameworks;
+- ✅ **Exemplos de código** demonstrando os principais conceitos;
+- ✅ Cobertura progressiva: Básico → Intermediário → Avançado → Frameworks → Testes e boas práticas → SQL.
+
+---
+
+## 🗂 Categorias de perguntas
+
+```text
+Perguntas de entrevista
+│
+├── 📁 Arrays (20 questões)
+│   ├── Inversão, rotação e busca
+│   ├── Contagem de frequência e duplicados
+│   ├── Problemas de subarray — Kadane e maior produto
+│   ├── Busca binária, ordenação e embaralhamento
+│   └── Conceitos — arrays jagged, multidimensionais e redimensionamento
+│
+├── 📁 Listas (20 questões)
+│   ├── Duplicados, ordenação e inversão
+│   ├── Mesclagem, divisão e achatamento
+│   ├── Busca e contagem de frequência
+│   ├── Somas contíguas e movimentação de zeros
+│   └── Comparação de igualdade e divisão em blocos
+│
+├── 📁 Árvores (20 questões)
+│   ├── Travessias DFS e BFS
+│   ├── Profundidade, balanceamento e simetria
+│   ├── Operações de BST — inserção, busca e validação
+│   ├── Soma de caminhos, diâmetro e ancestral comum
+│   └── Serialização, desserialização e construção a partir de dados
+│
+└── 📁 .NET / C# / SQL (70 questões)
+    ├── Básico (Q1–Q10): CLR, tipos, GC e namespaces
+    ├── Intermediário (Q11–Q20): polimorfismo, LINQ e async/await
+    ├── Avançado (Q21–Q30): reflection, DI e middleware
+    ├── Frameworks (Q31–Q40): MVC, Blazor, SignalR e cache
+    ├── Testes (Q41–Q50): testes unitários, SOLID e CI/CD
+    └── SQL (Q51–Q70): joins, índices, normalização e segurança
 ```
-Interview Questions
-│
-├── 📁 Arrays (20 questions)
-│   ├── Reversal, rotation, searching
-│   ├── Frequency counting, duplicates
-│   ├── Subarray problems (Kadane's, max product)
-│   ├── Binary search, sorting, shuffling
-│   └── Conceptual (jagged vs multidimensional, resize)
-│
-├── 📁 Lists (20 questions)
-│   ├── Duplicates, sorting, reversing
-│   ├── Merging, splitting, flattening
-│   ├── Searching, frequency counting
-│   ├── Contiguous sums, move zeros
-│   └── Equality comparison, chunking
-│
-├── 📁 Trees (20 questions)
-│   ├── DFS & BFS traversals
-│   ├── Depth, balance, symmetry checks
-│   ├── BST operations (insert, search, validate)
-│   ├── Path sums, diameter, LCA
-│   └── Serialize/deserialize, build from data
-│
-└── 📁 General .NET / C# / SQL (70 questions)
-    ├── Basic (Q1–Q10): CLR, types, GC, namespaces
-    ├── Intermediate (Q11–Q20): Polymorphism, LINQ, async/await
-    ├── Advanced (Q21–Q30): Reflection, DI, middleware
-    ├── Framework (Q31–Q40): MVC, Blazor, SignalR, caching
-    ├── Testing (Q41–Q50): Unit testing, SOLID, CI/CD
-    └── SQL (Q51–Q70): Joins, indexes, normalization, security
-```
 
 ---
 
-## 🎯 Interview Question Types
+## 🎯 Tipos de perguntas de entrevista
 
-Understanding the **types of questions** you'll face helps you prepare strategically:
+Conhecer os **tipos de perguntas** ajuda a organizar a preparação de forma estratégica.
 
-### 1. 🧠 Data Structure & Algorithm (DSA) Questions
-> *""Write a function that...""*
+### 1. 🧠 Estruturas de dados e algoritmos
 
-These require you to **code a solution** on the spot. They test:
-- Problem decomposition
-- Algorithm design (brute force → optimized)
-- Big-O analysis
-- Edge case handling
+> *“Escreva uma função que...”*
 
-**Covered by:** Arrays (20), Lists (20), Trees (20) sections
+Essas questões exigem a implementação de uma solução durante a entrevista. Elas avaliam:
 
-### 2. 💬 Conceptual / Theoretical Questions
-> *""Explain the difference between...""*
+- decomposição de problemas;
+- projeto de algoritmos, da força bruta à otimização;
+- análise de complexidade Big O;
+- tratamento de casos extremos.
 
-These test your **understanding of language and platform fundamentals**:
-- Value types vs. reference types
-- Abstract class vs. interface
-- Managed vs. unmanaged code
-- Garbage collection internals
+**Conteúdo relacionado:** Arrays, Listas e Árvores.
 
-**Covered by:** General .NET (Q1–Q30)
+### 2. 💬 Questões conceituais e teóricas
 
-### 3. 🏗 Framework & Architecture Questions
-> *""How would you implement...""*
+> *“Explique a diferença entre...”*
 
-These test your **practical knowledge** of .NET ecosystem tools:
-- ASP.NET Core middleware pipeline
-- Entity Framework and ORM patterns
-- Dependency Injection
-- SignalR, Blazor, Web API versioning
+Essas questões avaliam o conhecimento dos fundamentos da linguagem e da plataforma:
 
-**Covered by:** General .NET (Q31–Q40)
+- tipos de valor e tipos de referência;
+- classe abstrata e interface;
+- código gerenciado e não gerenciado;
+- funcionamento do garbage collector.
 
-### 4. ✅ Testing & Best Practices Questions
-> *""How do you ensure code quality...""*
+**Conteúdo relacionado:** .NET geral, questões 1 a 30.
 
-These assess your **engineering maturity**:
-- Unit testing and mocking
-- SOLID principles
-- Repository pattern
-- CI/CD pipelines
+### 3. 🏗 Questões de frameworks e arquitetura
 
-**Covered by:** General .NET (Q41–Q50)
+> *“Como você implementaria...”*
 
-### 5. 🗄 SQL & Database Questions
-> *""What is the difference between...""*
+Essas questões avaliam o conhecimento prático do ecossistema .NET:
 
-These test your **data layer knowledge**:
-- JOINs, indexes, normalization
-- Transactions and ACID properties
-- Query optimization
-- SQL injection prevention
+- pipeline de middleware do ASP.NET Core;
+- Entity Framework e padrões de ORM;
+- injeção de dependência;
+- SignalR, Blazor e versionamento de Web APIs.
 
-**Covered by:** General .NET — SQL (Q51–Q70)
+**Conteúdo relacionado:** .NET geral, questões 31 a 40.
 
----
+### 4. ✅ Testes e boas práticas
 
-## 📚 Arrays — 20 Questions
+> *“Como você garante a qualidade do código...”*
 
-Arrays are **one of the first topics in any coding interview** because they test fundamental problem-solving, loops, conditions, indexes, and serve as a basis for hashing, sorting, and algorithm design.
+Essas questões avaliam a maturidade de engenharia:
 
-| # | Question | Key Concepts | File |
-|---|----------|-------------|------|
-| 1 | Array vs ArrayList vs List\<T\> | Type safety, generics, performance | `Array_ArrayList_List.cs` |
-| 2 | Reverse an array | Two-pointer, in-place | `ReverseArray.cs` |
-| 3 | Maximum product subarray | Dynamic programming, tracking min/max | `MaxProductSubarray.cs` |
-| 4 | Remove duplicates from an array | HashSet, sorting | `RemoveDuplicates.cs` |
-| 5 | Find the missing number (1 to N) | Sum formula, XOR | `FindMissingNumber.cs` |
-| 6 | Find intersection of two arrays | HashSet, two-pointer | `FindIntersection.cs` |
-| 7 | First non-repeating element | Dictionary, frequency counting | `FirstNonRepeatingElement.cs` |
-| 8 | Rotate array by K steps | Reversal algorithm, modular | `RotateArray.cs` |
-| 9 | Check if array is a palindrome | Two-pointer | `CheckPalindromeArray.cs` |
-| 10 | Flatten a 2D array | Nested iteration, LINQ | `Flatten2DArray.cs` |
-| 11 | Find majority element (> n/2) | Boyer-Moore voting | `MajorityElementFinder.cs` |
-| 12 | Find all pairs with a given sum | HashSet, two-pointer | `FindPairsWithSum.cs` |
-| 13 | Binary search | Iterative, recursive | `BinarySearchArray.cs` |
-| 14 | Maximum subarray sum (Kadane's) | Dynamic programming | `MaxSubarraySum.cs` |
-| 15 | Element frequency counter | Dictionary, LINQ GroupBy | `ElementFrequencyCounter.cs` |
-| 16 | Jagged vs multidimensional arrays | Memory layout, performance | `JaggedVsMultidimensionalArray.cs` |
-| 17 | Shuffle an array (Fisher-Yates) | Randomization, in-place | `ShuffleArray.cs` |
-| 18 | Resize an array in C# | Array.Resize, copying | `ResizeArray.cs` |
-| 19 | Sort custom objects | IComparer, LINQ OrderBy | `SortCustomObjects.cs` |
-| 20 | Array operations time complexity | O(1) access, O(n) search | Conceptual |
+- testes unitários e mocks;
+- princípios SOLID;
+- padrão Repository;
+- pipelines de CI/CD.
+
+**Conteúdo relacionado:** .NET geral, questões 41 a 50.
+
+### 5. 🗄 SQL e bancos de dados
+
+> *“Qual é a diferença entre...”*
+
+Essas questões avaliam o conhecimento da camada de dados:
+
+- joins, índices e normalização;
+- transações e propriedades ACID;
+- otimização de consultas;
+- prevenção de SQL injection.
+
+**Conteúdo relacionado:** SQL, questões 51 a 70.
 
 ---
 
-## 📚 List\<T\> — 20 Questions
+## 📚 Arrays — 20 questões
 
-`List<T>` is the **most commonly used collection in .NET**, offering dynamic resizing, type safety with generics, and integration with LINQ.
+Arrays estão entre os primeiros assuntos abordados em entrevistas de programação porque avaliam resolução de problemas, laços, condições e índices, além de servirem como base para hashing, ordenação e projeto de algoritmos.
 
-| # | Question | Key Concepts | File |
-|---|----------|-------------|------|
-| 1 | Remove duplicates | HashSet, LINQ Distinct | `RemoveDuplicates.cs` |
-| 2 | Find second largest element | Single-pass, sorting | `FindSecondLargest.cs` |
-| 3 | Reverse a list | In-place, LINQ | `ReverseList.cs` |
-| 4 | Sort a list (multiple approaches) | IComparer, LINQ, custom | `SortList.cs` |
-| 5 | Element frequency counter | Dictionary, LINQ GroupBy | `ElementFrequencyCounter.cs` |
-| 6 | Find common elements (intersection) | HashSet, LINQ Intersect | `FindCommonElements.cs` |
-| 7 | Merge two sorted lists | Two-pointer merge | `MergeTwoLists.cs` |
-| 8 | Find missing numbers in a range | HashSet, sequential check | `FindMissingNumbers.cs` |
-| 9 | Rotate a list by K positions | Slice and concat, reversal | `RotateList.cs` |
-| 10 | Shuffle a list (Fisher-Yates) | Randomization | `ShuffleList.cs` |
-| 11 | Check if list is a palindrome | Two-pointer | `CheckPalindromeList.cs` |
-| 12 | First non-repeating element | Dictionary, ordered scan | `FirstNonRepeatingElement.cs` |
-| 13 | Group duplicate elements | Dictionary, LINQ GroupBy | `GroupDuplicates.cs` |
-| 14 | Remove all occurrences of a value | RemoveAll, LINQ | `RemoveAllOccurrences.cs` |
-| 15 | Find all pairs with a given sum | HashSet, brute force | `FindPairsWithSum.cs` |
-| 16 | Split list into chunks | LINQ Chunk, manual slicing | `SplitListIntoChunks.cs` |
-| 17 | Flatten nested lists | Recursion, SelectMany | `FlattenNestedLists.cs` |
-| 18 | Max contiguous subarray sum | Kadane's algorithm | `MaxContiguousSum.cs` |
-| 19 | Move all zeros to end | Two-pointer, partition | `MoveZerosToEnd.cs` |
-| 20 | Compare list equality | SequenceEqual, set comparison | `CompareListEquality.cs` |
+| # | Questão | Conceitos principais | Arquivo |
+|---:|---|---|---|
+| 1 | Comparar `Array`, `ArrayList` e `List<T>` | Segurança de tipos, genéricos e desempenho | `Array_ArrayList_List.cs` |
+| 2 | Inverter um array | Dois ponteiros e alteração in-place | `ReverseArray.cs` |
+| 3 | Encontrar o maior produto de um subarray | Programação dinâmica e controle de mínimo/máximo | `MaxProductSubarray.cs` |
+| 4 | Remover duplicados de um array | `HashSet` e ordenação | `RemoveDuplicates.cs` |
+| 5 | Encontrar o número ausente de 1 até N | Fórmula da soma e XOR | `FindMissingNumber.cs` |
+| 6 | Encontrar a interseção entre dois arrays | `HashSet` e dois ponteiros | `FindIntersection.cs` |
+| 7 | Encontrar o primeiro elemento não repetido | `Dictionary` e contagem de frequência | `FirstNonRepeatingElement.cs` |
+| 8 | Rotacionar um array em K posições | Algoritmo de inversão e aritmética modular | `RotateArray.cs` |
+| 9 | Verificar se um array é palíndromo | Dois ponteiros | `CheckPalindromeArray.cs` |
+| 10 | Achatar um array bidimensional | Iteração aninhada e LINQ | `Flatten2DArray.cs` |
+| 11 | Encontrar o elemento majoritário | Algoritmo de votação de Boyer–Moore | `MajorityElementFinder.cs` |
+| 12 | Encontrar todos os pares com uma soma específica | `HashSet` e dois ponteiros | `FindPairsWithSum.cs` |
+| 13 | Implementar busca binária | Abordagens iterativa e recursiva | `BinarySearchArray.cs` |
+| 14 | Encontrar a maior soma de subarray | Algoritmo de Kadane | `MaxSubarraySum.cs` |
+| 15 | Contar a frequência dos elementos | `Dictionary` e `GroupBy` | `ElementFrequencyCounter.cs` |
+| 16 | Comparar arrays jagged e multidimensionais | Layout de memória e desempenho | `JaggedVsMultidimensionalArray.cs` |
+| 17 | Embaralhar um array com Fisher–Yates | Aleatoriedade e alteração in-place | `ShuffleArray.cs` |
+| 18 | Redimensionar um array em C# | `Array.Resize` e cópia | `ResizeArray.cs` |
+| 19 | Ordenar objetos personalizados | `IComparer` e `OrderBy` | `SortCustomObjects.cs` |
+| 20 | Analisar a complexidade das operações com arrays | Acesso O(1) e busca O(n) | `ArrayOperationsComplexity.md` |
 
 ---
 
-## 📚 Trees — 20 Questions
+## 📚 `List<T>` — 20 questões
 
-Trees test **recursive thinking**, **divide-and-conquer**, and appear in real-world applications like file systems, org charts, and DOM trees.
+`List<T>` é uma das coleções mais utilizadas no .NET. Ela oferece redimensionamento dinâmico, segurança de tipos com genéricos e integração com LINQ.
 
-### 🌳 Tree Node Model
+| # | Questão | Conceitos principais | Arquivo |
+|---:|---|---|---|
+| 1 | Remover duplicados | `HashSet` e `Distinct` | `RemoveDuplicates.cs` |
+| 2 | Encontrar o segundo maior elemento | Percurso único e ordenação | `FindSecondLargest.cs` |
+| 3 | Inverter uma lista | Alteração in-place e LINQ | `ReverseList.cs` |
+| 4 | Ordenar uma lista com diferentes abordagens | `IComparer`, LINQ e algoritmo próprio | `SortList.cs` |
+| 5 | Contar a frequência dos elementos | `Dictionary` e `GroupBy` | `ElementFrequencyCounter.cs` |
+| 6 | Encontrar elementos comuns | `HashSet` e `Intersect` | `FindCommonElements.cs` |
+| 7 | Mesclar duas listas ordenadas | Mesclagem com dois ponteiros | `MergeTwoLists.cs` |
+| 8 | Encontrar números ausentes em um intervalo | `HashSet` e verificação sequencial | `FindMissingNumbers.cs` |
+| 9 | Rotacionar uma lista em K posições | Fatias, concatenação e inversão | `RotateList.cs` |
+| 10 | Embaralhar uma lista com Fisher–Yates | Aleatoriedade | `ShuffleList.cs` |
+| 11 | Verificar se uma lista é palíndromo | Dois ponteiros | `CheckPalindromeList.cs` |
+| 12 | Encontrar o primeiro elemento não repetido | `Dictionary` e percurso ordenado | `FirstNonRepeatingElement.cs` |
+| 13 | Agrupar elementos duplicados | `Dictionary` e `GroupBy` | `GroupDuplicates.cs` |
+| 14 | Remover todas as ocorrências de um valor | `RemoveAll` e LINQ | `RemoveAllOccurrences.cs` |
+| 15 | Encontrar todos os pares com uma soma específica | `HashSet` e força bruta | `FindPairsWithSum.cs` |
+| 16 | Dividir uma lista em blocos | `Chunk` e divisão manual | `SplitListIntoChunks.cs` |
+| 17 | Achatar listas aninhadas | Iteração e `SelectMany` | `FlattenNestedLists.cs` |
+| 18 | Encontrar a maior soma contígua | Algoritmo de Kadane | `MaxContiguousSum.cs` |
+| 19 | Mover todos os zeros para o final | Dois ponteiros e particionamento | `MoveZerosToEnd.cs` |
+| 20 | Comparar a igualdade entre listas | `SequenceEqual` e comparação por conteúdo | `CompareListEquality.cs` |
 
-All binary tree problems share a minimal `TreeNode` class:
+---
+
+## 📚 Árvores — 20 questões
+
+Árvores avaliam raciocínio recursivo e divisão e conquista. Elas também aparecem em aplicações reais, como sistemas de arquivos, organogramas e árvores DOM.
+
+### 🌳 Modelo do nó da árvore
+
+Os problemas de árvores binárias compartilham uma classe mínima `TreeNode`:
 
 ```csharp
 public class TreeNode
@@ -237,335 +247,372 @@ public class TreeNode
 }
 ```
 
-| # | Question | Key Concepts | File |
-|---|----------|-------------|------|
-| 1 | Depth-first traversal (pre/in/post) | Recursion, stack-based iterative | `DepthFirstTraversal.cs` |
-| 2 | Breadth-first / level order traversal | Queue, BFS | `BreadthFirstTraversal.cs` |
-| 3 | Maximum depth of binary tree | Recursion, DFS | `MaximumDepth.cs` |
-| 4 | Minimum depth of binary tree | BFS (optimal), recursion | `MinimumDepth.cs` |
-| 5 | Check if tree is balanced | Height comparison, DFS | `CheckBalancedTree.cs` |
-| 6 | Check if two trees are identical | Recursive compare | `CheckIdenticalTrees.cs` |
-| 7 | Invert (mirror) a binary tree | Recursive swap, BFS | `InvertBinaryTree.cs` |
-| 8 | Validate BST | In-order check, min/max bounds | `ValidateBST.cs` |
-| 9 | Search in a BST | Recursive, iterative | `SearchBST.cs` |
-| 10 | Insert into a BST | Recursive, iterative | `InsertIntoBST.cs` |
-| 11 | Find min/max in BST | Leftmost/rightmost node | `FindMinMaxBST.cs` |
-| 12 | Lowest common ancestor | BST property, general tree | `LowestCommonAncestor.cs` |
-| 13 | Diameter of binary tree | DFS, height tracking | `DiameterOfBinaryTree.cs` |
-| 14 | Check if tree is symmetric | Mirror comparison | `CheckSymmetricTree.cs` |
-| 15 | Serialize / deserialize tree | BFS, pre-order string | `SerializeDeserializeTree.cs` |
-| 16 | Path sum (root-to-leaf = target) | DFS, backtracking | `PathSum.cs` |
-| 17 | All root-to-leaf paths | DFS, path building | `RootToLeafPaths.cs` |
-| 18 | Count total nodes & leaf nodes | Recursion, BFS | `CountNodes.cs` |
-| 19 | Kth smallest in BST | In-order traversal | `KthSmallestInBST.cs` |
-| 20 | Build tree from relationships | N-ary tree, org chart | `BuildTreeFromRelationships.cs` |
+| # | Questão | Conceitos principais | Arquivo |
+|---:|---|---|---|
+| 1 | Percorrer em profundidade — pré-ordem, em ordem e pós-ordem | Recursão e pilha iterativa | `DepthFirstTraversal.cs` |
+| 2 | Percorrer em largura ou por níveis | Fila e BFS | `BreadthFirstTraversal.cs` |
+| 3 | Encontrar a profundidade máxima | Recursão e DFS | `MaximumDepth.cs` |
+| 4 | Encontrar a profundidade mínima | BFS e recursão | `MinimumDepth.cs` |
+| 5 | Verificar se a árvore está balanceada | Comparação de alturas e DFS | `CheckBalancedTree.cs` |
+| 6 | Verificar se duas árvores são idênticas | Comparação recursiva | `CheckIdenticalTrees.cs` |
+| 7 | Inverter ou espelhar uma árvore binária | Troca recursiva e BFS | `InvertBinaryTree.cs` |
+| 8 | Validar uma BST | Percurso em ordem e limites mínimo/máximo | `ValidateBST.cs` |
+| 9 | Buscar em uma BST | Abordagens recursiva e iterativa | `SearchBST.cs` |
+| 10 | Inserir em uma BST | Abordagens recursiva e iterativa | `InsertIntoBST.cs` |
+| 11 | Encontrar mínimo e máximo em uma BST | Nós mais à esquerda e à direita | `FindMinMaxBST.cs` |
+| 12 | Encontrar o ancestral comum mais baixo | Propriedade da BST e árvore geral | `LowestCommonAncestor.cs` |
+| 13 | Calcular o diâmetro da árvore | DFS e controle de altura | `DiameterOfBinaryTree.cs` |
+| 14 | Verificar se a árvore é simétrica | Comparação espelhada | `CheckSymmetricTree.cs` |
+| 15 | Serializar e desserializar uma árvore | Pré-ordem e representação textual | `SerializeDeserializeTree.cs` |
+| 16 | Verificar a soma de um caminho da raiz até uma folha | DFS e backtracking | `PathSum.cs` |
+| 17 | Encontrar todos os caminhos da raiz até as folhas | DFS e construção de caminhos | `RootToLeafPaths.cs` |
+| 18 | Contar nós totais e folhas | Recursão e BFS | `CountNodes.cs` |
+| 19 | Encontrar o k-ésimo menor valor em uma BST | Percurso em ordem | `KthSmallestInBST.cs` |
+| 20 | Construir uma árvore a partir de relações | Árvore N-ária e organograma | `BuildTreeFromRelationships.cs` |
 
 ---
 
-## 📚 General .NET / C# / SQL — 70 Questions
+## 📚 .NET / C# / SQL — 70 questões
 
-These conceptual questions cover the **.NET platform, C# language, ASP.NET Core framework, testing, and SQL** — essential for the non-coding portion of interviews.
+Estas questões conceituais abordam a **plataforma .NET, a linguagem C#, o ASP.NET Core, testes e SQL**, sendo importantes para a parte não prática das entrevistas.
 
-### Basic (Q1–Q10)
-| # | Question |
-|---|----------|
-| 1 | What is .NET? |
-| 2 | Can you explain the Common Language Runtime (CLR)? |
-| 3 | What is the difference between managed and unmanaged code? |
-| 4 | Explain the basic structure of a C# program |
-| 5 | What are Value Types and Reference Types in C#? |
-| 6 | What is garbage collection in .NET? |
-| 7 | Explain exception handling in C# |
-| 8 | What are the different types of classes in C#? |
-| 9 | What is a namespace and how is it used? |
-| 10 | What is encapsulation? |
+### Básico — Q1 a Q10
 
-### Intermediate (Q11–Q20)
-| # | Question |
-|---|----------|
-| 11 | Explain polymorphism and its types in C# |
-| 12 | What are delegates and how are they used? |
-| 13 | What is LINQ? Give an example |
-| 14 | Abstract class vs interface — what's the difference? |
-| 15 | How do you manage memory in .NET? |
-| 16 | Explain threading in .NET |
-| 17 | What is async/await and how does it work? |
-| 18 | Describe Entity Framework and its advantages |
-| 19 | What are extension methods? |
-| 20 | How do you handle exceptions in a Task-returning method? |
+| # | Questão |
+|---:|---|
+| 1 | O que é .NET? |
+| 2 | O que é o Common Language Runtime — CLR? |
+| 3 | Qual é a diferença entre código gerenciado e não gerenciado? |
+| 4 | Qual é a estrutura básica de um programa C#? |
+| 5 | O que são tipos de valor e tipos de referência? |
+| 6 | O que é garbage collection no .NET? |
+| 7 | Como funciona o tratamento de exceções em C#? |
+| 8 | Quais são os diferentes tipos de classes em C#? |
+| 9 | O que é um namespace e como ele é utilizado? |
+| 10 | O que é encapsulamento? |
 
-### Advanced (Q21–Q30)
-| # | Question |
-|---|----------|
-| 21 | What is reflection in .NET? |
-| 22 | Explain middleware in ASP.NET Core |
-| 23 | Describe Dependency Injection in .NET Core |
-| 24 | What is the purpose of .NET Standard? |
-| 25 | Differences: .NET Core vs .NET Framework vs Xamarin |
-| 26 | How does GC work and how to optimize it? |
-| 27 | What are attributes in C#? |
-| 28 | Describe code compilation in .NET |
-| 29 | What is the Global Assembly Cache (GAC)? |
-| 30 | How to secure a web app in ASP.NET Core? |
+### Intermediário — Q11 a Q20
 
-### Framework-Specific (Q31–Q40)
-| # | Question |
-|---|----------|
-| 31 | What is MVC? |
-| 32 | Razor Pages vs MVC in ASP.NET Core |
-| 33 | How to perform validations in ASP.NET Core? |
-| 34 | Describe SignalR and its use cases |
-| 35 | Benefits of Blazor over traditional web technologies |
-| 36 | Web API versioning in ASP.NET Core |
-| 37 | Role of IApplicationBuilder |
-| 38 | What are Areas in ASP.NET Core? |
-| 39 | Session management in ASP.NET Core |
-| 40 | Implementing caching in ASP.NET Core |
+| # | Questão |
+|---:|---|
+| 11 | O que é polimorfismo e quais são seus tipos em C#? |
+| 12 | O que são delegates e como são utilizados? |
+| 13 | O que é LINQ? |
+| 14 | Qual é a diferença entre classe abstrata e interface? |
+| 15 | Como gerenciar memória em aplicações .NET? |
+| 16 | Como funciona o threading no .NET? |
+| 17 | O que são `async` e `await` e como funcionam? |
+| 18 | O que é Entity Framework Core e quais são suas vantagens? |
+| 19 | O que são extension methods? |
+| 20 | Como tratar exceções em um método que retorna `Task`? |
 
-### Testing & Best Practices (Q41–Q50)
-| # | Question |
-|---|----------|
-| 41 | What is Unit Testing in .NET? |
-| 42 | How to mock dependencies in unit tests? |
-| 43 | Explain SOLID principles |
-| 44 | What is CI/CD and how does it apply to .NET? |
-| 45 | How to ensure C# code is secure? |
-| 46 | Common .NET performance issues and solutions |
-| 47 | Describe the Repository pattern |
-| 48 | Database migrations in Entity Framework |
-| 49 | Tools for debugging and profiling .NET apps |
-| 50 | How to stay updated with .NET technologies? |
+### Avançado — Q21 a Q30
 
-### SQL (Q51–Q70)
-| # | Question |
-|---|----------|
-| 51 | INNER JOIN vs LEFT JOIN vs RIGHT JOIN vs FULL JOIN |
-| 52 | Primary key vs unique key |
-| 53 | Foreign keys and referential integrity |
-| 54 | Normalization and normal forms |
-| 55 | Clustered vs non-clustered index |
-| 56 | Transactions and ACID properties |
-| 57 | DELETE vs TRUNCATE vs DROP |
-| 58 | Window functions in SQL |
-| 59 | CTE vs subquery |
-| 60 | Stored procedures — pros and cons |
-| 61 | Detecting and preventing SQL injection |
-| 62 | EXISTS vs IN operators |
-| 63 | Indexing and identifying slow queries |
-| 64 | EXPLAIN / QUERY PLAN statement |
-| 65 | Aggregate functions, GROUP BY, HAVING |
-| 66 | Composite keys |
-| 67 | Materialized views vs regular views |
-| 68 | Handling NULL values |
-| 69 | Scalar functions vs table-valued functions |
-| 70 | Schema design for multi-tenant applications |
+| # | Questão |
+|---:|---|
+| 21 | O que é reflection no .NET? |
+| 22 | O que é middleware no ASP.NET Core? |
+| 23 | Como funciona a injeção de dependência no .NET? |
+| 24 | Qual é o propósito do .NET Standard? |
+| 25 | Quais são as diferenças entre .NET, .NET Framework e Xamarin? |
+| 26 | Como o garbage collector funciona e como reduzir a pressão de memória? |
+| 27 | O que são atributos em C#? |
+| 28 | Como funciona o processo de compilação no .NET? |
+| 29 | O que é o Global Assembly Cache — GAC? |
+| 30 | Como proteger uma aplicação web ASP.NET Core? |
+
+### Frameworks — Q31 a Q40
+
+| # | Questão |
+|---:|---|
+| 31 | O que é MVC? |
+| 32 | Qual é a diferença entre Razor Pages e MVC? |
+| 33 | Como realizar validações no ASP.NET Core? |
+| 34 | O que é SignalR e quais são seus casos de uso? |
+| 35 | Quais são os benefícios e trade-offs do Blazor? |
+| 36 | Como implementar versionamento de Web APIs? |
+| 37 | Qual é o papel de `IApplicationBuilder` e do modelo moderno de hospedagem? |
+| 38 | O que são Areas no ASP.NET Core? |
+| 39 | Como gerenciar sessões no ASP.NET Core? |
+| 40 | Como implementar cache no ASP.NET Core? |
+
+### Testes e boas práticas — Q41 a Q50
+
+| # | Questão |
+|---:|---|
+| 41 | O que é um teste unitário em .NET? |
+| 42 | Como simular dependências em testes unitários? |
+| 43 | Quais são os princípios SOLID? |
+| 44 | O que é CI/CD e como se aplica ao .NET? |
+| 45 | Como garantir a segurança do código C#? |
+| 46 | Quais são os problemas comuns de desempenho em aplicações .NET? |
+| 47 | O que é o padrão Repository e quais são seus trade-offs? |
+| 48 | Como trabalhar com migrations no Entity Framework Core? |
+| 49 | Quais ferramentas podem ser usadas para depuração e profiling? |
+| 50 | Como se manter atualizado sobre tecnologias .NET? |
+
+### SQL — Q51 a Q70
+
+| # | Questão |
+|---:|---|
+| 51 | Qual é a diferença entre `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN` e `FULL OUTER JOIN`? |
+| 52 | Qual é a diferença entre chave primária e restrição `UNIQUE`? |
+| 53 | O que são chaves estrangeiras e integridade referencial? |
+| 54 | O que é normalização e quais são as formas normais? |
+| 55 | Qual é a diferença entre índice clustered e nonclustered? |
+| 56 | O que são transações e propriedades ACID? |
+| 57 | Qual é a diferença entre `DELETE`, `TRUNCATE TABLE` e `DROP TABLE`? |
+| 58 | O que são funções de janela? |
+| 59 | Qual é a diferença entre CTE e subconsulta? |
+| 60 | Quais são as vantagens e desvantagens de stored procedures? |
+| 61 | Como detectar e prevenir SQL injection? |
+| 62 | Qual é a diferença entre `EXISTS` e `IN`? |
+| 63 | Como índices funcionam e como identificar consultas lentas? |
+| 64 | Para que servem planos de execução? |
+| 65 | Como funcionam agregações, `GROUP BY`, `WHERE` e `HAVING`? |
+| 66 | O que é uma chave composta? |
+| 67 | Qual é a diferença entre view materializada e view comum? |
+| 68 | Como tratar valores `NULL`? |
+| 69 | Qual é a diferença entre funções escalares e table-valued functions? |
+| 70 | Como projetar o banco de uma aplicação multitenant? |
 
 ---
 
-## 📂 Repository Structure
+## 📂 Estrutura do repositório
 
-```
+```text
 InterviewQuestions/
 │
-├── InterviewQuestions.sln                 # Solution file
-├── README.md                              # 📌 This file — global documentation
+├── InterviewQuestions.sln                 # Solução .NET
+├── Directory.Build.props                  # Configurações comuns de compilação
+├── README.md                              # 📌 Documentação principal
+├── ROADMAP.md                             # Histórico da tradução e revisão
 │
-├── Arrays/                                # 20 array coding questions
+├── Arrays/                                # 20 questões sobre arrays
 │   ├── Program.cs
 │   ├── Arrays.csproj
 │   ├── ReverseArray.cs
 │   ├── RotateArray.cs
 │   ├── FindMissingNumber.cs
 │   ├── MaxSubarraySum.cs
-│   ├── ... (20 question files)
-│   └── README.md                          # Array-specific guide
+│   ├── ...
+│   └── README.md                          # Guia específico de arrays
 │
-├── Lists/                                 # 20 List<T> coding questions
+├── Lists/                                 # 20 questões sobre List<T>
 │   ├── Program.cs
 │   ├── Lists.csproj
 │   ├── RemoveDuplicates.cs
 │   ├── MergeTwoLists.cs
-│   ├── ... (20 question files)
-│   └── README.md                          # List-specific guide
+│   ├── ...
+│   └── README.md                          # Guia específico de listas
 │
-├── Trees/                                 # 20 tree coding questions
+├── Trees/                                 # 20 questões sobre árvores
 │   ├── Program.cs
 │   ├── Trees.csproj
-│   ├── TreeNode.cs                        # Shared node model
+│   ├── TreeNode.cs                        # Modelo de nó compartilhado
 │   ├── DepthFirstTraversal.cs
 │   ├── ValidateBST.cs
-│   ├── ... (20 question files)
-│   └── README.md                          # Tree-specific guide
+│   ├── ...
+│   └── README.md                          # Guia específico de árvores
 │
-└── dotnet_interview_questions-main/       # 70 conceptual .NET/C#/SQL Q&A
-    └── README.md
+└── Interview Questions/
+    ├── README.md                          # 50 questões de .NET e C#
+    └── SQL.md                             # 20 questões de SQL
 ```
 
-Each coding question file is a **self-contained class** that:
-- Explains the problem in the class summary
-- Provides **2–3 solutions** (from brute force to optimal)
-- Documents time and space complexity
+Cada arquivo de questão prática contém uma **classe independente** que:
+
+- explica o problema na documentação da classe;
+- apresenta diferentes soluções, da força bruta a abordagens mais eficientes;
+- documenta a complexidade de tempo e espaço;
+- descreve premissas e casos extremos relevantes.
 
 ---
 
-## ⚡ How to Use
+## ⚡ Como utilizar
 
-### Prerequisites
-- **.NET 8 SDK** (or later)
-- **Visual Studio 2022** / **Rider** / **VS Code with C# Dev Kit**
+### Pré-requisitos
 
-### Getting Started
+- **SDK do .NET 10**;
+- **Visual Studio 2022**, **Rider** ou **VS Code com C# Dev Kit**.
 
-1. **Clone the repository** and open `InterviewQuestions.sln`
-2. Pick a topic folder: `Arrays/`, `Lists/`, or `Trees/`
-3. Open any question file → read the **class summary** for the problem statement
-4. Study solutions **in order** — they evolve from brute force to optimal
-5. Uncomment usage examples in `Program.cs` or write your own to test
-6. For conceptual questions, read `dotnet_interview_questions-main/README.md`
+### Primeiros passos
 
-### Recommended Study Order
+1. **Clone o repositório** e abra `InterviewQuestions.sln`.
+2. Escolha uma pasta: `Arrays/`, `Lists/` ou `Trees/`.
+3. Abra um arquivo de questão e leia a documentação da classe.
+4. Estude as soluções em ordem, comparando suas vantagens e complexidades.
+5. Execute os exemplos em `Program.cs` ou crie casos próprios.
+6. Para questões conceituais, consulte `Interview Questions/README.md` e `Interview Questions/SQL.md`.
 
+### Ordem de estudo recomendada
+
+```text
+1. Arrays — fundamentos
+2. Listas — coleções dinâmicas e LINQ
+3. Árvores — raciocínio recursivo
+4. .NET básico → intermediário → avançado
+5. Frameworks, testes, boas práticas e SQL
 ```
-1. Arrays (foundation)      → Lists (builds on arrays)
-2. Trees (recursive thinking)
-3. General .NET Basics       → Intermediate → Advanced
-4. Framework-Specific & SQL  → Testing & Best Practices
-```
 
----
+### Execução
 
-## 📊 Probability of Being Asked
+```bash
+dotnet restore InterviewQuestions.sln
+dotnet build InterviewQuestions.sln --configuration Release
 
-### Coding Questions (Arrays / Lists / Trees)
-
-| Priority | Likelihood | Topics |
-|----------|-----------|--------|
-| 🔴 **High** | **70–80%** | Reverse, Rotate, Missing Number, Remove Duplicates, First Non-Repeating, Palindrome, Max Subarray Sum, Pairs with Sum, Frequency Counting, DFS/BFS Traversals, Max Depth, Validate BST, Invert Tree, LCA, Balanced Tree |
-| 🟡 **Medium** | **40–50%** | Max Product Subarray, Flatten, Merge Lists, Majority Element, Move Zeros, Binary Search, Diameter, Serialize/Deserialize, Kth Smallest, Split Chunks |
-| 🟢 **Low** | **20–30%** | Jagged vs Multidimensional, Resize Array, Sort Custom Objects, Shuffle, Group Duplicates, Build Tree from Relationships |
-
-### Conceptual Questions
-
-| Priority | Likelihood | Topics |
-|----------|-----------|--------|
-| 🔴 **High** | **80–90%** | Value vs Reference types, async/await, SOLID, abstract vs interface, DI, GC, exception handling |
-| 🟡 **Medium** | **50–60%** | LINQ, delegates, EF, threading, middleware, MVC, unit testing |
-| 🟢 **Low** | **30–40%** | Reflection, GAC, .NET Standard, Blazor, Areas, SignalR |
-
-💡 **Tip:** Focus on **🔴 High priority** questions first if preparing under time constraints.
-
----
-
-## ⚖ Key Data Structures Comparison
-
-| Feature | Array | List\<T\> | Binary Tree | BST |
-|---------|-------|-----------|-------------|-----|
-| **Access by index** | O(1) | O(1) | O(n) | O(n) |
-| **Search** | O(n) | O(n) | O(n) | O(log n)* |
-| **Insert (end)** | O(n)† | O(1)‡ | O(n) | O(log n)* |
-| **Delete** | O(n) | O(n) | O(n) | O(log n)* |
-| **Memory** | Contiguous | Contiguous | Nodes + pointers | Nodes + pointers |
-| **Resizable** | ❌ | ✅ | ✅ | ✅ |
-| **Ordered** | By index | By index | By structure | By value |
-
-\* Average case for balanced BST; worst case is O(n) for skewed trees.
-† Requires creating a new array.
-‡ Amortized O(1); O(n) when internal array resizes.
-
----
-
-## 🔄 Common Algorithm Patterns
-
-These patterns appear repeatedly across all question types:
-
-| Pattern | Description | Used In |
-|---------|-------------|---------|
-| **Two Pointers** | Start/end pointers moving inward | Reverse, Palindrome, Pairs with Sum, Remove Duplicates |
-| **Sliding Window** | Fixed or variable window over data | Max Subarray Sum, Max Product |
-| **Hash Map / Set** | O(1) lookups for frequency, existence | Frequency Counter, Missing Number, Intersection, Pairs |
-| **Sorting + Scan** | Sort first, then linear scan | Remove Duplicates, Find Common, Merge |
-| **Kadane's Algorithm** | Track running max/min subarray | Max Subarray Sum, Max Contiguous Sum |
-| **Boyer-Moore Voting** | Find majority element in O(n)/O(1) | Majority Element |
-| **Recursion / DFS** | Explore all branches depth-first | All tree problems, Flatten Nested |
-| **BFS / Level Order** | Explore level by level | Breadth-first, Min Depth, Symmetric |
-| **Binary Search** | Divide search space in half | Binary Search, Search BST |
-| **Divide & Conquer** | Split problem, solve halves, merge | Max Subarray (alternative), Tree depth |
-| **Backtracking** | Explore + undo for path finding | Path Sum, Root-to-Leaf Paths |
-
----
-
-## 📈 Big-O Complexity Cheat Sheet
-
-| Complexity | Name | Example |
-|-----------|------|---------|
-| **O(1)** | Constant | Array access by index, hash lookup |
-| **O(log n)** | Logarithmic | Binary search, balanced BST operations |
-| **O(n)** | Linear | Single pass through array/list, DFS/BFS |
-| **O(n log n)** | Linearithmic | Efficient sorting (MergeSort, LINQ OrderBy) |
-| **O(n²)** | Quadratic | Nested loops (brute force pairs, bubble sort) |
-| **O(2ⁿ)** | Exponential | Recursive subsets, naive tree problems |
-
-**Space complexity** matters too:
-- **O(1)** = in-place (two-pointer, swapping)
-- **O(n)** = extra array, hash set, recursion stack
-- **O(h)** = tree recursion depth (h = height)
-
----
-
-## 💡 Interview Tips & Strategy
-
-### Before the Interview
-- ✅ **Master the top 15 high-priority questions** across all categories
-- ✅ Know at least **2 approaches** per problem (brute force + optimized)
-- ✅ Practice explaining your **thought process out loud**
-- ✅ Review **Big-O analysis** — interviewers always ask about complexity
-
-### During the Interview
-1. **Clarify the problem** — ask about constraints, edge cases, input size
-2. **Start with brute force** — show your thinking, then optimize
-3. **Explain as you code** — narrate your approach and trade-offs
-4. **Test with examples** — walk through your code with sample input
-5. **Discuss trade-offs** — time vs. space, readability vs. performance
-
-### Edge Cases to Always Mention
-| Data Structure | Edge Cases |
-|----------------|------------|
-| **Arrays / Lists** | Empty, single element, all duplicates, negative numbers, already sorted |
-| **Trees** | Null root, single node, skewed (all left/right), very deep |
-| **General** | Null/empty inputs, integer overflow, concurrent access |
-
-### Optimization Progression
-```
-Brute Force (O(n²))
-    → Sorting + Scan (O(n log n))
-        → Hash Map (O(n) time, O(n) space)
-            → Two Pointers / In-place (O(n) time, O(1) space)
+dotnet run --project Arrays/Arrays.csproj --configuration Release
+dotnet run --project Lists/Lists.csproj --configuration Release
+dotnet run --project Trees/Trees.csproj --configuration Release
 ```
 
 ---
 
-## 📊 Coverage & Confidence
+## 📊 Probabilidade de aparecer em entrevistas
 
-| If you master... | You get... |
-|------------------|-----------|
-| All 20 Array questions | **~90%** coverage of array coding interviews |
-| All 20 List questions | **~90%** coverage of List\<T\> coding interviews |
-| All 20 Tree questions | **~90%** coverage of tree coding interviews |
-| All 70 .NET/C#/SQL questions | Strong foundation for conceptual rounds |
-| **Everything combined** | **Ready for junior to mid-senior .NET interviews** |
+As porcentagens abaixo são apenas estimativas orientativas. A frequência real varia conforme empresa, senioridade, vaga e formato da entrevista.
 
-Each coding problem is also excellent practice for **LeetCode Easy/Medium** problems.
+### Questões práticas — Arrays, Listas e Árvores
+
+| Prioridade | Probabilidade | Assuntos |
+|---|---:|---|
+| 🔴 **Alta** | **70–80%** | Inversão, rotação, número ausente, remoção de duplicados, primeiro não repetido, palíndromo, maior soma de subarray, pares com soma, frequências, DFS/BFS, profundidade máxima, validação de BST, inversão de árvore, LCA e balanceamento |
+| 🟡 **Média** | **40–50%** | Maior produto de subarray, achatamento, mesclagem de listas, elemento majoritário, movimentação de zeros, busca binária, diâmetro, serialização, k-ésimo menor e divisão em blocos |
+| 🟢 **Baixa** | **20–30%** | Arrays jagged e multidimensionais, redimensionamento, ordenação de objetos, embaralhamento, agrupamento de duplicados e construção de árvores a partir de relações |
+
+### Questões conceituais
+
+| Prioridade | Probabilidade | Assuntos |
+|---|---:|---|
+| 🔴 **Alta** | **80–90%** | Tipos de valor e referência, `async`/`await`, SOLID, classe abstrata e interface, DI, GC e tratamento de exceções |
+| 🟡 **Média** | **50–60%** | LINQ, delegates, EF Core, threading, middleware, MVC e testes unitários |
+| 🟢 **Baixa** | **30–40%** | Reflection, GAC, .NET Standard, Blazor, Areas e SignalR |
+
+💡 **Dica:** quando o tempo de preparação for limitado, comece pelas questões de prioridade alta.
 
 ---
 
-## ✅ Author Notes
+## ⚖ Comparação entre estruturas de dados
 
-This collection is built for **.NET interview preparation**:
+| Característica | Array | `List<T>` | Árvore binária | BST |
+|---|---:|---:|---:|---:|
+| **Acesso por índice** | O(1) | O(1) | O(n) | O(n) |
+| **Busca** | O(n) | O(n) | O(n) | O(log n)* |
+| **Inserção no final** | O(n)† | O(1)‡ | O(n) | O(log n)* |
+| **Remoção** | O(n) | O(n) | O(n) | O(log n)* |
+| **Memória** | Contígua | Contígua | Nós e referências | Nós e referências |
+| **Redimensionável** | Não | Sim | Sim | Sim |
+| **Ordenação** | Por índice | Por índice | Pela estrutura | Pelo valor |
 
-- Uses **C# 10+ syntax**
-- Follows **clean coding practices**
-- May avoid the newest C# features (like `[]` array initialization) for easier understanding
-- Demonstrates **progressive optimization** (brute force → optimal)
-- Each file is **self-contained** — no dependencies between question files
+\* Caso médio de uma BST balanceada; o pior caso é O(n) em uma árvore degenerada.  
+† Exige a criação de um novo array.  
+‡ O(1) amortizado; O(n) quando o array interno precisa ser redimensionado.
 
-**If you practice all questions and understand the optimizations, you will handle the vast majority of .NET coding interview questions with confidence.**
+---
+
+## 🔄 Padrões comuns de algoritmos
+
+Esses padrões aparecem repetidamente nas diferentes categorias:
+
+| Padrão | Descrição | Exemplos de uso |
+|---|---|---|
+| **Dois ponteiros** | Ponteiros no início e no final se aproximam | Inversão, palíndromo, pares com soma e remoção de duplicados |
+| **Janela deslizante** | Janela fixa ou variável sobre uma sequência | Somas e produtos de subarrays |
+| **Hash map ou set** | Consultas rápidas de frequência e existência | Frequências, número ausente, interseção e pares |
+| **Ordenação e percurso** | Ordenar antes de realizar uma passagem linear | Duplicados, elementos comuns e mesclagem |
+| **Algoritmo de Kadane** | Manter a melhor soma contígua durante o percurso | Maior soma de subarray e soma contígua |
+| **Votação de Boyer–Moore** | Encontrar o elemento majoritário em O(n) e O(1) | Elemento majoritário |
+| **Recursão ou DFS** | Explorar todos os ramos em profundidade | Árvores e caminhos |
+| **BFS ou percurso por níveis** | Explorar um nível por vez | Travessia em largura, profundidade mínima e simetria |
+| **Busca binária** | Dividir o espaço de busca pela metade | Arrays ordenados e busca em BST |
+| **Divisão e conquista** | Dividir, resolver as partes e combinar | Subarrays e profundidade de árvores |
+| **Backtracking** | Explorar uma escolha e desfazê-la ao retornar | Soma de caminhos e caminhos raiz-folha |
+
+---
+
+## 📈 Resumo de complexidade Big O
+
+| Complexidade | Nome | Exemplo |
+|---|---|---|
+| **O(1)** | Constante | Acesso a array por índice e consulta em hash |
+| **O(log n)** | Logarítmica | Busca binária e operações em BST balanceada |
+| **O(n)** | Linear | Percurso único de array/lista e DFS/BFS |
+| **O(n log n)** | Linearítmica | Algoritmos eficientes de ordenação e `OrderBy` |
+| **O(n²)** | Quadrática | Laços aninhados, pares por força bruta e bubble sort |
+| **O(2ⁿ)** | Exponencial | Geração recursiva de subconjuntos |
+
+A **complexidade de espaço** também deve ser considerada:
+
+- **O(1):** algoritmo in-place, como troca com dois ponteiros;
+- **O(n):** array auxiliar, `HashSet`, dicionário ou fila;
+- **O(h):** pilha de recursão de uma árvore, em que `h` representa a altura;
+- **O(w):** fila de uma travessia BFS, em que `w` representa a largura máxima.
+
+---
+
+## 💡 Dicas e estratégia para entrevistas
+
+### Antes da entrevista
+
+- ✅ Domine primeiro as questões de prioridade alta.
+- ✅ Conheça pelo menos duas abordagens para os problemas principais.
+- ✅ Pratique explicar o raciocínio em voz alta.
+- ✅ Revise a análise de complexidade Big O.
+- ✅ Prepare exemplos que demonstrem experiência prática com .NET.
+
+### Durante a entrevista
+
+1. **Esclareça o problema:** pergunte sobre restrições, tamanho das entradas e casos extremos.
+2. **Comece por uma solução simples:** demonstre o raciocínio antes de otimizar.
+3. **Explique enquanto implementa:** apresente decisões e trade-offs.
+4. **Teste com exemplos:** percorra manualmente entradas representativas.
+5. **Discuta alternativas:** compare tempo, memória, legibilidade e manutenção.
+
+### Casos extremos que devem ser considerados
+
+| Estrutura | Casos extremos |
+|---|---|
+| **Arrays e listas** | Entrada vazia, único elemento, todos duplicados, números negativos e sequência já ordenada |
+| **Árvores** | Raiz nula, único nó, árvore degenerada e árvore muito profunda |
+| **Geral** | Entradas nulas ou vazias, overflow, concorrência, cancelamento e falhas parciais |
+
+### Progressão comum de otimização
+
+```text
+Força bruta — O(n²)
+    → Ordenação e percurso — O(n log n)
+        → Hash map — O(n) de tempo e O(n) de espaço
+            → Dois ponteiros ou solução in-place — O(n) de tempo e O(1) de espaço
+```
+
+Essa progressão é uma referência, não uma regra universal. A melhor solução depende das restrições e das propriedades do problema.
+
+---
+
+## 📊 Cobertura e preparação
+
+| Ao dominar... | Você terá... |
+|---|---|
+| As 20 questões de arrays | Uma base ampla para entrevistas envolvendo arrays |
+| As 20 questões de listas | Uma base ampla para problemas com `List<T>` e coleções |
+| As 20 questões de árvores | Uma base ampla para travessias, BST e problemas recursivos |
+| As 70 questões de .NET, C# e SQL | Uma base consistente para rodadas conceituais |
+| **Todo o conteúdo** | **Preparação abrangente para entrevistas .NET de nível júnior a intermediário/sênior** |
+
+Os problemas práticos também são úteis como preparação para exercícios de nível fácil e intermediário em plataformas como LeetCode.
+
+---
+
+## ✅ Notas do autor
+
+Esta coleção foi preparada para o estudo de entrevistas .NET:
+
+- utiliza projetos em **.NET 10**;
+- mantém nomes de classes, métodos, variáveis e APIs em inglês;
+- segue práticas de código claro e documentação em português do Brasil;
+- apresenta otimização progressiva, da força bruta a abordagens mais eficientes;
+- trata warnings de compilação como erros;
+- executa exemplos dos três módulos como smoke tests no GitHub Actions;
+- mantém cada questão em um arquivo focado no respectivo problema.
+
+**Praticar as questões e compreender as decisões, complexidades e limitações de cada solução oferece uma base sólida para entrevistas técnicas .NET.**
