@@ -15,6 +15,7 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 
 - [x] Criar a solução e os projetos `Arrays`, `Lists` e `Trees` em .NET 10.
 - [x] Adicionar configuração de arquivos ignorados pelo Git.
+- [x] Adicionar validação automática da solução com GitHub Actions.
 - [x] Reorganizar as 50 perguntas existentes em `Interview Questions/README.md`.
 - [x] Traduzir e adaptar o novo README principal.
 - [x] Incorporar e revisar as 20 questões de arrays.
@@ -51,6 +52,10 @@ Este documento acompanha a atualização da tradução brasileira com base no re
 - Nulabilidade e critérios de desempate corrigidos na ordenação de objetos personalizados.
 - Questão conceitual de complexidade criada como documento independente.
 - `Program.cs` atualizado com exemplos executáveis do módulo completo.
+
+## Validação automatizada
+
+O workflow `.github/workflows/dotnet-build.yml` restaura as dependências e compila `InterviewQuestions.sln` em modo Release usando o SDK do .NET 10. Ele será executado em alterações nas branches de trabalho e em pull requests direcionados à `main`.
 
 ## Próxima etapa
 
