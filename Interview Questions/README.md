@@ -1,0 +1,1 @@
+<!-- Conteúdo migrado do README principal. -->
