@@ -13,7 +13,7 @@ Cada questão procura apresentar:
 
 ## Progresso
 
-As questões **1 a 10** já foram incorporadas, traduzidas e revisadas. As questões 11 a 20 serão adicionadas na próxima etapa.
+As **20 questões** foram incorporadas, traduzidas e revisadas.
 
 | # | Questão | Arquivo | Situação |
 |---:|---|---|---|
@@ -27,16 +27,16 @@ As questões **1 a 10** já foram incorporadas, traduzidas e revisadas. As quest
 | 8 | Encontrar o número ausente de 1 até N | `FindMissingNumbers.cs` | Concluída |
 | 9 | Rotacionar uma lista em K posições | `RotateList.cs` | Concluída |
 | 10 | Embaralhar uma lista com Fisher–Yates | `ShuffleList.cs` | Concluída |
-| 11 | Verificar se uma lista é palíndromo | `CheckPalindromeList.cs` | Pendente |
-| 12 | Encontrar o primeiro elemento não repetido | `FirstNonRepeatingElement.cs` | Pendente |
-| 13 | Agrupar elementos duplicados | `GroupDuplicates.cs` | Pendente |
-| 14 | Remover todas as ocorrências de um valor | `RemoveAllOccurrences.cs` | Pendente |
-| 15 | Encontrar pares com uma soma específica | `FindPairsWithSum.cs` | Pendente |
-| 16 | Dividir uma lista em blocos | `SplitListIntoChunks.cs` | Pendente |
-| 17 | Achatar listas aninhadas | `FlattenNestedLists.cs` | Pendente |
-| 18 | Encontrar a maior soma contígua | `MaxContiguousSum.cs` | Pendente |
-| 19 | Mover zeros para o final | `MoveZerosToEnd.cs` | Pendente |
-| 20 | Comparar igualdade entre listas | `CompareListEquality.cs` | Pendente |
+| 11 | Verificar se uma lista é palíndromo | `CheckPalindromeList.cs` | Concluída |
+| 12 | Encontrar o primeiro elemento não repetido | `FirstNonRepeatingElement.cs` | Concluída |
+| 13 | Agrupar elementos duplicados | `GroupDuplicates.cs` | Concluída |
+| 14 | Remover todas as ocorrências de um valor | `RemoveAllOccurrences.cs` | Concluída |
+| 15 | Encontrar pares com uma soma específica | `FindPairsWithSum.cs` | Concluída |
+| 16 | Dividir uma lista em blocos | `SplitListIntoChunks.cs` | Concluída |
+| 17 | Achatar listas aninhadas | `FlattenNestedLists.cs` | Concluída |
+| 18 | Encontrar a maior soma contígua | `MaxContiguousSum.cs` | Concluída |
+| 19 | Mover zeros para o final | `MoveZerosToEnd.cs` | Concluída |
+| 20 | Comparar igualdade entre listas | `CompareListEquality.cs` | Concluída |
 
 ## Como estudar as implementações
 
@@ -46,11 +46,11 @@ Para cada problema:
 2. identifique o custo de buscas, inserções e remoções em `List<T>`;
 3. compare soluções que preservam a ordem com soluções baseadas em ordenação;
 4. avalie entradas vazias, valores duplicados, números negativos e limites de `int`;
-5. identifique se a operação modifica a coleção original ou trabalha sobre uma cópia.
+5. identifique se a operação modifica a coleção interna ou retorna uma nova lista.
 
 ## Ajustes técnicos aplicados nesta tradução
 
-Durante a revisão das primeiras dez questões, foram feitos os seguintes ajustes em relação ao código original:
+### Questões 1 a 10
 
 - validação de argumentos nulos em todos os construtores;
 - cópia defensiva das listas recebidas;
@@ -64,6 +64,19 @@ Durante a revisão das primeiras dez questões, foram feitos os seguintes ajuste
 - complexidade da seleção aleatória com rejeição corrigida para O(n log n) esperado;
 - possibilidade de injetar `Random` para testes reproduzíveis.
 
+### Questões 11 a 20
+
+- cópias defensivas mantidas também nas operações mutáveis;
+- pares duplicados eliminados em todas as abordagens;
+- somas protegidas contra overflow com promoção para `long`;
+- complexidade da abordagem de dois ponteiros corrigida para incluir a cópia ordenada;
+- tamanho de bloco validado para impedir zero, valores negativos e laços inválidos;
+- listas aninhadas copiadas profundamente e validadas contra elementos nulos;
+- complexidade do achatamento expressa em função do total de elementos;
+- maior soma contígua passou a rejeitar entrada vazia e retornar `long`;
+- versão LINQ da maior soma reescrita com prefixos de soma;
+- distinção explícita entre igualdade sensível à ordem e igualdade por conteúdo.
+
 ## Execução
 
 A partir da raiz do repositório:
@@ -73,4 +86,4 @@ dotnet build Lists/Lists.csproj
 dotnet run --project Lists/Lists.csproj
 ```
 
-O `Program.cs` contém exemplos das questões já incorporadas. O projeto foi restaurado e compilado com sucesso no GitHub Actions usando o SDK do .NET 10.
+O `Program.cs` contém exemplos dos dois blocos do módulo. A solução completa é validada pelo workflow de GitHub Actions usando o SDK do .NET 10.
