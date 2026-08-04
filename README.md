@@ -2,19 +2,20 @@
 
 > Guia de estudos em português para entrevistas técnicas de desenvolvimento .NET e C#.
 
-Este repositório é uma tradução e adaptação autorizada do projeto [`StefanTheCode/dotnet_interview_questions`](https://github.com/StefanTheCode/dotnet_interview_questions). O objetivo desta atualização é acompanhar a estrutura atual do projeto original, reunindo **130 perguntas** sobre .NET, C#, SQL, estruturas de dados e algoritmos.
+Este repositório é uma tradução e adaptação autorizada do projeto [`StefanTheCode/dotnet_interview_questions`](https://github.com/StefanTheCode/dotnet_interview_questions). A atualização acompanha a estrutura do projeto original e reúne **130 conteúdos** sobre .NET, C#, SQL, estruturas de dados e algoritmos.
 
 > **Aviso:** conhecer as respostas não garante aprovação em uma entrevista. Use o material para revisar fundamentos, praticar raciocínio técnico e identificar assuntos que precisam de aprofundamento.
 
-## Conteúdo planejado
+## Conteúdo
 
 | Categoria | Quantidade | Formato | Situação |
 |---|---:|---|---|
 | Arrays | 20 | Implementações C# e análise de complexidade | Concluído |
 | `List<T>` | 20 | Implementações C# e análise de complexidade | Concluído |
 | Árvores | 20 | Implementações C# e análise de complexidade | Concluído |
-| .NET, C#, frameworks, testes e SQL | 70 | Perguntas, respostas e exemplos | 60 disponíveis |
-| **Total** | **130** |  | **120 disponíveis** |
+| .NET, C#, frameworks e testes | 50 | Perguntas, respostas e exemplos | Concluído |
+| SQL | 20 | Perguntas, respostas e exemplos | Concluído |
+| **Total** | **130** |  | **130 disponíveis** |
 
 ## Conteúdo disponível
 
@@ -58,13 +59,20 @@ Elas abrangem:
 
 ### SQL
 
-As questões 51 a 60 estão disponíveis em:
+As questões 51 a 70 estão disponíveis em:
 
 - [Perguntas de entrevista sobre SQL](./Interview%20Questions/SQL.md)
 
-O primeiro bloco de SQL aborda junções, chaves e integridade referencial, normalização, índices clustered e nonclustered, transações ACID, diferenças entre `DELETE`, `TRUNCATE TABLE` e `DROP TABLE`, funções de janela, CTEs e stored procedures.
+O módulo aborda:
 
-Os exemplos são apresentados principalmente em SQL Server/T-SQL e indicam quando o comportamento pode variar entre SGBDs.
+- junções, chaves, integridade referencial e normalização;
+- índices, transações, funções de janela, CTEs e stored procedures;
+- SQL injection, `EXISTS`, `IN` e lógica de três valores;
+- diagnóstico de consultas e planos de execução;
+- agregações, chaves compostas, views materializadas e funções definidas pelo usuário;
+- estratégias de banco para aplicações multitenant.
+
+Os exemplos são apresentados principalmente em SQL Server/T-SQL e indicam quando o comportamento varia entre SGBDs.
 
 ## Estrutura do repositório
 
@@ -75,9 +83,9 @@ Os exemplos são apresentados principalmente em SQL Server/T-SQL e indicam quand
 ├── Trees/                     # 20 questões concluídas sobre árvores
 ├── Interview Questions/
 │   ├── README.md              # 50 perguntas de .NET e C#
-│   └── SQL.md                 # Questões 51 a 60 de SQL
+│   └── SQL.md                 # 20 perguntas de SQL
 ├── InterviewQuestions.sln     # Solução .NET
-├── ROADMAP.md                 # Progresso da atualização
+├── ROADMAP.md                 # Histórico e revisão técnica
 └── README.md
 ```
 
@@ -121,18 +129,18 @@ A solução é validada por GitHub Actions com o SDK do .NET 10. O workflow exec
 
 ## Escopo desta tradução
 
-Nesta fase, o trabalho inclui:
+O trabalho inclui:
 
 - documentação em Markdown;
 - perguntas e respostas;
 - implementações C#;
 - comentários e explicações técnicas.
 
-Os arquivos PDF existentes no projeto original **não serão incorporados nem traduzidos por enquanto**.
+Os arquivos PDF existentes no projeto original não foram incorporados nem traduzidos nesta atualização.
 
 ## Acompanhamento
 
-O progresso detalhado está registrado no [`ROADMAP.md`](./ROADMAP.md).
+O histórico detalhado da atualização e dos ajustes técnicos está registrado no [`ROADMAP.md`](./ROADMAP.md).
 
 ## Créditos
 
