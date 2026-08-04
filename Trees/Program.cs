@@ -46,3 +46,54 @@ TreeNode treeToInvert = new(1, new TreeNode(2), new TreeNode(3));
 InvertBinaryTree invertBinaryTree = new(treeToInvert);
 invertBinaryTree.InvertBFS();
 Console.WriteLine($"Árvore invertida em BFS: {string.Join(", ", new BreadthFirstTraversal(invertBinaryTree.CurrentRoot).LevelOrderFlat())}");
+
+FindMinMaxBST minMax = new(root);
+Console.WriteLine($"Mínimo e máximo da BST: {minMax.FindMinIterative()} e {minMax.FindMaxIterative()}");
+
+LowestCommonAncestor lowestCommonAncestor = new(root);
+Console.WriteLine($"LCA de 1 e 3: {lowestCommonAncestor.FindLcaInBstIterative(1, 3)?.Value}");
+
+DiameterOfBinaryTree diameter = new(root);
+Console.WriteLine($"Diâmetro em arestas: {diameter.FindDiameterOptimal()}");
+
+TreeNode symmetricRoot = new(
+    1,
+    new TreeNode(2, new TreeNode(3), new TreeNode(4)),
+    new TreeNode(2, new TreeNode(4), new TreeNode(3)));
+Console.WriteLine($"Árvore simétrica: {new CheckSymmetricTree(symmetricRoot).IsSymmetricIterative()}");
+
+SerializeDeserializeTree serializer = new();
+string serialized = serializer.SerializePreorder(root);
+TreeNode? restored = serializer.DeserializePreorder(serialized);
+Console.WriteLine($"Serialização em pré-ordem: {serialized}");
+Console.WriteLine($"Árvore restaurada válida: {new ValidateBST(restored).IsValidRecursive()}");
+
+PathSum pathSum = new(root);
+Console.WriteLine($"Existe caminho com soma 7: {pathSum.HasPathSumRecursive(7)}");
+
+RootToLeafPaths rootToLeafPaths = new(root);
+Console.WriteLine($"Caminhos: {string.Join(" | ", rootToLeafPaths.FindAllPathsAsStrings())}");
+
+CountNodes countNodes = new(root);
+Console.WriteLine($"Nós totais: {countNodes.CountAllBfs()}; folhas: {countNodes.CountLeaves()}");
+
+KthSmallestInBST kthSmallest = new(root);
+Console.WriteLine($"4º menor valor: {kthSmallest.FindKthSmallestIterative(4)}");
+
+BuildTreeFromRelationships hierarchy = new();
+hierarchy.BuildTree(
+    new List<BuildTreeFromRelationships.Relationship>
+    {
+        new(1, null, "Diretoria"),
+        new(2, 1, "Engenharia"),
+        new(3, 1, "Produto"),
+        new(4, 2, "Backend"),
+        new(5, 2, "Frontend")
+    });
+
+Console.WriteLine("Hierarquia:");
+foreach (string line in hierarchy.PrintHierarchy())
+    Console.WriteLine(line);
+
+Console.WriteLine($"Altura da hierarquia: {hierarchy.ComputeHeight()}");
+Console.WriteLine($"Gestor comum de Backend e Frontend: {hierarchy.FindLowestCommonManager(4, 5)?.Name}");
