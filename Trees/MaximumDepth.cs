@@ -31,7 +31,7 @@ public class MaximumDepth
     }
 
     // Tempo: O(n). Espaço auxiliar: O(w), onde w é a largura máxima.
-    public int FindMaxDepthBfs()
+    public int FindMaxDepthBFS()
     {
         if (_root is null)
             return 0;
