@@ -11,10 +11,10 @@ Este repositório é uma tradução e adaptação autorizada do projeto [`Stefan
 | Categoria | Quantidade | Formato | Situação |
 |---|---:|---|---|
 | Arrays | 20 | Implementações C# e análise de complexidade | Concluído |
-| `List<T>` | 20 | Implementações C# e análise de complexidade | 10 disponíveis |
+| `List<T>` | 20 | Implementações C# e análise de complexidade | Concluído |
 | Árvores | 20 | Implementações C# e análise de complexidade | Em preparação |
 | .NET, C#, frameworks, testes e SQL | 70 | Perguntas, respostas e exemplos | 50 disponíveis |
-| **Total** | **130** |  | **80 disponíveis** |
+| **Total** | **130** |  | **90 disponíveis** |
 
 ## Conteúdo disponível
 
@@ -28,11 +28,11 @@ O módulo inclui operações fundamentais, inversão, rotação, duplicados, int
 
 ### `List<T>`
 
-As primeiras dez questões de listas estão disponíveis em:
+As 20 questões de listas estão disponíveis em:
 
 - [Exercícios e implementações com listas](./Lists/README.md)
 
-O módulo já inclui remoção de duplicados, segundo maior valor, reversão, ordenação, frequência, elementos comuns, mesclagem, número ausente, rotação e Fisher–Yates.
+O módulo inclui duplicados, segundo maior valor, reversão, ordenação, frequências, interseção, mesclagem, número ausente, rotação, embaralhamento, palíndromo, agrupamento, pares, blocos, achatamento, soma contígua, movimentação de zeros e comparação de igualdade.
 
 ### Perguntas gerais de .NET e C#
 
@@ -53,7 +53,7 @@ Elas abrangem:
 ```text
 .
 ├── Arrays/                    # 20 questões concluídas sobre arrays
-├── Lists/                     # 10 de 20 questões concluídas sobre List<T>
+├── Lists/                     # 20 questões concluídas sobre List<T>
 ├── Trees/                     # 20 exercícios e implementações com árvores
 ├── Interview Questions/       # Perguntas conceituais de .NET, C# e SQL
 ├── InterviewQuestions.sln     # Solução .NET
@@ -97,7 +97,7 @@ Os projetos `Arrays` e `Lists` já contêm exemplos executáveis. O ponto de ent
 
 ## Validação
 
-A solução é validada por GitHub Actions com o SDK do .NET 10. A execução mais recente após a inclusão das questões 1 a 10 de listas concluiu o restore e o build em modo Release com sucesso.
+A solução é validada por GitHub Actions com o SDK do .NET 10. O workflow executa restore e build em modo Release a cada atualização da branch de trabalho e nos pull requests direcionados à `main`.
 
 ## Escopo desta tradução
 
