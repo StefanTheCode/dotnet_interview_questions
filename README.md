@@ -10,13 +10,23 @@ Este repositório é uma tradução e adaptação autorizada do projeto [`Stefan
 
 | Categoria | Quantidade | Formato | Situação |
 |---|---:|---|---|
-| Arrays | 20 | Implementações C# e análise de complexidade | Em preparação |
+| Arrays | 20 | Implementações C# e análise de complexidade | 10 disponíveis |
 | `List<T>` | 20 | Implementações C# e análise de complexidade | Em preparação |
 | Árvores | 20 | Implementações C# e análise de complexidade | Em preparação |
 | .NET, C#, frameworks, testes e SQL | 70 | Perguntas, respostas e exemplos | 50 disponíveis |
-| **Total** | **130** |  | **Atualização em andamento** |
+| **Total** | **130** |  | **60 disponíveis** |
 
 ## Conteúdo disponível
+
+### Arrays
+
+As primeiras dez questões práticas de arrays estão disponíveis em:
+
+- [Exercícios e implementações com arrays](./Arrays/README.md)
+
+O módulo já inclui inversão, rotação, remoção de duplicados, interseção, número ausente, palíndromo, maior produto de subarray e achatamento de array jagged.
+
+### Perguntas gerais de .NET e C#
 
 As 50 perguntas conceituais já traduzidas estão disponíveis em:
 
@@ -43,11 +53,11 @@ Elas abrangem:
 └── README.md
 ```
 
-Os projetos de código utilizam **.NET 10** e serão incorporados gradualmente conforme cada módulo for traduzido e revisado.
+Os projetos de código utilizam **.NET 10** e estão sendo incorporados gradualmente conforme cada módulo é traduzido e revisado.
 
 ## Abordagem dos exercícios práticos
 
-Cada exercício de arrays, listas e árvores deverá apresentar:
+Cada exercício de arrays, listas e árvores procura apresentar:
 
 - explicação do problema;
 - mais de uma abordagem quando aplicável;
