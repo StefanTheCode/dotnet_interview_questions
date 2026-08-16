@@ -2,64 +2,79 @@ namespace Lists;
 
 /// <summary>
 /// Q16: SplitListIntoChunks
-/// Task: Split a List&lt;int&gt; into smaller chunks of a given size using multiple approaches:
-/// 1. Manual loop with index tracking (O(n))
-/// 2. GetRange-based slicing (O(n))
-/// 3. LINQ Chunk (O(n), available in .NET 6+)
+/// Tarefa: dividir uma lista em blocos menores de tamanho máximo definido.
+/// O último bloco pode conter menos elementos.
+///
+/// Abordagens apresentadas:
+/// 1. Laços e controle manual de índices: O(n) de tempo.
+/// 2. List&lt;T&gt;.GetRange: O(n) de tempo.
+/// 3. Enumerable.Chunk: O(n) de tempo.
+/// Todas as abordagens alocam O(n) de espaço para os blocos resultantes.
 /// </summary>
-public class SplitListIntoChunks
+public sealed class SplitListIntoChunks
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public SplitListIntoChunks(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Manual Loop O(n)
-    // - Track current index and create sub-lists of the given size
-    // - Last chunk may be smaller if elements don't divide evenly
     public List<List<int>> SplitManual(int chunkSize)
     {
-        List<List<int>> chunks = new List<List<int>>();
+        ValidateChunkSize(chunkSize);
+        List<List<int>> chunks = new();
 
-        for (int i = 0; i < _list.Count; i += chunkSize)
+        for (int start = 0; start < _list.Count; start += chunkSize)
         {
-            List<int> chunk = new List<int>();
-            for (int j = i; j < i + chunkSize && j < _list.Count; j++)
+            List<int> chunk = new(Math.Min(chunkSize, _list.Count - start));
+
+            for (int index = start;
+                 index < start + chunkSize && index < _list.Count;
+                 index++)
             {
-                chunk.Add(_list[j]);
+                chunk.Add(_list[index]);
             }
+
             chunks.Add(chunk);
         }
 
         return chunks;
     }
 
-    // 2️. GetRange-based Slicing O(n)
-    // - Use List<T>.GetRange to extract sub-lists
-    // - Cleaner than manual index tracking
     public List<List<int>> SplitWithGetRange(int chunkSize)
     {
-        List<List<int>> chunks = new List<List<int>>();
+        ValidateChunkSize(chunkSize);
+        List<List<int>> chunks = new();
 
-        for (int i = 0; i < _list.Count; i += chunkSize)
+        for (int start = 0; start < _list.Count; start += chunkSize)
         {
-            int size = Math.Min(chunkSize, _list.Count - i);
-            chunks.Add(_list.GetRange(i, size));
+            int currentSize = Math.Min(chunkSize, _list.Count - start);
+            chunks.Add(_list.GetRange(start, currentSize));
         }
 
         return chunks;
     }
 
-    // 3️. LINQ Chunk O(n) (.NET 6+)
-    // - Built-in Chunk method splits into arrays of given size
-    // - Most concise approach
     public List<List<int>> SplitWithLinq(int chunkSize)
     {
+        ValidateChunkSize(chunkSize);
+
         return _list
             .Chunk(chunkSize)
             .Select(chunk => chunk.ToList())
             .ToList();
+    }
+
+    private static void ValidateChunkSize(int chunkSize)
+    {
+        if (chunkSize <= 0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(chunkSize),
+                chunkSize,
+                "O tamanho do bloco deve ser maior que zero.");
+        }
     }
 }

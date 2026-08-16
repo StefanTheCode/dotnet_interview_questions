@@ -1,60 +1,64 @@
 namespace Lists;
 
 /// <summary>
-/// Q4: SortList
-/// Task: Sort a List&lt;int&gt; using multiple approaches:
-/// 1. Bubble sort manual implementation (O(n²))
-/// 2. Built-in List.Sort (O(n log n))
-/// 3. LINQ OrderBy for functional style sorting (O(n log n))
+/// Q4: ordenar uma <see cref="List{T}"/> de inteiros.
+/// Apresenta bubble sort, <see cref="List{T}.Sort()"/> e LINQ.
 /// </summary>
-public class SortList
+public sealed class SortList
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public SortList(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Worst approach: Bubble Sort O(n²)
-    // - Compare adjacent elements and swap if out of order
-    // - Repeat until no swaps are needed
+    /// <summary>
+    /// Ordena uma cópia com bubble sort e interrupção antecipada.
+    /// Tempo: O(n²) no pior caso e O(n) no melhor caso. Espaço: O(n) pela cópia.
+    /// </summary>
     public List<int> SortBubble()
     {
-        List<int> copy = new List<int>(_list);
+        List<int> copy = new(_list);
 
         for (int i = 0; i < copy.Count - 1; i++)
         {
             bool swapped = false;
+
             for (int j = 0; j < copy.Count - 1 - i; j++)
             {
-                if (copy[j] > copy[j + 1])
-                {
-                    (copy[j], copy[j + 1]) = (copy[j + 1], copy[j]);
-                    swapped = true;
-                }
+                if (copy[j] <= copy[j + 1])
+                    continue;
+
+                (copy[j], copy[j + 1]) = (copy[j + 1], copy[j]);
+                swapped = true;
             }
-            if (!swapped) break; // Already sorted
+
+            if (!swapped)
+                break;
         }
 
         return copy;
     }
 
-    // 2️. Built-in Sort O(n log n)
-    // - Uses IntroSort internally (hybrid of quicksort, heapsort, insertion sort)
-    // - In-place sorting on a copy
+    /// <summary>
+    /// Usa a ordenação nativa sobre uma cópia da lista.
+    /// Tempo típico: O(n log n). Espaço adicional: depende da implementação interna.
+    /// </summary>
     public List<int> SortBuiltIn()
     {
-        List<int> copy = new List<int>(_list);
+        List<int> copy = new(_list);
         copy.Sort();
         return copy;
     }
 
-    // 3️. LINQ OrderBy O(n log n)
-    // - Functional approach that returns a new sorted list
-    // - Concise but creates intermediate allocations
+    /// <summary>
+    /// Usa LINQ para criar uma nova lista ordenada.
+    /// Tempo: O(n log n). Espaço: O(n).
+    /// </summary>
     public List<int> SortWithLinq()
     {
-        return _list.OrderBy(x => x).ToList();
+        return _list.OrderBy(number => number).ToList();
     }
 }

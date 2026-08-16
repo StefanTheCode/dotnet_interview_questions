@@ -1,77 +1,82 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q18: ShuffleArray
-/// Task: Randomly shuffle the elements of an array using multiple approaches:
-/// 1. Naive approach using Random selection with potential duplicates (not perfectly uniform)
-/// 2. Fisher-Yates algorithm iterative (O(n), optimal and uniform)
-/// 3. Fisher-Yates using in-place swaps with Random object (O(n), optimal)
+/// Questão 17: embaralhar os elementos de um array.
+///
+/// As abordagens apresentadas são:
+/// 1. seleção aleatória com rejeição de índices repetidos — custo esperado O(n log n);
+/// 2. Fisher–Yates sobre uma cópia — O(n) de tempo e O(n) de espaço;
+/// 3. Fisher–Yates in-place sobre o estado interno — O(n) de tempo e O(1) de espaço extra.
+///
+/// A primeira abordagem também produz uma permutação uniforme, mas fica progressivamente
+/// mais lenta à medida que restam poucos índices ainda não selecionados.
 /// </summary>
 public class ShuffleArray
 {
-    private int[] _array;
-    private Random _random;
+    private readonly int[] _array;
+    private readonly Random _random;
 
-    public ShuffleArray(int[] array)
+    public ShuffleArray(int[] array, Random? random = null)
     {
-        _array = (int[])array.Clone(); // Clone to avoid modifying original
-        _random = new Random();
+        ArgumentNullException.ThrowIfNull(array);
+        _array = (int[])array.Clone();
+        _random = random ?? Random.Shared;
     }
 
-    // 1️. Naive Shuffle O(n²)
-    // - Keep picking random indices and swapping if not already used
-    // - Not perfectly uniform and slower
+    /// <summary>
+    /// Sorteia índices até preencher todas as posições, rejeitando índices já utilizados.
+    /// O pior caso não possui limite determinístico de tentativas.
+    /// </summary>
     public int[] ShuffleNaive()
     {
-        int n = _array.Length;
-        bool[] used = new bool[n];
-        int[] shuffled = new int[n];
+        bool[] used = new bool[_array.Length];
+        int[] shuffled = new int[_array.Length];
         int count = 0;
 
-        while (count < n)
+        while (count < _array.Length)
         {
-            int idx = _random.Next(n);
-            if (!used[idx])
-            {
-                shuffled[count++] = _array[idx];
-                used[idx] = true;
-            }
+            int index = _random.Next(_array.Length);
+
+            if (used[index])
+                continue;
+
+            shuffled[count++] = _array[index];
+            used[index] = true;
         }
 
         return shuffled;
     }
 
-    // 2️. Fisher-Yates Algorithm O(n)
-    // - Swap each element with a random element from remaining unshuffled part
-    // - Produces uniform random permutations
+    /// <summary>
+    /// Embaralha uma cópia usando a forma clássica do algoritmo de Fisher–Yates.
+    /// </summary>
     public int[] ShuffleFisherYates()
     {
-        int[] arrCopy = (int[])_array.Clone();
-        int n = arrCopy.Length;
+        int[] shuffled = (int[])_array.Clone();
 
-        for (int i = 0; i < n; i++)
+        for (int i = shuffled.Length - 1; i > 0; i--)
         {
-            int j = _random.Next(i, n); // pick a random index from i to n-1
-            (arrCopy[i], arrCopy[j]) = (arrCopy[j], arrCopy[i]);
+            int randomIndex = _random.Next(i + 1);
+            (shuffled[i], shuffled[randomIndex]) = (shuffled[randomIndex], shuffled[i]);
         }
 
-        return arrCopy;
+        return shuffled;
     }
 
-    // 3️. Fisher-Yates In-Place O(n)
-    // - Shuffle the array itself without creating a copy
-    // - Most memory-efficient approach
+    /// <summary>
+    /// Embaralha diretamente o array interno da instância.
+    /// O array fornecido ao construtor permanece inalterado porque foi clonado.
+    /// </summary>
     public void ShuffleInPlace()
     {
-        for (int i = 0; i < _array.Length; i++)
+        for (int i = _array.Length - 1; i > 0; i--)
         {
-            int j = _random.Next(i, _array.Length);
-            (_array[i], _array[j]) = (_array[j], _array[i]);
+            int randomIndex = _random.Next(i + 1);
+            (_array[i], _array[randomIndex]) = (_array[randomIndex], _array[i]);
         }
     }
 
-    public void PrintArray()
-    {
-        Console.WriteLine(string.Join(", ", _array));
-    }
+    public int[] ToArray() => (int[])_array.Clone();
+
+    public void PrintArray() => Console.WriteLine(string.Join(", ", _array));
 }

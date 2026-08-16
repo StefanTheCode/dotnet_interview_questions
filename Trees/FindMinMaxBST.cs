@@ -2,72 +2,69 @@ namespace Trees;
 
 /// <summary>
 /// Q11: FindMinMaxBST
-/// Task: Find the minimum and maximum values in a Binary Search Tree using multiple approaches:
-/// 1. Recursive traversal to leftmost/rightmost node (O(h))
-/// 2. Iterative traversal to leftmost/rightmost node (O(h), optimal)
+/// Problema: encontrar os valores mínimo e máximo de uma Binary Search Tree.
+///
+/// Em uma BST válida sem duplicados, o menor valor está no nó mais à esquerda
+/// e o maior valor está no nó mais à direita.
 /// </summary>
 public class FindMinMaxBST
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public FindMinMaxBST(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Recursive: Find Minimum
-    // - In a BST, the smallest value is always the leftmost node
-    // Time: O(h), Space: O(h)
+    // Tempo: O(h). Espaço auxiliar: O(h), devido à pilha de chamadas.
     public int? FindMinRecursive()
     {
-        if (_root == null) return null;
-        return FindMinHelper(_root);
+        return _root is null ? null : FindMinRecursive(_root);
     }
 
-    private int FindMinHelper(TreeNode node)
+    private static int FindMinRecursive(TreeNode node)
     {
-        if (node.Left == null) return node.Value;
-        return FindMinHelper(node.Left);
+        return node.Left is null
+            ? node.Value
+            : FindMinRecursive(node.Left);
     }
 
-    // 1️. Recursive: Find Maximum
-    // - In a BST, the largest value is always the rightmost node
-    // Time: O(h), Space: O(h)
+    // Tempo: O(h). Espaço auxiliar: O(h), devido à pilha de chamadas.
     public int? FindMaxRecursive()
     {
-        if (_root == null) return null;
-        return FindMaxHelper(_root);
+        return _root is null ? null : FindMaxRecursive(_root);
     }
 
-    private int FindMaxHelper(TreeNode node)
+    private static int FindMaxRecursive(TreeNode node)
     {
-        if (node.Right == null) return node.Value;
-        return FindMaxHelper(node.Right);
+        return node.Right is null
+            ? node.Value
+            : FindMaxRecursive(node.Right);
     }
 
-    // 2️. Iterative: Find Minimum — Optimal
-    // - Simply follow left pointers until we reach a leaf
-    // Time: O(h), Space: O(1)
+    // Tempo: O(h). Espaço auxiliar: O(1).
     public int? FindMinIterative()
     {
-        if (_root == null) return null;
+        if (_root is null)
+            return null;
 
         TreeNode current = _root;
-        while (current.Left != null)
+
+        while (current.Left is not null)
             current = current.Left;
 
         return current.Value;
     }
 
-    // 2️. Iterative: Find Maximum — Optimal
-    // - Simply follow right pointers until we reach a leaf
-    // Time: O(h), Space: O(1)
+    // Tempo: O(h). Espaço auxiliar: O(1).
     public int? FindMaxIterative()
     {
-        if (_root == null) return null;
+        if (_root is null)
+            return null;
 
         TreeNode current = _root;
-        while (current.Right != null)
+
+        while (current.Right is not null)
             current = current.Right;
 
         return current.Value;

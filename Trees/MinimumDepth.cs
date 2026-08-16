@@ -2,68 +2,66 @@ namespace Trees;
 
 /// <summary>
 /// Q4: MinimumDepth
-/// Task: Find the minimum depth of a binary tree (shortest path from root to nearest leaf)
-/// using multiple approaches:
-/// 1. Recursive DFS (O(n) time, O(h) space)
-/// 2. BFS — stops at the first leaf found (O(n) time, O(n) space, optimal for min depth)
+/// Problema: encontrar o caminho mais curto da raiz até uma folha:
+/// 1. DFS recursiva;
+/// 2. BFS que termina na primeira folha encontrada.
 /// </summary>
 public class MinimumDepth
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public MinimumDepth(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Recursive DFS
-    // - Must handle the case where a node has only one child
-    //   (a node with one child is NOT a leaf, so we can't return 1 for it)
-    // Time: O(n), Space: O(h)
+    // Um nó com somente um filho não é folha; nesse caso, a busca deve seguir pelo filho existente.
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public int FindMinDepthRecursive()
     {
-        return MinDepthHelper(_root);
+        return FindMinDepthRecursive(_root);
     }
 
-    private int MinDepthHelper(TreeNode? node)
+    private static int FindMinDepthRecursive(TreeNode? node)
     {
-        if (node == null) return 0;
+        if (node is null)
+            return 0;
 
-        // If only right child exists, go right
-        if (node.Left == null)
-            return 1 + MinDepthHelper(node.Right);
+        if (node.Left is null)
+            return 1 + FindMinDepthRecursive(node.Right);
 
-        // If only left child exists, go left
-        if (node.Right == null)
-            return 1 + MinDepthHelper(node.Left);
+        if (node.Right is null)
+            return 1 + FindMinDepthRecursive(node.Left);
 
-        // Both children exist: take the minimum
-        return 1 + Math.Min(MinDepthHelper(node.Left), MinDepthHelper(node.Right));
+        return 1 + Math.Min(
+            FindMinDepthRecursive(node.Left),
+            FindMinDepthRecursive(node.Right));
     }
 
-    // 2️. BFS — Optimal for minimum depth
-    // - First leaf encountered is at the minimum depth
-    // - No need to visit every node
-    // Time: O(n) worst case, Space: O(n)
+    // A primeira folha removida da fila está necessariamente na menor profundidade.
+    // Tempo: O(n) no pior caso. Espaço auxiliar: O(w).
     public int FindMinDepthBFS()
     {
-        if (_root == null) return 0;
+        if (_root is null)
+            return 0;
 
-        Queue<(TreeNode node, int depth)> queue = new Queue<(TreeNode, int)>();
+        Queue<(TreeNode Node, int Depth)> queue = new();
         queue.Enqueue((_root, 1));
 
         while (queue.Count > 0)
         {
-            var (current, depth) = queue.Dequeue();
+            (TreeNode current, int depth) = queue.Dequeue();
 
-            // First leaf found — this is the minimum depth
-            if (current.Left == null && current.Right == null)
+            if (current.Left is null && current.Right is null)
                 return depth;
 
-            if (current.Left != null) queue.Enqueue((current.Left, depth + 1));
-            if (current.Right != null) queue.Enqueue((current.Right, depth + 1));
+            if (current.Left is not null)
+                queue.Enqueue((current.Left, depth + 1));
+
+            if (current.Right is not null)
+                queue.Enqueue((current.Right, depth + 1));
         }
 
-        return 0; // Should never reach here for a valid tree
+        throw new InvalidOperationException("A árvore contém uma estrutura inválida.");
     }
 }

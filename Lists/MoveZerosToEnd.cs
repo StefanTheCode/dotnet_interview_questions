@@ -2,60 +2,65 @@ namespace Lists;
 
 /// <summary>
 /// Q19: MoveZerosToEnd
-/// Task: Move all zeros in a List&lt;int&gt; to the end while maintaining the relative order
-/// of non-zero elements using multiple approaches:
-/// 1. Brute force: create new list with non-zeros first, then zeros (O(n) time, O(n) space)
-/// 2. In-place with write pointer (O(n) time, O(1) space, optimal)
-/// 3. LINQ OrderBy for concise approach (O(n log n), not optimal)
+/// Tarefa: mover todos os zeros para o final da lista, preservando a ordem relativa
+/// dos elementos diferentes de zero.
+///
+/// Abordagens apresentadas:
+/// 1. Criar uma nova lista: O(n) de tempo e O(n) de espaço.
+/// 2. Usar um índice de escrita sobre a lista interna: O(n) de tempo e O(1) de espaço.
+/// 3. Usar OrderBy estável: O(n log n) de tempo e O(n) de espaço.
 /// </summary>
-public class MoveZerosToEnd
+public sealed class MoveZerosToEnd
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public MoveZerosToEnd(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Simple Approach: New list O(n) time, O(n) space
-    // - Collect all non-zero elements first, then append zeros
     public List<int> MoveWithNewList()
     {
-        List<int> result = new List<int>();
+        List<int> result = new(_list.Count);
         int zeroCount = 0;
 
-        foreach (int num in _list)
+        foreach (int number in _list)
         {
-            if (num != 0)
-                result.Add(num);
-            else
+            if (number == 0)
+            {
                 zeroCount++;
+            }
+            else
+            {
+                result.Add(number);
+            }
         }
 
-        for (int i = 0; i < zeroCount; i++)
+        for (int index = 0; index < zeroCount; index++)
+        {
             result.Add(0);
+        }
 
         return result;
     }
 
-    // 2️. Optimal: In-Place Write Pointer O(n) time, O(1) space
-    // - Use a write pointer to place non-zero elements at the front
-    // - Fill remaining positions with zeros
+    /// <summary>
+    /// Modifica somente a cópia interna da lista recebida no construtor.
+    /// </summary>
     public void MoveInPlace()
     {
         int writeIndex = 0;
 
-        // Move all non-zero elements to the front
-        for (int i = 0; i < _list.Count; i++)
+        for (int readIndex = 0; readIndex < _list.Count; readIndex++)
         {
-            if (_list[i] != 0)
+            if (_list[readIndex] != 0)
             {
-                _list[writeIndex] = _list[i];
+                _list[writeIndex] = _list[readIndex];
                 writeIndex++;
             }
         }
 
-        // Fill the remaining positions with zeros
         while (writeIndex < _list.Count)
         {
             _list[writeIndex] = 0;
@@ -63,16 +68,13 @@ public class MoveZerosToEnd
         }
     }
 
-    // 3️. LINQ Approach O(n log n)
-    // - Order by whether element is zero (false sorts before true)
-    // - Concise but uses sorting which is overkill
     public List<int> MoveWithLinq()
     {
-        return _list.OrderBy(x => x == 0 ? 1 : 0).ToList();
+        return _list.OrderBy(number => number == 0).ToList();
     }
 
-    public void PrintList()
+    public IReadOnlyList<int> GetCurrentList()
     {
-        Console.WriteLine(string.Join(", ", _list));
+        return _list.AsReadOnly();
     }
 }

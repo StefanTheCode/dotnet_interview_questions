@@ -1,57 +1,62 @@
 namespace Lists;
 
 /// <summary>
-/// Q6: FindCommonElements
-/// Task: Find common elements between two List&lt;int&gt; collections using multiple approaches:
-/// 1. Brute force nested loops (O(n*m))
-/// 2. Sort both lists and use two-pointer method (O(n log n + m log m))
-/// 3. HashSet lookup for O(n+m) optimal solution
+/// Q6: encontrar os valores distintos presentes em duas listas.
 /// </summary>
-public class FindCommonElements
+public sealed class FindCommonElements
 {
-    private List<int> _list1;
-    private List<int> _list2;
+    private readonly List<int> _list1;
+    private readonly List<int> _list2;
 
     public FindCommonElements(List<int> list1, List<int> list2)
     {
-        _list1 = list1;
-        _list2 = list2;
+        ArgumentNullException.ThrowIfNull(list1);
+        ArgumentNullException.ThrowIfNull(list2);
+
+        _list1 = new List<int>(list1);
+        _list2 = new List<int>(list2);
     }
 
-    // 1️. Brute Force O(n*m)
-    // - Compare each element of list1 with each element of list2
-    // - Add to result if a match is found and it's not already added
+    /// <summary>
+    /// Compara cada elemento da primeira lista com todos os elementos da segunda.
+    /// Tempo: O(n × m), desconsiderando a verificação dos duplicados no resultado.
+    /// Espaço: O(u).
+    /// </summary>
     public List<int> FindCommonBruteForce()
     {
-        List<int> common = new List<int>();
+        List<int> common = [];
+        HashSet<int> added = [];
 
-        for (int i = 0; i < _list1.Count; i++)
+        foreach (int left in _list1)
         {
-            for (int j = 0; j < _list2.Count; j++)
+            foreach (int right in _list2)
             {
-                if (_list1[i] == _list2[j] && !common.Contains(_list1[i]))
-                {
-                    common.Add(_list1[i]);
-                    break;
-                }
+                if (left != right || !added.Add(left))
+                    continue;
+
+                common.Add(left);
+                break;
             }
         }
 
         return common;
     }
 
-    // 2️. Better Approach: Sorting + Two-Pointer O(n log n + m log m)
-    // - Sort both lists
-    // - Move two pointers to find matching elements
+    /// <summary>
+    /// Ordena cópias e usa dois ponteiros.
+    /// Tempo: O(n log n + m log m). Espaço: O(n + m).
+    /// O resultado é crescente e não contém duplicados.
+    /// </summary>
     public List<int> FindCommonTwoPointer()
     {
-        List<int> sorted1 = new List<int>(_list1);
-        List<int> sorted2 = new List<int>(_list2);
+        List<int> sorted1 = new(_list1);
+        List<int> sorted2 = new(_list2);
         sorted1.Sort();
         sorted2.Sort();
 
-        List<int> common = new List<int>();
-        int i = 0, j = 0;
+        List<int> common = [];
+        int i = 0;
+        int j = 0;
 
         while (i < sorted1.Count && j < sorted2.Count)
         {
@@ -76,23 +81,23 @@ public class FindCommonElements
         return common;
     }
 
-    // 3️. Optimal Approach: HashSet O(n + m)
-    // - Store elements of smaller list in a HashSet for O(1) lookup
-    // - Iterate over the other list and add common elements
+    /// <summary>
+    /// Armazena a segunda lista em um conjunto e percorre a primeira.
+    /// Tempo médio: O(n + m). Espaço: O(m + u).
+    /// Preserva a ordem da primeira ocorrência na primeira lista.
+    /// </summary>
     public List<int> FindCommonHashSet()
     {
-        List<int> small = _list1.Count < _list2.Count ? _list1 : _list2;
-        List<int> large = _list1.Count < _list2.Count ? _list2 : _list1;
+        HashSet<int> valuesInSecondList = new(_list2);
+        HashSet<int> added = [];
+        List<int> result = [];
 
-        HashSet<int> set = new HashSet<int>(small);
-        HashSet<int> resultSet = new HashSet<int>();
-
-        foreach (int num in large)
+        foreach (int number in _list1)
         {
-            if (set.Contains(num))
-                resultSet.Add(num);
+            if (valuesInSecondList.Contains(number) && added.Add(number))
+                result.Add(number);
         }
 
-        return resultSet.ToList();
+        return result;
     }
 }

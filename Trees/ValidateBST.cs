@@ -2,29 +2,28 @@ namespace Trees;
 
 /// <summary>
 /// Q8: ValidateBST
-/// Task: Determine whether a given binary tree is a valid Binary Search Tree (BST)
-/// using multiple approaches:
-/// 1. Inorder traversal should produce a sorted sequence (O(n) time, O(n) space)
-/// 2. Recursive validation with min/max bounds (O(n) time, O(h) space, optimal)
-/// 3. Iterative inorder traversal with previous value check (O(n) time, O(h) space)
+/// Problema: determinar se uma árvore binária é uma Binary Search Tree válida:
+/// 1. Travessia em ordem armazenada em lista;
+/// 2. Validação recursiva com limites mínimo e máximo;
+/// 3. Travessia em ordem iterativa com comparação do valor anterior.
+///
+/// Esta implementação considera valores duplicados inválidos em uma BST.
 /// </summary>
 public class ValidateBST
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public ValidateBST(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Inorder Traversal + Check Sorted
-    // - Perform full inorder traversal, store results
-    // - Verify the resulting list is strictly ascending
-    // Time: O(n), Space: O(n)
+    // Uma BST válida produz uma sequência estritamente crescente em ordem.
+    // Tempo: O(n). Espaço auxiliar: O(n).
     public bool IsValidWithInorderList()
     {
-        List<int> values = new List<int>();
-        InorderCollect(_root, values);
+        List<int> values = [];
+        CollectInorder(_root, values);
 
         for (int i = 1; i < values.Count; i++)
         {
@@ -35,48 +34,47 @@ public class ValidateBST
         return true;
     }
 
-    private void InorderCollect(TreeNode? node, List<int> values)
+    private static void CollectInorder(TreeNode? node, List<int> values)
     {
-        if (node == null) return;
-        InorderCollect(node.Left, values);
+        if (node is null)
+            return;
+
+        CollectInorder(node.Left, values);
         values.Add(node.Value);
-        InorderCollect(node.Right, values);
+        CollectInorder(node.Right, values);
     }
 
-    // 2️. Recursive with Min/Max Bounds (Optimal)
-    // - Each node must be within a valid range
-    // - Left child: upper bound is parent value
-    // - Right child: lower bound is parent value
-    // Time: O(n), Space: O(h)
+    // Cada nó precisa permanecer dentro do intervalo imposto por seus ancestrais.
+    // long evita colisões com int.MinValue e int.MaxValue nos limites iniciais.
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public bool IsValidRecursive()
     {
-        return IsValidHelper(_root, long.MinValue, long.MaxValue);
+        return IsValid(_root, long.MinValue, long.MaxValue);
     }
 
-    private bool IsValidHelper(TreeNode? node, long min, long max)
+    private static bool IsValid(TreeNode? node, long minimum, long maximum)
     {
-        if (node == null) return true;
+        if (node is null)
+            return true;
 
-        if (node.Value <= min || node.Value >= max)
+        if (node.Value <= minimum || node.Value >= maximum)
             return false;
 
-        return IsValidHelper(node.Left, min, node.Value)
-            && IsValidHelper(node.Right, node.Value, max);
+        return IsValid(node.Left, minimum, node.Value)
+            && IsValid(node.Right, node.Value, maximum);
     }
 
-    // 3️. Iterative Inorder with Previous Value
-    // - Perform inorder traversal iteratively
-    // - Check that each value is greater than the previous one
-    // Time: O(n), Space: O(h)
+    // Compara cada valor visitado com o anterior sem materializar toda a sequência.
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public bool IsValidIterative()
     {
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        Stack<TreeNode> stack = new();
         TreeNode? current = _root;
         long previous = long.MinValue;
 
-        while (current != null || stack.Count > 0)
+        while (current is not null || stack.Count > 0)
         {
-            while (current != null)
+            while (current is not null)
             {
                 stack.Push(current);
                 current = current.Left;

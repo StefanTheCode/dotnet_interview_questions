@@ -1,77 +1,80 @@
 namespace Lists;
 
 /// <summary>
-/// Q10: ShuffleList
-/// Task: Randomly shuffle the elements of a List&lt;int&gt; using multiple approaches:
-/// 1. Naive approach using Random selection with potential duplicates (not perfectly uniform)
-/// 2. Fisher-Yates algorithm iterative (O(n), optimal and uniform)
-/// 3. Fisher-Yates using in-place swaps with Random object (O(n), optimal)
+/// Q10: embaralhar os elementos de uma lista.
+/// Apresenta seleção aleatória com rejeição e o algoritmo de Fisher–Yates.
 /// </summary>
-public class ShuffleList
+public sealed class ShuffleList
 {
-    private List<int> _list;
-    private Random _random;
+    private readonly List<int> _list;
+    private readonly Random _random;
 
-    public ShuffleList(List<int> list)
+    public ShuffleList(List<int> list, Random? random = null)
     {
-        _list = new List<int>(list); // Clone to avoid modifying original
-        _random = new Random();
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
+        _random = random ?? Random.Shared;
     }
 
-    // 1️. Naive Shuffle O(n²)
-    // - Keep picking random indices and swapping if not already used
-    // - Not perfectly uniform and slower
+    /// <summary>
+    /// Sorteia índices até selecionar todos sem repetição.
+    /// Gera permutações uniformes, mas sofre com colisões à medida que os índices disponíveis diminuem.
+    /// Tempo esperado: O(n log n). Espaço: O(n).
+    /// </summary>
     public List<int> ShuffleNaive()
     {
-        int n = _list.Count;
-        bool[] used = new bool[n];
-        List<int> shuffled = new List<int>(new int[n]);
-        int count = 0;
+        int count = _list.Count;
 
-        while (count < n)
+        if (count == 0)
+            return [];
+
+        bool[] used = new bool[count];
+        List<int> shuffled = new(count);
+
+        while (shuffled.Count < count)
         {
-            int idx = _random.Next(n);
-            if (!used[idx])
-            {
-                shuffled[count++] = _list[idx];
-                used[idx] = true;
-            }
+            int index = _random.Next(count);
+
+            if (used[index])
+                continue;
+
+            used[index] = true;
+            shuffled.Add(_list[index]);
         }
 
         return shuffled;
     }
 
-    // 2️. Fisher-Yates Algorithm O(n)
-    // - Swap each element with a random element from remaining unshuffled part
-    // - Produces uniform random permutations
+    /// <summary>
+    /// Embaralha uma cópia com Fisher–Yates.
+    /// Tempo: O(n). Espaço: O(n) pela cópia.
+    /// Cada permutação possui a mesma probabilidade quando o gerador é adequado.
+    /// </summary>
     public List<int> ShuffleFisherYates()
     {
-        List<int> copy = new List<int>(_list);
-        int n = copy.Count;
+        List<int> copy = new(_list);
 
-        for (int i = 0; i < n; i++)
+        for (int i = copy.Count - 1; i > 0; i--)
         {
-            int j = _random.Next(i, n);
-            (copy[i], copy[j]) = (copy[j], copy[i]);
+            int randomIndex = _random.Next(i + 1);
+            (copy[i], copy[randomIndex]) = (copy[randomIndex], copy[i]);
         }
 
         return copy;
     }
 
-    // 3️. Fisher-Yates In-Place O(n)
-    // - Shuffle the list itself without creating a copy
-    // - Most memory-efficient approach
+    /// <summary>
+    /// Aplica Fisher–Yates diretamente sobre a lista interna.
+    /// Tempo: O(n). Espaço: O(1).
+    /// </summary>
     public void ShuffleInPlace()
     {
-        for (int i = 0; i < _list.Count; i++)
+        for (int i = _list.Count - 1; i > 0; i--)
         {
-            int j = _random.Next(i, _list.Count);
-            (_list[i], _list[j]) = (_list[j], _list[i]);
+            int randomIndex = _random.Next(i + 1);
+            (_list[i], _list[randomIndex]) = (_list[randomIndex], _list[i]);
         }
     }
 
-    public void PrintList()
-    {
-        Console.WriteLine(string.Join(", ", _list));
-    }
+    public IReadOnlyList<int> Current => _list;
 }

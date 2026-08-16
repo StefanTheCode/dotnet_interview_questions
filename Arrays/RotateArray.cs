@@ -1,87 +1,103 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q9: RotateArray
-/// Task: Given an integer array, rotate the array to the right by K steps using multiple approaches:
-/// 1. Brute force rotation by shifting elements one step at a time (O(n*k), worst)
-/// 2. Extra array to copy rotated values (O(n) time, O(n) space)
-/// 3. In-place reversal method using three reversals (O(n) time, O(1) space, optimal)
+/// Questão 8: rotacione um array de inteiros para a direita em K posições.
+/// São apresentadas abordagens por deslocamentos sucessivos, array auxiliar e reversões no próprio array.
 /// </summary>
-public class RotateArray
+public sealed class RotateArray
 {
-    private int[] _array;
+    private readonly int[] _array;
 
     public RotateArray(int[] array)
     {
+        ArgumentNullException.ThrowIfNull(array);
         _array = array;
     }
 
-    // 1️. Brute Force O(n*k)
-    // - Shift elements to the right one step at a time, repeat k times
-    // - Very slow for large k
+    // Tempo: O(n * k). Espaço adicional: O(n), pois o array original é preservado.
     public int[] RotateBruteForce(int k)
     {
-        int n = _array.Length;
-        k %= n; // Ensure k is within range
+        int length = _array.Length;
 
-        int[] arrCopy = (int[])_array.Clone();
-
-        for (int step = 0; step < k; step++)
+        if (length == 0)
         {
-            // Take last element
-            int last = arrCopy[n - 1];
-
-            // Shift all elements to the right
-            for (int i = n - 1; i > 0; i--)
-                arrCopy[i] = arrCopy[i - 1];
-
-            // Place last element at the start
-            arrCopy[0] = last;
+            return Array.Empty<int>();
         }
 
-        return arrCopy;
+        int steps = NormalizeSteps(k, length);
+        int[] copy = (int[])_array.Clone();
+
+        for (int step = 0; step < steps; step++)
+        {
+            int last = copy[length - 1];
+
+            for (int i = length - 1; i > 0; i--)
+            {
+                copy[i] = copy[i - 1];
+            }
+
+            copy[0] = last;
+        }
+
+        return copy;
     }
 
-    // 2️. Better Approach: Extra Array O(n) time, O(n) space
-    // - Compute new position for each element directly
+    // Tempo: O(n). Espaço adicional: O(n).
     public int[] RotateWithExtraArray(int k)
     {
-        int n = _array.Length;
-        k %= n;
+        int length = _array.Length;
 
-        int[] result = new int[n];
-
-        for (int i = 0; i < n; i++)
+        if (length == 0)
         {
-            int newIndex = (i + k) % n;
+            return Array.Empty<int>();
+        }
+
+        int steps = NormalizeSteps(k, length);
+        int[] result = new int[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            int newIndex = (i + steps) % length;
             result[newIndex] = _array[i];
         }
 
         return result;
     }
 
-    // 3️. Optimal Approach: In-Place Reversal O(n) time, O(1) space
-    // - Reverse the whole array
-    // - Reverse first k elements
-    // - Reverse remaining n-k elements
+    // Tempo: O(n). Espaço adicional: O(1).
+    // Modifica o array recebido no construtor.
     public void RotateInPlace(int k)
     {
-        int n = _array.Length;
-        k %= n;
+        int length = _array.Length;
 
-        Reverse(0, n - 1);
-        Reverse(0, k - 1);
-        Reverse(k, n - 1);
+        if (length <= 1)
+        {
+            return;
+        }
+
+        int steps = NormalizeSteps(k, length);
+
+        if (steps == 0)
+        {
+            return;
+        }
+
+        Reverse(0, length - 1);
+        Reverse(0, steps - 1);
+        Reverse(steps, length - 1);
     }
 
-    // Helper to reverse a segment of the array in-place
+    private static int NormalizeSteps(int k, int length)
+    {
+        int steps = k % length;
+        return steps < 0 ? steps + length : steps;
+    }
+
     private void Reverse(int start, int end)
     {
         while (start < end)
         {
-            int temp = _array[start];
-            _array[start] = _array[end];
-            _array[end] = temp;
+            (_array[start], _array[end]) = (_array[end], _array[start]);
             start++;
             end--;
         }

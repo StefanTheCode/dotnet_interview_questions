@@ -1,69 +1,69 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q16: ElementFrequencyCounter
-/// Task: Count how many times each element appears in an array using multiple approaches:
-/// 1. Brute force (O(n²))
-/// 2. Dictionary for frequency counting (O(n), optimal)
-/// 3. LINQ GroupBy for concise functional solution (O(n), with allocations)
+/// Questão 15: contar quantas vezes cada elemento aparece em um array.
+///
+/// As abordagens apresentadas são:
+/// 1. força bruta — O(n²) de tempo e O(u) de espaço;
+/// 2. dicionário de frequências — O(n) de tempo médio e O(u) de espaço;
+/// 3. agrupamento com LINQ — O(n) de tempo médio e O(u) de espaço.
+///
+/// A variável u representa a quantidade de valores distintos.
 /// </summary>
 public class ElementFrequencyCounter
 {
-    private int[] _array;
+    private readonly int[] _array;
 
     public ElementFrequencyCounter(int[] array)
     {
-        _array = array;
+        ArgumentNullException.ThrowIfNull(array);
+        _array = (int[])array.Clone();
     }
 
-    // 1️. Brute Force O(n²)
-    // - For each element, count its occurrences by scanning the entire array
-    // - Skip elements already processed
+    /// <summary>
+    /// Conta cada valor percorrendo o array inteiro e evita repetir valores processados.
+    /// </summary>
     public Dictionary<int, int> CountFrequenciesBruteForce()
     {
-        Dictionary<int, int> frequencies = new Dictionary<int, int>();
-        HashSet<int> processed = new HashSet<int>();
+        Dictionary<int, int> frequencies = new();
+        HashSet<int> processed = new();
 
-        for (int i = 0; i < _array.Length; i++)
+        foreach (int candidate in _array)
         {
-            if (processed.Contains(_array[i]))
-                continue; // Skip if already counted
+            if (!processed.Add(candidate))
+                continue;
 
             int count = 0;
-            for (int j = 0; j < _array.Length; j++)
+
+            foreach (int number in _array)
             {
-                if (_array[i] == _array[j])
+                if (number == candidate)
                     count++;
             }
 
-            frequencies[_array[i]] = count;
-            processed.Add(_array[i]);
+            frequencies[candidate] = count;
         }
 
         return frequencies;
     }
 
-    // 2️. Dictionary Frequency Count O(n)
-    // - Iterate array once and count occurrences in a dictionary
+    /// <summary>
+    /// Atualiza a contagem de cada valor em uma única passagem.
+    /// </summary>
     public Dictionary<int, int> CountFrequenciesWithDictionary()
     {
-        Dictionary<int, int> frequencies = new Dictionary<int, int>();
+        Dictionary<int, int> frequencies = new();
 
-        foreach (int num in _array)
-        {
-            frequencies[num] = frequencies.GetValueOrDefault(num, 0) + 1;
-        }
+        foreach (int number in _array)
+            frequencies[number] = frequencies.GetValueOrDefault(number) + 1;
 
         return frequencies;
     }
 
-    // 3️. LINQ GroupBy O(n)
-    // - Groups elements and returns counts
-    // - Concise, but allocates groupings internally
-    public Dictionary<int, int> CountFrequenciesWithLinq()
-    {
-        return _array
-            .GroupBy(x => x)
-            .ToDictionary(g => g.Key, g => g.Count());
-    }
+    /// <summary>
+    /// Agrupa valores iguais e converte cada agrupamento em uma entrada do dicionário.
+    /// </summary>
+    public Dictionary<int, int> CountFrequenciesWithLinq() =>
+        _array.GroupBy(number => number)
+              .ToDictionary(group => group.Key, group => group.Count());
 }

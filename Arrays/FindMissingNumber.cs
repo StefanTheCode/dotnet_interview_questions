@@ -1,35 +1,31 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q6: FindMissingNumber
-/// Task: Given an array containing numbers from 1 to N with one number missing,
-/// find the missing number using multiple approaches:
-/// 1. Brute force search (O(n²))
-/// 2. Sum formula difference (O(n))
-/// 3. XOR method without overflow (O(n), optimal)
+/// Questão 5: dado um array contendo números de 1 até N, com exatamente um número ausente,
+/// encontre o valor faltante usando força bruta, fórmula da soma ou XOR.
 /// </summary>
-public class FindMissingNumber
+public sealed class FindMissingNumber
 {
-    private int[] _array;
+    private readonly int[] _array;
 
     public FindMissingNumber(int[] array)
     {
+        ArgumentNullException.ThrowIfNull(array);
         _array = array;
     }
 
-    // 1️. Brute Force O(n^2)
-    // - For every number from 1..N check if it exists in the array
-    // - Extremely slow for large arrays
+    // Tempo: O(n²). Espaço adicional: O(1).
     public int FindMissingBruteForce()
     {
-        int n = _array.Length + 1; // Because one number is missing
+        int n = checked(_array.Length + 1);
 
-        for (int num = 1; num <= n; num++)
+        for (int number = 1; number <= n; number++)
         {
             bool found = false;
+
             for (int i = 0; i < _array.Length; i++)
             {
-                if (_array[i] == num)
+                if (_array[i] == number)
                 {
                     found = true;
                     break;
@@ -37,48 +33,48 @@ public class FindMissingNumber
             }
 
             if (!found)
-                return num; // This is the missing number
+            {
+                return number;
+            }
         }
 
-        return -1; // Should never reach here if input is valid
+        throw new InvalidOperationException("O array não atende à regra de conter exatamente um número ausente.");
     }
 
-    // 2️. Optimal O(n) using Sum Formula
-    // - Sum of 1..N = N*(N+1)/2
-    // - Subtract the sum of elements to find the missing one
+    // Tempo: O(n). Espaço adicional: O(1).
+    // Usa long nos cálculos intermediários para evitar overflow da soma de 1 até N.
     public int FindMissingUsingSum()
     {
-        int n = _array.Length + 1;
+        long n = _array.LongLength + 1;
+        long expectedSum = n * (n + 1) / 2;
+        long actualSum = 0;
 
-        // Expected sum of 1..N
-        int expectedSum = n * (n + 1) / 2;
+        foreach (int number in _array)
+        {
+            actualSum += number;
+        }
 
-        // Actual sum of array
-        int actualSum = 0;
-        for (int i = 0; i < _array.Length; i++)
-            actualSum += _array[i];
-
-        return expectedSum - actualSum;
+        return checked((int)(expectedSum - actualSum));
     }
 
-    // 3️. Optimal O(n) using XOR (No risk of overflow)
-    // - XOR all numbers from 1..N and XOR all numbers in array
-    // - The remaining value is the missing number
+    // Tempo: O(n). Espaço adicional: O(1).
+    // XOR evita o risco de overflow presente na fórmula da soma.
     public int FindMissingUsingXor()
     {
-        int n = _array.Length + 1;
+        int n = checked(_array.Length + 1);
         int xorAll = 0;
-        int xorArr = 0;
+        int xorArray = 0;
 
-        // XOR all numbers 1..N
-        for (int i = 1; i <= n; i++)
-            xorAll ^= i;
+        for (int number = 1; number <= n; number++)
+        {
+            xorAll ^= number;
+        }
 
-        // XOR all numbers in array
-        for (int i = 0; i < _array.Length; i++)
-            xorArr ^= _array[i];
+        foreach (int number in _array)
+        {
+            xorArray ^= number;
+        }
 
-        // Missing number is the XOR difference
-        return xorAll ^ xorArr;
+        return xorAll ^ xorArray;
     }
 }

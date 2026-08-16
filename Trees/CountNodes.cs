@@ -2,58 +2,55 @@ namespace Trees;
 
 /// <summary>
 /// Q18: CountNodes
-/// Task: Count nodes in a binary tree using multiple approaches:
-/// 1. Count all nodes recursively (O(n))
-/// 2. Count leaf nodes only (O(n))
-/// 3. Count all nodes iteratively with BFS (O(n))
+/// Problema: contar todos os nós e somente as folhas de uma árvore binária.
 /// </summary>
 public class CountNodes
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public CountNodes(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Count All Nodes Recursively
-    // - Total = 1 (current) + count(left) + count(right)
-    // Time: O(n), Space: O(h)
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public int CountAllRecursive()
     {
-        return CountAllHelper(_root);
+        return CountAllRecursive(_root);
     }
 
-    private int CountAllHelper(TreeNode? node)
+    private static int CountAllRecursive(TreeNode? node)
     {
-        if (node == null) return 0;
-        return 1 + CountAllHelper(node.Left) + CountAllHelper(node.Right);
+        return node is null
+            ? 0
+            : 1 + CountAllRecursive(node.Left) + CountAllRecursive(node.Right);
     }
 
-    // 2️. Count Leaf Nodes
-    // - A leaf node has no children (left == null && right == null)
-    // Time: O(n), Space: O(h)
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public int CountLeaves()
     {
-        return CountLeavesHelper(_root);
+        return CountLeaves(_root);
     }
 
-    private int CountLeavesHelper(TreeNode? node)
+    private static int CountLeaves(TreeNode? node)
     {
-        if (node == null) return 0;
-        if (node.Left == null && node.Right == null) return 1;
-        return CountLeavesHelper(node.Left) + CountLeavesHelper(node.Right);
+        if (node is null)
+            return 0;
+
+        if (node.Left is null && node.Right is null)
+            return 1;
+
+        return CountLeaves(node.Left) + CountLeaves(node.Right);
     }
 
-    // 3️. Count All Nodes Iteratively with BFS
-    // - Traverse every node with a queue and count
-    // Time: O(n), Space: O(n)
-    public int CountAllBFS()
+    // Tempo: O(n). Espaço auxiliar: O(w), onde w é a largura máxima.
+    public int CountAllBfs()
     {
-        if (_root == null) return 0;
+        if (_root is null)
+            return 0;
 
         int count = 0;
-        Queue<TreeNode> queue = new Queue<TreeNode>();
+        Queue<TreeNode> queue = new();
         queue.Enqueue(_root);
 
         while (queue.Count > 0)
@@ -61,8 +58,11 @@ public class CountNodes
             TreeNode current = queue.Dequeue();
             count++;
 
-            if (current.Left != null) queue.Enqueue(current.Left);
-            if (current.Right != null) queue.Enqueue(current.Right);
+            if (current.Left is not null)
+                queue.Enqueue(current.Left);
+
+            if (current.Right is not null)
+                queue.Enqueue(current.Right);
         }
 
         return count;

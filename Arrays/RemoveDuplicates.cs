@@ -1,32 +1,31 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q4: RemoveDuplicates
-/// Task: Remove duplicate elements from an integer array using multiple approaches:
-/// 1. Brute force check against result list (O(n²))
-/// 2. Sort and remove adjacent duplicates (O(n log n))
-/// 3. HashSet to track unique elements (O(n), optimal)
+/// Questão 4: remova elementos duplicados de um array de inteiros usando:
+/// 1. comparação com a lista de resultados, O(n²);
+/// 2. ordenação e comparação de elementos adjacentes, O(n log n);
+/// 3. HashSet para rastrear valores já encontrados, O(n) em média.
 /// </summary>
-public class RemoveDuplicates
+public sealed class RemoveDuplicates
 {
-    private int[] _array;
+    private readonly int[] _array;
 
     public RemoveDuplicates(int[] array)
     {
+        ArgumentNullException.ThrowIfNull(array);
         _array = array;
     }
 
-    // 1️. Worst approach: Brute Force O(n^2)
-    // - Compare each element with the result list
-    // - Add it only if it's not already present
-    // - Very slow for large arrays
+    // Mantém a ordem da primeira ocorrência.
+    // Tempo: O(n²). Espaço adicional: O(n).
     public int[] RemoveDuplicatesBruteForce()
     {
-        List<int> result = new List<int>();
+        List<int> result = new();
 
         for (int i = 0; i < _array.Length; i++)
         {
             bool exists = false;
+
             for (int j = 0; j < result.Count; j++)
             {
                 if (_array[i] == result[j])
@@ -35,25 +34,8 @@ public class RemoveDuplicates
                     break;
                 }
             }
+
             if (!exists)
-                result.Add(_array[i]);
-        }
-
-        return result.ToArray();
-    }
-
-    // 2️. Better approach: Sorting + Checking Adjacent O(n log n)
-    // - Sort the array first
-    // - Iterate and add element only if it's different from previous
-    public int[] RemoveDuplicatesWithSorting()
-    {
-        Array.Sort(_array); // O(n log n)
-        List<int> result = new List<int>();
-
-        result.Add(_array[0]);
-        for (int i = 1; i < _array.Length; i++)
-        {
-            if (_array[i] != _array[i - 1]) // check adjacent
             {
                 result.Add(_array[i]);
             }
@@ -62,20 +44,44 @@ public class RemoveDuplicates
         return result.ToArray();
     }
 
-    // 3️. Optimal approach: HashSet O(n)
-    // - Use a HashSet to store unique elements
-    // - Insertion in HashSet is O(1) average
-    // - Maintains order of first appearance
+    // Retorna os valores em ordem crescente.
+    // Tempo: O(n log n). Espaço adicional: O(n), pois uma cópia é ordenada
+    // para evitar modificar inesperadamente o array recebido.
+    public int[] RemoveDuplicatesWithSorting()
+    {
+        if (_array.Length == 0)
+        {
+            return Array.Empty<int>();
+        }
+
+        int[] sorted = (int[])_array.Clone();
+        Array.Sort(sorted);
+
+        List<int> result = new() { sorted[0] };
+
+        for (int i = 1; i < sorted.Length; i++)
+        {
+            if (sorted[i] != sorted[i - 1])
+            {
+                result.Add(sorted[i]);
+            }
+        }
+
+        return result.ToArray();
+    }
+
+    // Mantém a ordem da primeira ocorrência.
+    // Tempo médio: O(n). Espaço adicional: O(n).
     public int[] RemoveDuplicatesWithHashSet()
     {
-        HashSet<int> seen = new HashSet<int>();
-        List<int> result = new List<int>();
+        HashSet<int> seen = new();
+        List<int> result = new();
 
-        foreach (int num in _array)
+        foreach (int number in _array)
         {
-            if (seen.Add(num)) // Add returns false if already present
+            if (seen.Add(number))
             {
-                result.Add(num);
+                result.Add(number);
             }
         }
 

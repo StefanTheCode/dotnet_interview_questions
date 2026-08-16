@@ -2,73 +2,79 @@ namespace Lists;
 
 /// <summary>
 /// Q13: GroupDuplicates
-/// Task: Group duplicate elements in a List&lt;int&gt; so that identical values appear together
-/// using multiple approaches:
-/// 1. Brute force: build groups manually (O(n²))
-/// 2. Dictionary to collect groups (O(n))
-/// 3. LINQ GroupBy for concise functional grouping (O(n))
+/// Tarefa: agrupar valores iguais para que cada grupo contenha todas as ocorrências
+/// de um elemento da lista.
+///
+/// Abordagens apresentadas:
+/// 1. Construir os grupos manualmente: O(n²) de tempo.
+/// 2. Usar Dictionary em uma única passagem: O(n) de tempo esperado.
+/// 3. Usar LINQ GroupBy: O(n) de tempo esperado.
 /// </summary>
-public class GroupDuplicates
+public sealed class GroupDuplicates
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public GroupDuplicates(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Brute Force O(n²)
-    // - For each element, scan the list and collect all occurrences
-    // - Skip elements already grouped
+    /// <summary>
+    /// Mantém a ordem da primeira ocorrência de cada valor.
+    /// </summary>
     public List<List<int>> GroupBruteForce()
     {
-        List<List<int>> groups = new List<List<int>>();
-        HashSet<int> processed = new HashSet<int>();
+        List<List<int>> groups = new();
+        HashSet<int> processed = new();
 
         for (int i = 0; i < _list.Count; i++)
         {
-            if (processed.Contains(_list[i]))
-                continue;
+            int current = _list[i];
 
-            List<int> group = new List<int>();
+            if (!processed.Add(current))
+            {
+                continue;
+            }
+
+            List<int> group = new();
+
             for (int j = 0; j < _list.Count; j++)
             {
-                if (_list[j] == _list[i])
-                    group.Add(_list[j]);
+                if (_list[j] == current)
+                {
+                    group.Add(current);
+                }
             }
 
             groups.Add(group);
-            processed.Add(_list[i]);
         }
 
         return groups;
     }
 
-    // 2️. Dictionary Grouping O(n)
-    // - Use a dictionary to map each value to its list of occurrences
-    // - Single pass through the list
     public Dictionary<int, List<int>> GroupWithDictionary()
     {
-        Dictionary<int, List<int>> groups = new Dictionary<int, List<int>>();
+        Dictionary<int, List<int>> groups = new();
 
-        foreach (int num in _list)
+        foreach (int number in _list)
         {
-            if (!groups.ContainsKey(num))
-                groups[num] = new List<int>();
+            if (!groups.TryGetValue(number, out List<int>? group))
+            {
+                group = new List<int>();
+                groups[number] = group;
+            }
 
-            groups[num].Add(num);
+            group.Add(number);
         }
 
         return groups;
     }
 
-    // 3️. LINQ GroupBy O(n)
-    // - Functional approach that groups by element value
-    // - Returns a dictionary of grouped elements
     public Dictionary<int, List<int>> GroupWithLinq()
     {
         return _list
-            .GroupBy(x => x)
-            .ToDictionary(g => g.Key, g => g.ToList());
+            .GroupBy(number => number)
+            .ToDictionary(group => group.Key, group => group.ToList());
     }
 }

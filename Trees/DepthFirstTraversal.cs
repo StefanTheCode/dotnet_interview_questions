@@ -2,83 +2,88 @@ namespace Trees;
 
 /// <summary>
 /// Q1: DepthFirstTraversal
-/// Task: Traverse a binary tree using depth-first strategies:
-/// 1. Recursive Preorder, Inorder, and Postorder traversals
-/// 2. Iterative Preorder using an explicit stack
-/// 3. Iterative Inorder using an explicit stack
+/// Problema: percorrer uma árvore binária usando estratégias de busca em profundidade:
+/// 1. Pré-ordem, em ordem e pós-ordem recursivas;
+/// 2. Pré-ordem iterativa com uma pilha explícita;
+/// 3. Em ordem iterativa com uma pilha explícita.
 /// </summary>
 public class DepthFirstTraversal
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public DepthFirstTraversal(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Recursive Preorder: Root → Left → Right
-    // Time: O(n), Space: O(h) where h is tree height (call stack)
+    // Pré-ordem recursiva: raiz → esquerda → direita.
+    // Tempo: O(n). Espaço auxiliar: O(h), onde h é a altura da árvore.
     public List<int> PreorderRecursive()
     {
-        List<int> result = new List<int>();
+        List<int> result = [];
         PreorderHelper(_root, result);
         return result;
     }
 
-    private void PreorderHelper(TreeNode? node, List<int> result)
+    private static void PreorderHelper(TreeNode? node, List<int> result)
     {
-        if (node == null) return;
+        if (node is null)
+            return;
 
-        result.Add(node.Value);       // Visit root
-        PreorderHelper(node.Left, result);  // Traverse left
-        PreorderHelper(node.Right, result); // Traverse right
+        result.Add(node.Value);
+        PreorderHelper(node.Left, result);
+        PreorderHelper(node.Right, result);
     }
 
-    // 1️. Recursive Inorder: Left → Root → Right
-    // Time: O(n), Space: O(h)
+    // Em ordem recursiva: esquerda → raiz → direita.
+    // Em uma BST válida, produz os valores em ordem crescente.
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public List<int> InorderRecursive()
     {
-        List<int> result = new List<int>();
+        List<int> result = [];
         InorderHelper(_root, result);
         return result;
     }
 
-    private void InorderHelper(TreeNode? node, List<int> result)
+    private static void InorderHelper(TreeNode? node, List<int> result)
     {
-        if (node == null) return;
+        if (node is null)
+            return;
 
-        InorderHelper(node.Left, result);   // Traverse left
-        result.Add(node.Value);        // Visit root
-        InorderHelper(node.Right, result);  // Traverse right
+        InorderHelper(node.Left, result);
+        result.Add(node.Value);
+        InorderHelper(node.Right, result);
     }
 
-    // 1️. Recursive Postorder: Left → Right → Root
-    // Time: O(n), Space: O(h)
+    // Pós-ordem recursiva: esquerda → direita → raiz.
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public List<int> PostorderRecursive()
     {
-        List<int> result = new List<int>();
+        List<int> result = [];
         PostorderHelper(_root, result);
         return result;
     }
 
-    private void PostorderHelper(TreeNode? node, List<int> result)
+    private static void PostorderHelper(TreeNode? node, List<int> result)
     {
-        if (node == null) return;
+        if (node is null)
+            return;
 
-        PostorderHelper(node.Left, result);  // Traverse left
-        PostorderHelper(node.Right, result); // Traverse right
-        result.Add(node.Value);         // Visit root
+        PostorderHelper(node.Left, result);
+        PostorderHelper(node.Right, result);
+        result.Add(node.Value);
     }
 
-    // 2️. Iterative Preorder using Stack
-    // - Push root, then loop: pop, visit, push right then left
-    // Time: O(n), Space: O(h)
+    // Pré-ordem iterativa.
+    // A subárvore direita é empilhada antes da esquerda para que a esquerda seja processada primeiro.
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public List<int> PreorderIterative()
     {
-        List<int> result = new List<int>();
-        if (_root == null) return result;
+        List<int> result = [];
+        if (_root is null)
+            return result;
 
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        Stack<TreeNode> stack = new();
         stack.Push(_root);
 
         while (stack.Count > 0)
@@ -86,27 +91,28 @@ public class DepthFirstTraversal
             TreeNode current = stack.Pop();
             result.Add(current.Value);
 
-            // Push right first so left is processed first
-            if (current.Right != null) stack.Push(current.Right);
-            if (current.Left != null) stack.Push(current.Left);
+            if (current.Right is not null)
+                stack.Push(current.Right);
+
+            if (current.Left is not null)
+                stack.Push(current.Left);
         }
 
         return result;
     }
 
-    // 3️. Iterative Inorder using Stack
-    // - Go left as far as possible, then pop, visit, go right
-    // Time: O(n), Space: O(h)
+    // Em ordem iterativa.
+    // Avança até o nó mais à esquerda, visita o nó atual e então percorre sua subárvore direita.
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public List<int> InorderIterative()
     {
-        List<int> result = new List<int>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        List<int> result = [];
+        Stack<TreeNode> stack = new();
         TreeNode? current = _root;
 
-        while (current != null || stack.Count > 0)
+        while (current is not null || stack.Count > 0)
         {
-            // Go to the leftmost node
-            while (current != null)
+            while (current is not null)
             {
                 stack.Push(current);
                 current = current.Left;

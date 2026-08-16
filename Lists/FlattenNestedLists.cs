@@ -2,28 +2,39 @@ namespace Lists;
 
 /// <summary>
 /// Q17: FlattenNestedLists
-/// Task: Convert a List of List&lt;int&gt; (nested lists) into a single flat List&lt;int&gt;
-/// using multiple approaches:
-/// 1. Brute force with nested loops (O(n*m) time, O(n*m) space)
-/// 2. LINQ SelectMany for concise functional flattening (O(n*m) time, O(n*m) space)
-/// 3. AddRange-based flattening for maximum clarity (O(n*m) time, O(n*m) space)
+/// Tarefa: transformar uma lista de listas em uma única lista linear,
+/// preservando a ordem dos elementos.
+///
+/// Seja N a quantidade total de elementos em todas as listas internas.
+/// As três abordagens executam em O(N) de tempo e produzem O(N) de saída.
 /// </summary>
-public class FlattenNestedLists
+public sealed class FlattenNestedLists
 {
-    private List<List<int>> _nestedList;
+    private readonly List<List<int>> _nestedList;
 
     public FlattenNestedLists(List<List<int>> nestedList)
     {
-        _nestedList = nestedList;
+        ArgumentNullException.ThrowIfNull(nestedList);
+        _nestedList = new List<List<int>>(nestedList.Count);
+
+        for (int index = 0; index < nestedList.Count; index++)
+        {
+            List<int>? innerList = nestedList[index];
+
+            if (innerList is null)
+            {
+                throw new ArgumentException(
+                    $"A lista interna na posição {index} não pode ser nula.",
+                    nameof(nestedList));
+            }
+
+            _nestedList.Add(new List<int>(innerList));
+        }
     }
 
-    // 1️. Brute Force: Nested loops to flatten
-    // - Iterate each inner list and copy elements into a new flat list
-    // - Time: O(n*m)
-    // - Space: O(n*m)
     public List<int> FlattenWithNestedLoops()
     {
-        List<int> result = new List<int>();
+        List<int> result = new(CalculateTotalCount());
 
         for (int i = 0; i < _nestedList.Count; i++)
         {
@@ -36,27 +47,32 @@ public class FlattenNestedLists
         return result;
     }
 
-    // 2️. LINQ SelectMany
-    // - One-liner functional approach
-    // - Internally still iterates through all elements
-    // - Time: O(n*m), Space: O(n*m)
     public List<int> FlattenWithLinq()
     {
-        return _nestedList.SelectMany(inner => inner).ToList();
+        return _nestedList.SelectMany(innerList => innerList).ToList();
     }
 
-    // 3️. AddRange-based Flattening
-    // - Iterate outer list and use AddRange for each inner list
-    // - Clear and idiomatic C# approach
     public List<int> FlattenWithAddRange()
     {
-        List<int> result = new List<int>();
+        List<int> result = new(CalculateTotalCount());
 
-        foreach (var inner in _nestedList)
+        foreach (List<int> innerList in _nestedList)
         {
-            result.AddRange(inner);
+            result.AddRange(innerList);
         }
 
         return result;
+    }
+
+    private int CalculateTotalCount()
+    {
+        int totalCount = 0;
+
+        foreach (List<int> innerList in _nestedList)
+        {
+            totalCount = checked(totalCount + innerList.Count);
+        }
+
+        return totalCount;
     }
 }

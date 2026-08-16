@@ -2,59 +2,52 @@ namespace Trees;
 
 /// <summary>
 /// Q9: SearchBST
-/// Task: Search for a target value in a Binary Search Tree using multiple approaches:
-/// 1. Recursive search exploiting BST property (O(h))
-/// 2. Iterative search with no recursion overhead (O(h), optimal)
+/// Problema: procurar um valor em uma Binary Search Tree:
+/// 1. Busca recursiva;
+/// 2. Busca iterativa sem custo de pilha de chamadas.
+///
+/// As abordagens pressupõem que a árvore recebida seja uma BST válida.
 /// </summary>
 public class SearchBST
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public SearchBST(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Recursive Search O(h)
-    // - If current value matches, return the node
-    // - If target < current, search left subtree
-    // - If target > current, search right subtree
-    // Time: O(h), Space: O(h) due to call stack
+    // Tempo: O(h). Espaço auxiliar: O(h).
     public TreeNode? SearchRecursive(int target)
     {
-        return SearchHelper(_root, target);
+        return SearchRecursive(_root, target);
     }
 
-    private TreeNode? SearchHelper(TreeNode? node, int target)
+    private static TreeNode? SearchRecursive(TreeNode? node, int target)
     {
-        if (node == null) return null;
-
-        if (target == node.Value)
+        if (node is null || node.Value == target)
             return node;
-        else if (target < node.Value)
-            return SearchHelper(node.Left, target);
-        else
-            return SearchHelper(node.Right, target);
+
+        return target < node.Value
+            ? SearchRecursive(node.Left, target)
+            : SearchRecursive(node.Right, target);
     }
 
-    // 2️. Iterative Search O(h) — Optimal
-    // - Follow left or right pointer without recursion
-    // - No call stack overhead
-    // Time: O(h), Space: O(1)
+    // Tempo: O(h). Espaço auxiliar: O(1).
     public TreeNode? SearchIterative(int target)
     {
         TreeNode? current = _root;
 
-        while (current != null)
+        while (current is not null)
         {
-            if (target == current.Value)
+            if (current.Value == target)
                 return current;
-            else if (target < current.Value)
-                current = current.Left;
-            else
-                current = current.Right;
+
+            current = target < current.Value
+                ? current.Left
+                : current.Right;
         }
 
-        return null; // Not found
+        return null;
     }
 }

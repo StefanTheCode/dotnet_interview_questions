@@ -2,96 +2,111 @@ namespace Trees;
 
 /// <summary>
 /// Q19: KthSmallestInBST
-/// Task: Find the Kth smallest element in a Binary Search Tree using multiple approaches:
-/// 1. Inorder traversal into a list, then index (O(n) time, O(n) space)
-/// 2. Inorder traversal with early stop counter (O(n) worst case, O(k) average, O(h) space)
-/// 3. Iterative inorder with early stop (O(k) time, O(h) space, optimal)
+/// Problema: encontrar o k-ésimo menor valor de uma Binary Search Tree.
+///
+/// A travessia em ordem de uma BST válida sem duplicados produz os valores
+/// em ordem crescente. Valores de k menores ou iguais a zero são inválidos;
+/// quando k excede a quantidade de nós, o resultado é <see langword="null"/>.
 /// </summary>
 public class KthSmallestInBST
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public KthSmallestInBST(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Inorder to List, Then Index
-    // - Full inorder traversal produces sorted order in a BST
-    // - Return element at index k-1
-    // Time: O(n), Space: O(n)
+    // Tempo: O(n). Espaço: O(n).
     public int? FindKthSmallestWithList(int k)
     {
-        List<int> sorted = new List<int>();
-        InorderCollect(_root, sorted);
+        ValidateK(k);
 
-        if (k < 1 || k > sorted.Count) return null;
-        return sorted[k - 1];
+        List<int> sorted = [];
+        CollectInorder(_root, sorted);
+
+        return k <= sorted.Count ? sorted[k - 1] : null;
     }
 
-    private void InorderCollect(TreeNode? node, List<int> result)
+    private static void CollectInorder(TreeNode? node, List<int> result)
     {
-        if (node == null) return;
-        InorderCollect(node.Left, result);
+        if (node is null)
+            return;
+
+        CollectInorder(node.Left, result);
         result.Add(node.Value);
-        InorderCollect(node.Right, result);
+        CollectInorder(node.Right, result);
     }
 
-    // 2️. Recursive Inorder with Early Stop
-    // - Count visited nodes during inorder traversal
-    // - Stop as soon as we reach the kth element
-    // Time: O(k) average, Space: O(h)
+    // Tempo: O(h + k), no melhor uso da interrupção antecipada; pior caso O(n).
+    // Espaço auxiliar: O(h).
     public int? FindKthSmallestRecursive(int k)
     {
-        int count = 0;
+        ValidateK(k);
+
+        int visited = 0;
         int? result = null;
-        InorderWithCounter(_root, k, ref count, ref result);
+        FindKthSmallestRecursive(_root, k, ref visited, ref result);
         return result;
     }
 
-    private void InorderWithCounter(TreeNode? node, int k, ref int count, ref int? result)
+    private static void FindKthSmallestRecursive(
+        TreeNode? node,
+        int k,
+        ref int visited,
+        ref int? result)
     {
-        if (node == null || result != null) return;
+        if (node is null || result.HasValue)
+            return;
 
-        InorderWithCounter(node.Left, k, ref count, ref result);
+        FindKthSmallestRecursive(node.Left, k, ref visited, ref result);
 
-        count++;
-        if (count == k)
+        if (result.HasValue)
+            return;
+
+        visited++;
+
+        if (visited == k)
         {
             result = node.Value;
             return;
         }
 
-        InorderWithCounter(node.Right, k, ref count, ref result);
+        FindKthSmallestRecursive(node.Right, k, ref visited, ref result);
     }
 
-    // 3️. Iterative Inorder with Early Stop — Optimal
-    // - Use explicit stack for inorder traversal
-    // - Stop at the kth element without visiting remaining nodes
-    // Time: O(h + k), Space: O(h)
+    // Tempo: O(h + k), com pior caso O(n). Espaço auxiliar: O(h).
     public int? FindKthSmallestIterative(int k)
     {
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode? current = _root;
-        int count = 0;
+        ValidateK(k);
 
-        while (current != null || stack.Count > 0)
+        Stack<TreeNode> stack = new();
+        TreeNode? current = _root;
+        int visited = 0;
+
+        while (current is not null || stack.Count > 0)
         {
-            while (current != null)
+            while (current is not null)
             {
                 stack.Push(current);
                 current = current.Left;
             }
 
             current = stack.Pop();
-            count++;
+            visited++;
 
-            if (count == k)
+            if (visited == k)
                 return current.Value;
 
             current = current.Right;
         }
 
-        return null; // k is out of range
+        return null;
+    }
+
+    private static void ValidateK(int k)
+    {
+        if (k <= 0)
+            throw new ArgumentOutOfRangeException(nameof(k), "k deve ser maior que zero.");
     }
 }

@@ -1,60 +1,71 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q3: MaxProductSubarray
-/// Task: Find the contiguous subarray within a one-dimensional array of numbers
-/// which has the largest product. Implement multiple approaches:
-/// 1. Brute force with 3 loops (O(n³))
-/// 2. Double loop with running product (O(n²))
-/// 3. Kadane's variation tracking max & min product (O(n), optimal)
+/// Questão 3: encontre o subarray contíguo com o maior produto.
+/// A classe apresenta força bruta O(n³), produto acumulado O(n²)
+/// e uma variação do algoritmo de Kadane O(n).
 /// </summary>
-public class MaxProductSubarray
+public sealed class MaxProductSubarray
 {
-    private int[] _array;
+    private readonly int[] _array;
 
     public MaxProductSubarray(int[] array)
     {
+        ArgumentNullException.ThrowIfNull(array);
+
+        if (array.Length == 0)
+        {
+            throw new ArgumentException("O array deve conter pelo menos um elemento.", nameof(array));
+        }
+
         _array = array;
     }
 
-    // 1. Worst approach: Brute Force (O(n^3))
-    // Check product of every subarray using 3 loops
+    // Tempo: O(n³). Espaço adicional: O(1).
     public int MaxProductBruteForce()
     {
         int maxProduct = int.MinValue;
+
         for (int i = 0; i < _array.Length; i++)
         {
             for (int j = i; j < _array.Length; j++)
             {
                 int product = 1;
+
                 for (int k = i; k <= j; k++)
+                {
                     product *= _array[k];
+                }
 
                 maxProduct = Math.Max(maxProduct, product);
             }
         }
+
         return maxProduct;
     }
 
-    // 2. Better approach: O(n^2) using 2 loops (still bad)
-    // Compute running product instead of recalculating every time
+    // Tempo: O(n²). Espaço adicional: O(1).
+    // O produto é reaproveitado ao ampliar o subarray, evitando o terceiro laço.
     public int MaxProductDoubleLoop()
     {
         int maxProduct = int.MinValue;
+
         for (int i = 0; i < _array.Length; i++)
         {
             int product = 1;
+
             for (int j = i; j < _array.Length; j++)
             {
                 product *= _array[j];
                 maxProduct = Math.Max(maxProduct, product);
             }
         }
+
         return maxProduct;
     }
 
-    // 3️. Optimal approach: Kadane's variation (O(n))
-    // Track current max and min to handle negative numbers
+    // Tempo: O(n). Espaço adicional: O(1).
+    // O menor produto também é rastreado porque um número negativo pode transformá-lo no maior.
     public int MaxProductKadane()
     {
         int maxSoFar = _array[0];
@@ -64,17 +75,14 @@ public class MaxProductSubarray
         for (int i = 1; i < _array.Length; i++)
         {
             int current = _array[i];
+
             if (current < 0)
             {
-                // Swap because negative flips max/min
-                int temp = maxSoFar;
-                maxSoFar = minSoFar;
-                minSoFar = temp;
+                (maxSoFar, minSoFar) = (minSoFar, maxSoFar);
             }
 
             maxSoFar = Math.Max(current, maxSoFar * current);
             minSoFar = Math.Min(current, minSoFar * current);
-
             result = Math.Max(result, maxSoFar);
         }
 

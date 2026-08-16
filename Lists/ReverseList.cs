@@ -1,26 +1,25 @@
 namespace Lists;
 
 /// <summary>
-/// Q3: ReverseList
-/// Task: Reverse a List&lt;int&gt; using multiple approaches:
-/// 1. Create a new reversed list manually (O(n) time, O(n) space)
-/// 2. LINQ Reverse (O(n) time, O(n) space)
-/// 3. In-place two-pointer swap (O(n) time, O(1) space, optimal)
+/// Q3: inverter uma <see cref="List{T}"/> de inteiros.
 /// </summary>
-public class ReverseList
+public sealed class ReverseList
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public ReverseList(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Simple approach: Manual new list
-    // Time: O(n), Space: O(n)
+    /// <summary>
+    /// Percorre a lista do fim para o início e cria um novo resultado.
+    /// Tempo: O(n). Espaço: O(n).
+    /// </summary>
     public List<int> ReverseWithNewList()
     {
-        List<int> reversed = new List<int>(_list.Count);
+        List<int> reversed = new(_list.Count);
 
         for (int i = _list.Count - 1; i >= 0; i--)
             reversed.Add(_list[i]);
@@ -28,29 +27,33 @@ public class ReverseList
         return reversed;
     }
 
-    // 2️. LINQ approach: Reverse and ToList
-    // Time: O(n), Space: O(n)
+    /// <summary>
+    /// Usa LINQ para produzir uma nova lista invertida.
+    /// Tempo: O(n). Espaço: O(n).
+    /// </summary>
     public List<int> ReverseWithLinq()
     {
-        return Enumerable.Reverse(_list).ToList();
+        return _list.AsEnumerable().Reverse().ToList();
     }
 
-    // 3️. Optimal approach: In-place two-pointer swap
-    // Time: O(n), Space: O(1)
+    /// <summary>
+    /// Troca elementos simétricos na lista interna.
+    /// Tempo: O(n). Espaço: O(1).
+    /// </summary>
     public void ReverseInPlace()
     {
-        int left = 0, right = _list.Count - 1;
+        int left = 0;
+        int right = _list.Count - 1;
 
         while (left < right)
         {
-            int temp = _list[left];
-            _list[left] = _list[right];
-            _list[right] = temp;
-
+            (_list[left], _list[right]) = (_list[right], _list[left]);
             left++;
             right--;
         }
     }
+
+    public IReadOnlyList<int> Current => _list;
 
     public void PrintList()
     {

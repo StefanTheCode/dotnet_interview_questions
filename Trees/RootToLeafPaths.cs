@@ -2,112 +2,108 @@ namespace Trees;
 
 /// <summary>
 /// Q17: RootToLeafPaths
-/// Task: Find all root-to-leaf paths in a binary tree using multiple approaches:
-/// 1. Recursive DFS with path tracking (O(n) time, O(n * h) space)
-/// 2. Iterative DFS with Stack and path tracking (O(n) time, O(n * h) space)
-/// 3. Return paths as formatted strings (common interview request)
+/// Problema: encontrar todos os caminhos da raiz até as folhas de uma árvore binária.
 /// </summary>
 public class RootToLeafPaths
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public RootToLeafPaths(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Recursive DFS with Path Tracking
-    // - Build the path as we recurse, copy it when a leaf is reached
-    // Time: O(n), Space: O(n * h)
+    // Tempo: O(n + s), onde s é o total de valores copiados para o resultado.
+    // Espaço: O(h + s), incluindo o resultado.
     public List<List<int>> FindAllPathsRecursive()
     {
-        List<List<int>> result = new List<List<int>>();
-        FindPathsHelper(_root, new List<int>(), result);
+        List<List<int>> result = [];
+        FindPaths(_root, [], result);
         return result;
     }
 
-    private void FindPathsHelper(TreeNode? node, List<int> currentPath, List<List<int>> result)
+    private static void FindPaths(
+        TreeNode? node,
+        List<int> currentPath,
+        List<List<int>> result)
     {
-        if (node == null) return;
+        if (node is null)
+            return;
 
         currentPath.Add(node.Value);
 
-        // Leaf node: save a copy of the current path
-        if (node.Left == null && node.Right == null)
+        if (node.Left is null && node.Right is null)
         {
-            result.Add(new List<int>(currentPath));
+            result.Add([.. currentPath]);
         }
         else
         {
-            FindPathsHelper(node.Left, currentPath, result);
-            FindPathsHelper(node.Right, currentPath, result);
+            FindPaths(node.Left, currentPath, result);
+            FindPaths(node.Right, currentPath, result);
         }
 
-        currentPath.RemoveAt(currentPath.Count - 1); // Backtrack
+        currentPath.RemoveAt(currentPath.Count - 1);
     }
 
-    // 2️. Iterative DFS with Stack
-    // - Track each node along with its path from root
-    // Time: O(n), Space: O(n * h)
+    // As cópias de caminho tornam o pior caso O(n * h) em tempo e espaço.
     public List<List<int>> FindAllPathsIterative()
     {
-        List<List<int>> result = new List<List<int>>();
-        if (_root == null) return result;
+        List<List<int>> result = [];
 
-        Stack<(TreeNode node, List<int> path)> stack = new Stack<(TreeNode, List<int>)>();
-        stack.Push((_root, new List<int> { _root.Value }));
+        if (_root is null)
+            return result;
+
+        Stack<(TreeNode Node, List<int> Path)> stack = new();
+        stack.Push((_root, [_root.Value]));
 
         while (stack.Count > 0)
         {
-            var (current, path) = stack.Pop();
+            (TreeNode current, List<int> path) = stack.Pop();
 
-            if (current.Left == null && current.Right == null)
+            if (current.Left is null && current.Right is null)
             {
                 result.Add(path);
                 continue;
             }
 
-            if (current.Right != null)
-            {
-                List<int> rightPath = new List<int>(path) { current.Right.Value };
-                stack.Push((current.Right, rightPath));
-            }
+            if (current.Right is not null)
+                stack.Push((current.Right, [.. path, current.Right.Value]));
 
-            if (current.Left != null)
-            {
-                List<int> leftPath = new List<int>(path) { current.Left.Value };
-                stack.Push((current.Left, leftPath));
-            }
+            if (current.Left is not null)
+                stack.Push((current.Left, [.. path, current.Left.Value]));
         }
 
         return result;
     }
 
-    // 3️. Paths as Formatted Strings
-    // - Common interview variant: return paths as "1->2->3" strings
-    // Time: O(n), Space: O(n * h)
+    // Tempo e espaço são proporcionais ao tamanho total das strings produzidas.
     public List<string> FindAllPathsAsStrings()
     {
-        List<string> result = new List<string>();
-        FindPathStringsHelper(_root, "", result);
+        List<string> result = [];
+        FindPathStrings(_root, [], result);
         return result;
     }
 
-    private void FindPathStringsHelper(TreeNode? node, string currentPath, List<string> result)
+    private static void FindPathStrings(
+        TreeNode? node,
+        List<int> currentPath,
+        List<string> result)
     {
-        if (node == null) return;
-
-        string path = string.IsNullOrEmpty(currentPath)
-            ? node.Value.ToString()
-            : $"{currentPath}->{node.Value}";
-
-        if (node.Left == null && node.Right == null)
-        {
-            result.Add(path);
+        if (node is null)
             return;
+
+        currentPath.Add(node.Value);
+
+        if (node.Left is null && node.Right is null)
+        {
+            result.Add(string.Join("->", currentPath));
+        }
+        else
+        {
+            FindPathStrings(node.Left, currentPath, result);
+            FindPathStrings(node.Right, currentPath, result);
         }
 
-        FindPathStringsHelper(node.Left, path, result);
-        FindPathStringsHelper(node.Right, path, result);
+        currentPath.RemoveAt(currentPath.Count - 1);
     }
 }

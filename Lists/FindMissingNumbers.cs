@@ -1,78 +1,96 @@
 namespace Lists;
 
 /// <summary>
-/// Q8: FindMissingNumbers
-/// Task: Given a List&lt;int&gt; containing numbers from 1 to N with one number missing,
-/// find the missing number using multiple approaches:
-/// 1. Brute force search (O(n²))
-/// 2. Sum formula difference (O(n))
-/// 3. XOR method without overflow (O(n), optimal)
+/// Q8: encontrar o único número ausente em uma sequência de 1 até N.
+/// A entrada deve conter valores distintos dentro desse intervalo.
 /// </summary>
-public class FindMissingNumbers
+public sealed class FindMissingNumbers
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public FindMissingNumbers(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
+        ValidateInput();
     }
 
-    // 1️. Brute Force O(n²)
-    // - For every number from 1..N check if it exists in the list
-    // - Extremely slow for large lists
+    /// <summary>
+    /// Procura cada valor esperado dentro da lista.
+    /// Tempo: O(n²). Espaço: O(1), além da validação feita na construção.
+    /// </summary>
     public int FindMissingBruteForce()
     {
-        int n = _list.Count + 1; // Because one number is missing
+        int n = _list.Count + 1;
 
-        for (int num = 1; num <= n; num++)
+        for (int expected = 1; expected <= n; expected++)
         {
             bool found = false;
-            for (int i = 0; i < _list.Count; i++)
+
+            foreach (int number in _list)
             {
-                if (_list[i] == num)
-                {
-                    found = true;
-                    break;
-                }
+                if (number != expected)
+                    continue;
+
+                found = true;
+                break;
             }
 
             if (!found)
-                return num;
+                return expected;
         }
 
-        return -1; // Should never reach here if input is valid
+        throw new InvalidOperationException("A entrada não contém exatamente um número ausente.");
     }
 
-    // 2️. Optimal O(n) using Sum Formula
-    // - Sum of 1..N = N*(N+1)/2
-    // - Subtract the sum of elements to find the missing one
+    /// <summary>
+    /// Subtrai a soma real da soma esperada de 1 até N.
+    /// Tempo: O(n). Espaço: O(1).
+    /// Usa <see cref="long"/> nos cálculos intermediários para reduzir risco de overflow.
+    /// </summary>
     public int FindMissingUsingSum()
     {
-        int n = _list.Count + 1;
-        int expectedSum = n * (n + 1) / 2;
+        long n = _list.Count + 1L;
+        long expectedSum = n * (n + 1) / 2;
+        long actualSum = 0;
 
-        int actualSum = 0;
-        foreach (int num in _list)
-            actualSum += num;
+        foreach (int number in _list)
+            actualSum += number;
 
-        return expectedSum - actualSum;
+        return checked((int)(expectedSum - actualSum));
     }
 
-    // 3️. Optimal O(n) using XOR (No risk of overflow)
-    // - XOR all numbers from 1..N and XOR all numbers in list
-    // - The remaining value is the missing number
+    /// <summary>
+    /// Aplica XOR aos valores esperados e aos valores recebidos.
+    /// Tempo: O(n). Espaço: O(1).
+    /// </summary>
     public int FindMissingUsingXor()
     {
         int n = _list.Count + 1;
         int xorAll = 0;
         int xorList = 0;
 
-        for (int i = 1; i <= n; i++)
-            xorAll ^= i;
+        for (int number = 1; number <= n; number++)
+            xorAll ^= number;
 
-        foreach (int num in _list)
-            xorList ^= num;
+        foreach (int number in _list)
+            xorList ^= number;
 
         return xorAll ^ xorList;
+    }
+
+    private void ValidateInput()
+    {
+        int n = _list.Count + 1;
+        HashSet<int> seen = [];
+
+        foreach (int number in _list)
+        {
+            if (number < 1 || number > n)
+                throw new ArgumentException($"Todos os valores devem estar entre 1 e {n}.", nameof(_list));
+
+            if (!seen.Add(number))
+                throw new ArgumentException("A lista não pode conter valores duplicados.", nameof(_list));
+        }
     }
 }

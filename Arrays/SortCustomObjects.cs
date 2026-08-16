@@ -1,69 +1,95 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q20: SortCustomObjects
-/// Task: Sort an array of custom objects (e.g., Person) using multiple approaches:
-/// 1. IComparable implementation on the class (O(n log n))
-/// 2. Array.Sort with a Comparison delegate or IComparer (O(n log n))
-/// 3. LINQ OrderBy for functional style sorting (O(n log n))
+/// Questão 19: ordenar um array de objetos personalizados.
+///
+/// As abordagens apresentadas são:
+/// 1. implementação de IComparable&lt;T&gt; no próprio tipo;
+/// 2. Comparison&lt;T&gt; fornecido diretamente ao Array.Sort;
+/// 3. OrderBy e ThenBy com LINQ.
+///
+/// As três abordagens possuem custo típico O(n log n). As implementações ordenam
+/// cópias para não modificar o array recebido pelo construtor.
 /// </summary>
 public class SortCustomObjects
 {
-    public class Person : IComparable<Person>
+    public sealed class Person : IComparable<Person>
     {
-        public string Name { get; set; }
-        public int Age { get; set; }
-
-        // Implement IComparable to sort by Age by default
-        public int CompareTo(Person other)
+        public Person(string name, int age)
         {
-            if (other == null) return 1;
-            return this.Age.CompareTo(other.Age);
+            ArgumentException.ThrowIfNullOrWhiteSpace(name);
+
+            if (age < 0)
+                throw new ArgumentOutOfRangeException(nameof(age), "A idade não pode ser negativa.");
+
+            Name = name;
+            Age = age;
         }
 
-        public override string ToString()
+        public string Name { get; }
+
+        public int Age { get; }
+
+        /// <summary>
+        /// Define idade como critério padrão e nome como desempate determinístico.
+        /// </summary>
+        public int CompareTo(Person? other)
         {
-            return $"{Name} ({Age})";
+            if (other is null)
+                return 1;
+
+            int ageComparison = Age.CompareTo(other.Age);
+
+            return ageComparison != 0
+                ? ageComparison
+                : StringComparer.OrdinalIgnoreCase.Compare(Name, other.Name);
         }
+
+        public override string ToString() => $"{Name} ({Age})";
     }
 
-    private Person[] _people;
+    private readonly Person[] _people;
 
     public SortCustomObjects(Person[] people)
     {
-        _people = people;
+        ArgumentNullException.ThrowIfNull(people);
+
+        if (people.Any(person => person is null))
+            throw new ArgumentException("O array não pode conter pessoas nulas.", nameof(people));
+
+        _people = (Person[])people.Clone();
     }
 
-    // 1️. Sort using IComparable (default sort)
-    // - Requires the class to implement IComparable<T>
-    // - Sorts in-place
+    /// <summary>
+    /// Usa a ordenação padrão definida por Person.CompareTo.
+    /// </summary>
     public Person[] SortWithIComparable()
     {
-        Person[] copy = (Person[])_people.Clone();
-        Array.Sort(copy);
-        return copy;
+        Person[] sorted = (Person[])_people.Clone();
+        Array.Sort(sorted);
+        return sorted;
     }
 
-    // 2️. Sort using Array.Sort with a Comparison delegate
-    // - Allows custom sorting without changing the class definition
+    /// <summary>
+    /// Usa um delegate para ordenar pelo nome sem alterar a implementação de Person.
+    /// </summary>
     public Person[] SortWithCustomComparer()
     {
-        Person[] copy = (Person[])_people.Clone();
+        Person[] sorted = (Person[])_people.Clone();
 
-        // Example: sort by Name ascending
-        Array.Sort(copy, (a, b) => a.Name.CompareTo(b.Name));
+        Array.Sort(
+            sorted,
+            (first, second) =>
+                StringComparer.OrdinalIgnoreCase.Compare(first.Name, second.Name));
 
-        return copy;
+        return sorted;
     }
 
-    // 3️. LINQ OrderBy
-    // - Functional and concise but creates a new sequence
-    // - Flexible for multiple sort keys
-    public Person[] SortWithLinq()
-    {
-        return _people
-            .OrderBy(p => p.Age)     // Sort by Age
-            .ThenBy(p => p.Name)     // Then by Name
-            .ToArray();
-    }
+    /// <summary>
+    /// Usa LINQ para ordenar por idade e, em caso de empate, por nome.
+    /// </summary>
+    public Person[] SortWithLinq() =>
+        _people.OrderBy(person => person.Age)
+               .ThenBy(person => person.Name, StringComparer.OrdinalIgnoreCase)
+               .ToArray();
 }

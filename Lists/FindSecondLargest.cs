@@ -1,89 +1,90 @@
 namespace Lists;
 
 /// <summary>
-/// Q2: FindSecondLargest
-/// Task: Find the second largest element in a List&lt;int&gt; using multiple approaches:
-/// 1. Sort descending and pick second element (O(n log n))
-/// 2. Two-pass scan: find max, then find max excluding it (O(n))
-/// 3. Single-pass tracking top two values (O(n), optimal)
+/// Q2: encontrar o segundo maior valor distinto de uma lista de inteiros.
 /// </summary>
-public class FindSecondLargest
+public sealed class FindSecondLargest
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public FindSecondLargest(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Simple approach: Sort and pick second O(n log n)
-    // - Sort descending and return second distinct element
-    // - Extra space for sorted copy
+    /// <summary>
+    /// Ordena uma cópia em ordem decrescente e encontra o segundo valor distinto.
+    /// Tempo: O(n log n). Espaço: O(n).
+    /// </summary>
     public int? FindWithSorting()
     {
-        List<int> sorted = new List<int>(_list);
-        sorted.Sort();
-        sorted.Reverse();
+        if (_list.Count < 2)
+            return null;
 
-        // Find second distinct value
+        List<int> sorted = new(_list);
+        sorted.Sort((left, right) => right.CompareTo(left));
+
         for (int i = 1; i < sorted.Count; i++)
         {
             if (sorted[i] != sorted[0])
                 return sorted[i];
         }
 
-        return null; // All elements are the same
+        return null;
     }
 
-    // 2️. Two-pass scan O(n)
-    // - First pass: find the maximum
-    // - Second pass: find the largest element that is not equal to the maximum
+    /// <summary>
+    /// Primeiro encontra o maior valor; depois procura o maior valor diferente dele.
+    /// Tempo: O(n). Espaço: O(1).
+    /// </summary>
     public int? FindWithTwoPass()
     {
-        int max = int.MinValue;
-        foreach (int num in _list)
+        if (_list.Count < 2)
+            return null;
+
+        int maximum = _list[0];
+        foreach (int number in _list)
+            maximum = Math.Max(maximum, number);
+
+        int? secondLargest = null;
+        foreach (int number in _list)
         {
-            if (num > max)
-                max = num;
+            if (number == maximum)
+                continue;
+
+            if (secondLargest is null || number > secondLargest.Value)
+                secondLargest = number;
         }
 
-        int secondMax = int.MinValue;
-        bool found = false;
-        foreach (int num in _list)
-        {
-            if (num != max && num > secondMax)
-            {
-                secondMax = num;
-                found = true;
-            }
-        }
-
-        return found ? secondMax : null;
+        return secondLargest;
     }
 
-    // 3️. Optimal: Single-pass tracking two values O(n)
-    // - Track first and second largest in one iteration
-    // - Most efficient approach
+    /// <summary>
+    /// Mantém os dois maiores valores distintos em uma única passagem.
+    /// Tempo: O(n). Espaço: O(1).
+    /// </summary>
     public int? FindWithSinglePass()
     {
-        if (_list.Count < 2) return null;
+        int? largest = null;
+        int? secondLargest = null;
 
-        int first = int.MinValue;
-        int second = int.MinValue;
-
-        foreach (int num in _list)
+        foreach (int number in _list)
         {
-            if (num > first)
+            if (largest is null || number > largest.Value)
             {
-                second = first;
-                first = num;
+                if (largest != number)
+                    secondLargest = largest;
+
+                largest = number;
             }
-            else if (num > second && num != first)
+            else if (number < largest.Value &&
+                     (secondLargest is null || number > secondLargest.Value))
             {
-                second = num;
+                secondLargest = number;
             }
         }
 
-        return second == int.MinValue ? null : second;
+        return secondLargest;
     }
 }

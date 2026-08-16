@@ -1,8 +1,10 @@
 namespace Trees;
 
 /// <summary>
-/// Shared tree node models used across all tree interview questions.
-/// These are minimal and interview-friendly — no unnecessary abstractions.
+/// Representa um nó de uma árvore binária.
+///
+/// O modelo é intencionalmente mínimo para facilitar o uso em exercícios de entrevista.
+/// Os algoritmos do módulo pressupõem uma árvore válida e acíclica.
 /// </summary>
 public class TreeNode
 {

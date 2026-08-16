@@ -1,28 +1,32 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q11: Flatten2DArray
-/// Task: Convert a 2D integer array (matrix) into a 1D array (flatten it) using multiple approaches:
-/// 1. Brute force with nested loops (O(n*m) time, O(n*m) space)
-/// 2. LINQ SelectMany for concise functional flattening (O(n*m) time, O(n*m) space)
-/// 3. Optimized pre-allocation and single pass for maximum efficiency (O(n*m) time, O(n*m) space)
+/// Questão 10: converta um array jagged de inteiros em um único array linear.
+/// São apresentadas abordagens com laços aninhados, LINQ e pré-alocação.
 /// </summary>
-public class Flatten2DArray
+public sealed class Flatten2DArray
 {
-    private int[][] _jaggedArray;
+    private readonly int[][] _jaggedArray;
 
     public Flatten2DArray(int[][] jaggedArray)
     {
+        ArgumentNullException.ThrowIfNull(jaggedArray);
+
+        for (int i = 0; i < jaggedArray.Length; i++)
+        {
+            if (jaggedArray[i] is null)
+            {
+                throw new ArgumentException("O array jagged não pode conter linhas nulas.", nameof(jaggedArray));
+            }
+        }
+
         _jaggedArray = jaggedArray;
     }
 
-    // 1️. Brute Force: Nested loops to flatten
-    // - Iterate row by row and copy elements into a new list
-    // - Time: O(n*m)
-    // - Space: O(n*m)
+    // Tempo: O(e), em que e é o total de elementos. Espaço adicional: O(e).
     public int[] FlattenWithNestedLoops()
     {
-        List<int> result = new List<int>();
+        List<int> result = new();
 
         for (int i = 0; i < _jaggedArray.Length; i++)
         {
@@ -35,36 +39,34 @@ public class Flatten2DArray
         return result.ToArray();
     }
 
-    // 2️. LINQ SelectMany
-    // - One-liner functional approach
-    // - Internally still iterates through all elements
-    // - Time: O(n*m), Space: O(n*m)
+    // Tempo: O(e). Espaço adicional: O(e), incluindo as alocações realizadas pelo LINQ.
     public int[] FlattenWithLinq()
     {
         return _jaggedArray.SelectMany(row => row).ToArray();
     }
 
-    // 3️. Optimal Pre-Allocation
-    // - Precompute total length to allocate array only once
-    // - Fill sequentially for best performance
+    // Tempo: O(e). Espaço adicional: O(e) para o resultado.
+    // A pré-alocação evita os redimensionamentos internos de List<T>.
     public int[] FlattenOptimized()
     {
         int totalLength = 0;
 
-        for (int i = 0; i < _jaggedArray.Length; i++)
-            totalLength += _jaggedArray[i].Length;
+        foreach (int[] row in _jaggedArray)
+        {
+            totalLength = checked(totalLength + row.Length);
+        }
 
-        int[] flatArray = new int[totalLength];
+        int[] flattened = new int[totalLength];
         int index = 0;
 
-        for (int i = 0; i < _jaggedArray.Length; i++)
+        foreach (int[] row in _jaggedArray)
         {
-            for (int j = 0; j < _jaggedArray[i].Length; j++)
+            for (int i = 0; i < row.Length; i++)
             {
-                flatArray[index++] = _jaggedArray[i][j];
+                flattened[index++] = row[i];
             }
         }
 
-        return flatArray;
+        return flattened;
     }
 }

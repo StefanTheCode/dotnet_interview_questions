@@ -2,10 +2,8 @@ namespace Trees;
 
 /// <summary>
 /// Q10: InsertIntoBST
-/// Task: Insert a new value into a Binary Search Tree maintaining BST property
-/// using multiple approaches:
-/// 1. Recursive insertion (O(h) time, O(h) space)
-/// 2. Iterative insertion (O(h) time, O(1) space, optimal)
+/// Insere um valor em uma Binary Search Tree por recursão ou iteração.
+/// Valores duplicados são ignorados e a árvore recebida é modificada.
 /// </summary>
 public class InsertIntoBST
 {
@@ -16,64 +14,65 @@ public class InsertIntoBST
         _root = root;
     }
 
-    // 1️. Recursive Insertion
-    // - Navigate the tree recursively
-    // - Insert as a new leaf in the correct position
-    // Time: O(h), Space: O(h) due to call stack
+    public TreeNode? CurrentRoot => _root;
+
+    // Tempo: O(h). Espaço auxiliar: O(h).
     public TreeNode InsertRecursive(int value)
     {
-        _root = InsertHelper(_root, value);
+        _root = InsertNodeRecursive(_root, value);
         return _root;
     }
 
-    private TreeNode InsertHelper(TreeNode? node, int value)
+    private static TreeNode InsertNodeRecursive(TreeNode? node, int value)
     {
-        if (node == null)
+        if (node is null)
             return new TreeNode(value);
 
         if (value < node.Value)
-            node.Left = InsertHelper(node.Left, value);
+            node.Left = InsertNodeRecursive(node.Left, value);
         else if (value > node.Value)
-            node.Right = InsertHelper(node.Right, value);
+            node.Right = InsertNodeRecursive(node.Right, value);
 
-        // If value == node.Value, ignore duplicates (standard BST behavior)
         return node;
     }
 
-    // 2️. Iterative Insertion — Optimal
-    // - Find the correct parent node, then attach the new leaf
-    // - No recursion overhead
-    // Time: O(h), Space: O(1)
+    // Tempo: O(h). Espaço auxiliar: O(1).
     public TreeNode InsertIterative(int value)
     {
-        TreeNode newNode = new TreeNode(value);
-        if (_root == null)
+        if (_root is null)
         {
-            _root = newNode;
+            _root = new TreeNode(value);
             return _root;
         }
 
         TreeNode current = _root;
-        TreeNode? parent = null;
 
-        while (current != null)
+        while (true)
         {
-            parent = current;
+            if (value == current.Value)
+                return _root;
+
             if (value < current.Value)
-                current = current.Left!;
-            else if (value > current.Value)
-                current = current.Right!;
+            {
+                if (current.Left is null)
+                {
+                    current.Left = new TreeNode(value);
+                    return _root;
+                }
+
+                current = current.Left;
+            }
             else
-                return _root; // Duplicate, do not insert
+            {
+                if (current.Right is null)
+                {
+                    current.Right = new TreeNode(value);
+                    return _root;
+                }
+
+                current = current.Right;
+            }
         }
-
-        // Attach the new node to the correct parent
-        if (value < parent!.Value)
-            parent.Left = newNode;
-        else
-            parent.Right = newNode;
-
-        return _root;
     }
 
     public TreeNode? GetRoot() => _root;

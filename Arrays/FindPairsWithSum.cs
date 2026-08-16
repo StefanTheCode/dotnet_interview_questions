@@ -1,89 +1,100 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q13: FindPairsWithSum
-/// Task: Find all unique pairs of elements in an array that add up to a given target sum using multiple approaches:
-/// 1. Brute force nested loops (O(n²))
-/// 2. HashSet for complement lookup (O(n), optimal)
-/// 3. Sorting + Two-pointer technique (O(n log n), O(1) extra space)
+/// Questão 12: encontrar todos os pares únicos cuja soma seja igual ao valor-alvo.
+///
+/// As abordagens apresentadas são:
+/// 1. força bruta com dois laços — O(n²) de tempo;
+/// 2. busca do complemento com HashSet — O(n) de tempo médio e O(n) de espaço;
+/// 3. ordenação e dois ponteiros — O(n log n) de tempo e O(n) de espaço,
+///    pois uma cópia é ordenada para preservar o array recebido.
 /// </summary>
 public class FindPairsWithSum
 {
-    private int[] _array;
+    private readonly int[] _array;
 
     public FindPairsWithSum(int[] array)
     {
-        _array = array;
+        ArgumentNullException.ThrowIfNull(array);
+        _array = (int[])array.Clone();
     }
 
-    // 1️. Brute Force O(n²)
-    // - Check every pair of elements and add to result if they sum to target
-    public List<(int, int)> FindPairsBruteForce(int target)
+    /// <summary>
+    /// Verifica todas as combinações de índices e elimina pares duplicados.
+    /// </summary>
+    public List<(int First, int Second)> FindPairsBruteForce(int target)
     {
-        List<(int, int)> result = new List<(int, int)>();
+        HashSet<(int First, int Second)> uniquePairs = new();
 
         for (int i = 0; i < _array.Length; i++)
         {
             for (int j = i + 1; j < _array.Length; j++)
             {
-                if (_array[i] + _array[j] == target)
-                    result.Add((_array[i], _array[j]));
+                long sum = (long)_array[i] + _array[j];
+
+                if (sum != target)
+                    continue;
+
+                uniquePairs.Add(NormalizePair(_array[i], _array[j]));
             }
         }
 
-        return result;
+        return OrderPairs(uniquePairs);
     }
 
-    // 2️. HashSet O(n) time, O(n) space
-    // - Store seen numbers
-    // - Check if target - current number exists in the set
-    public List<(int, int)> FindPairsWithHashSet(int target)
+    /// <summary>
+    /// Armazena os valores já visitados e procura o complemento do valor atual.
+    /// </summary>
+    public List<(int First, int Second)> FindPairsWithHashSet(int target)
     {
-        HashSet<int> seen = new HashSet<int>();
-        HashSet<(int, int)> uniquePairs = new HashSet<(int, int)>();
+        HashSet<int> seen = new();
+        HashSet<(int First, int Second)> uniquePairs = new();
 
-        foreach (int num in _array)
+        foreach (int number in _array)
         {
-            int complement = target - num;
+            long complementValue = (long)target - number;
 
-            if (seen.Contains(complement))
+            if (complementValue is >= int.MinValue and <= int.MaxValue)
             {
-                // Sort the tuple to avoid duplicate pairs like (2,3) and (3,2)
-                var pair = num < complement ? (num, complement) : (complement, num);
-                uniquePairs.Add(pair);
+                int complement = (int)complementValue;
+
+                if (seen.Contains(complement))
+                    uniquePairs.Add(NormalizePair(number, complement));
             }
 
-            seen.Add(num);
+            seen.Add(number);
         }
 
-        return uniquePairs.ToList();
+        return OrderPairs(uniquePairs);
     }
 
-    // 3️. Sorting + Two-Pointer O(n log n)
-    // - Sort array and use left/right pointers to find pairs
-    // - Advantage: O(1) extra space, returns sorted pairs
-    public List<(int, int)> FindPairsTwoPointer(int target)
+    /// <summary>
+    /// Ordena uma cópia do array e aproxima dois ponteiros conforme a soma encontrada.
+    /// </summary>
+    public List<(int First, int Second)> FindPairsTwoPointer(int target)
     {
         int[] sortedArray = (int[])_array.Clone();
         Array.Sort(sortedArray);
 
+        List<(int First, int Second)> result = new();
         int left = 0;
         int right = sortedArray.Length - 1;
-        List<(int, int)> result = new List<(int, int)>();
 
         while (left < right)
         {
-            int sum = sortedArray[left] + sortedArray[right];
+            long sum = (long)sortedArray[left] + sortedArray[right];
 
             if (sum == target)
             {
                 result.Add((sortedArray[left], sortedArray[right]));
-                left++;
-                right--;
+                int leftValue = sortedArray[left];
+                int rightValue = sortedArray[right];
 
-                // Skip duplicates
-                while (left < right && sortedArray[left] == sortedArray[left - 1]) left++;
-                while (left < right && sortedArray[right] == sortedArray[right + 1]) right--;
+                while (left < right && sortedArray[left] == leftValue)
+                    left++;
+
+                while (left < right && sortedArray[right] == rightValue)
+                    right--;
             }
             else if (sum < target)
             {
@@ -97,4 +108,13 @@ public class FindPairsWithSum
 
         return result;
     }
+
+    private static (int First, int Second) NormalizePair(int first, int second) =>
+        first <= second ? (first, second) : (second, first);
+
+    private static List<(int First, int Second)> OrderPairs(
+        IEnumerable<(int First, int Second)> pairs) =>
+        pairs.OrderBy(pair => pair.First)
+             .ThenBy(pair => pair.Second)
+             .ToList();
 }

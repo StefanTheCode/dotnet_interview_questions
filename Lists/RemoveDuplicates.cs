@@ -1,56 +1,63 @@
 namespace Lists;
 
 /// <summary>
-/// Q1: RemoveDuplicates
-/// Task: Remove duplicate elements from a List&lt;int&gt; using multiple approaches:
-/// 1. Brute force check against result list (O(n²))
-/// 2. Sort and remove adjacent duplicates (O(n log n))
-/// 3. HashSet to track unique elements (O(n), optimal)
+/// Q1: remover elementos duplicados de uma <see cref="List{T}"/> de inteiros.
+/// Apresenta força bruta, ordenação e <see cref="HashSet{T}"/>.
 /// </summary>
-public class RemoveDuplicates
+public sealed class RemoveDuplicates
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public RemoveDuplicates(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Worst approach: Brute Force O(n²)
-    // - Compare each element with the result list
-    // - Add it only if it's not already present
-    // - Very slow for large lists
+    /// <summary>
+    /// Compara cada elemento com o resultado já construído.
+    /// Tempo: O(n²). Espaço: O(n).
+    /// Preserva a ordem da primeira ocorrência.
+    /// </summary>
     public List<int> RemoveDuplicatesBruteForce()
     {
-        List<int> result = new List<int>();
+        List<int> result = [];
 
-        for (int i = 0; i < _list.Count; i++)
+        foreach (int number in _list)
         {
             bool exists = false;
-            for (int j = 0; j < result.Count; j++)
+
+            foreach (int existing in result)
             {
-                if (_list[i] == result[j])
-                {
-                    exists = true;
-                    break;
-                }
+                if (number != existing)
+                    continue;
+
+                exists = true;
+                break;
             }
+
             if (!exists)
-                result.Add(_list[i]);
+                result.Add(number);
         }
 
         return result;
     }
 
-    // 2️. Better approach: Sorting + Checking Adjacent O(n log n)
-    // - Sort the list first
-    // - Iterate and add element only if it's different from previous
+    /// <summary>
+    /// Ordena uma cópia e elimina valores adjacentes repetidos.
+    /// Tempo: O(n log n). Espaço: O(n).
+    /// A ordem original não é preservada.
+    /// </summary>
     public List<int> RemoveDuplicatesWithSorting()
     {
-        List<int> sorted = new List<int>(_list);
-        sorted.Sort(); // O(n log n)
+        if (_list.Count == 0)
+            return [];
 
-        List<int> result = new List<int> { sorted[0] };
+        List<int> sorted = new(_list);
+        sorted.Sort();
+
+        List<int> result = [sorted[0]];
+
         for (int i = 1; i < sorted.Count; i++)
         {
             if (sorted[i] != sorted[i - 1])
@@ -60,19 +67,20 @@ public class RemoveDuplicates
         return result;
     }
 
-    // 3️. Optimal approach: HashSet O(n)
-    // - Use a HashSet to store unique elements
-    // - Insertion in HashSet is O(1) average
-    // - Maintains order of first appearance
+    /// <summary>
+    /// Usa um conjunto para identificar valores já encontrados.
+    /// Tempo médio: O(n). Espaço: O(n).
+    /// Preserva a ordem da primeira ocorrência.
+    /// </summary>
     public List<int> RemoveDuplicatesWithHashSet()
     {
-        HashSet<int> seen = new HashSet<int>();
-        List<int> result = new List<int>();
+        HashSet<int> seen = [];
+        List<int> result = [];
 
-        foreach (int num in _list)
+        foreach (int number in _list)
         {
-            if (seen.Add(num)) // Add returns false if already present
-                result.Add(num);
+            if (seen.Add(number))
+                result.Add(number);
         }
 
         return result;

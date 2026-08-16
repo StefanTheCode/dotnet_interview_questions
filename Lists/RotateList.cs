@@ -1,89 +1,97 @@
 namespace Lists;
 
 /// <summary>
-/// Q9: RotateList
-/// Task: Given a List&lt;int&gt;, rotate the list to the right by K steps using multiple approaches:
-/// 1. Brute force rotation by shifting elements one step at a time (O(n*k), worst)
-/// 2. Extra list to copy rotated values (O(n) time, O(n) space)
-/// 3. In-place reversal method using three reversals (O(n) time, O(1) space, optimal)
+/// Q9: rotacionar uma lista para a direita em K posições.
+/// Valores negativos de K representam rotação para a esquerda.
 /// </summary>
-public class RotateList
+public sealed class RotateList
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public RotateList(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Brute Force O(n*k)
-    // - Shift elements to the right one step at a time, repeat k times
-    // - Very slow for large k
+    /// <summary>
+    /// Move os elementos uma posição por vez.
+    /// Tempo: O(n × k). Espaço: O(n) pela cópia.
+    /// </summary>
     public List<int> RotateBruteForce(int k)
     {
-        int n = _list.Count;
-        k %= n;
+        if (_list.Count == 0)
+            return [];
 
-        List<int> copy = new List<int>(_list);
+        int normalizedK = NormalizeRotation(k, _list.Count);
+        List<int> copy = new(_list);
 
-        for (int step = 0; step < k; step++)
+        for (int step = 0; step < normalizedK; step++)
         {
-            int last = copy[n - 1];
-            for (int i = n - 1; i > 0; i--)
+            int last = copy[^1];
+
+            for (int i = copy.Count - 1; i > 0; i--)
                 copy[i] = copy[i - 1];
+
             copy[0] = last;
         }
 
         return copy;
     }
 
-    // 2️. Better Approach: Extra List O(n) time, O(n) space
-    // - Compute new position for each element directly
+    /// <summary>
+    /// Calcula diretamente a nova posição de cada elemento.
+    /// Tempo: O(n). Espaço: O(n).
+    /// </summary>
     public List<int> RotateWithExtraList(int k)
     {
-        int n = _list.Count;
-        k %= n;
+        if (_list.Count == 0)
+            return [];
 
-        List<int> result = new List<int>(new int[n]);
+        int n = _list.Count;
+        int normalizedK = NormalizeRotation(k, n);
+        int[] result = new int[n];
 
         for (int i = 0; i < n; i++)
-        {
-            int newIndex = (i + k) % n;
-            result[newIndex] = _list[i];
-        }
+            result[(i + normalizedK) % n] = _list[i];
 
-        return result;
+        return [.. result];
     }
 
-    // 3️. Optimal Approach: In-Place Reversal O(n) time, O(1) space
-    // - Reverse the whole list
-    // - Reverse first k elements
-    // - Reverse remaining n-k elements
+    /// <summary>
+    /// Aplica três reversões sobre a lista interna.
+    /// Tempo: O(n). Espaço: O(1).
+    /// </summary>
     public void RotateInPlace(int k)
     {
+        if (_list.Count == 0)
+            return;
+
         int n = _list.Count;
-        k %= n;
+        int normalizedK = NormalizeRotation(k, n);
+
+        if (normalizedK == 0)
+            return;
 
         Reverse(0, n - 1);
-        Reverse(0, k - 1);
-        Reverse(k, n - 1);
+        Reverse(0, normalizedK - 1);
+        Reverse(normalizedK, n - 1);
     }
 
-    // Helper to reverse a segment of the list in-place
+    public IReadOnlyList<int> Current => _list;
+
+    private static int NormalizeRotation(int k, int count)
+    {
+        return ((k % count) + count) % count;
+    }
+
     private void Reverse(int start, int end)
     {
         while (start < end)
         {
-            int temp = _list[start];
-            _list[start] = _list[end];
-            _list[end] = temp;
+            (_list[start], _list[end]) = (_list[end], _list[start]);
             start++;
             end--;
         }
-    }
-
-    public void PrintList()
-    {
-        Console.WriteLine(string.Join(", ", _list));
     }
 }

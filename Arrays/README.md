@@ -1,141 +1,80 @@
-﻿# 🧩 .NET Array Interview Questions – Complete Guide
+# Perguntas de entrevista sobre arrays em .NET
 
-This repository contains **20 essential array interview questions** for **.NET developers**.  
-Each question comes with:  
+Este módulo reúne **20 questões sobre arrays** voltadas à preparação para entrevistas técnicas com C#.
 
-- ✅ **Explanation** of the problem  
-- ✅ **Multiple solutions** (from brute force to optimal)  
-- ✅ **Performance analysis** (time & space complexity)  
-- ✅ **Clean, commented C# class implementation**  
+Cada questão procura apresentar:
 
-If an interviewer asks about **arrays**, mastering these **20 questions** gives you **~90% coverage** of what’s commonly asked in coding interviews.
+- explicação do problema;
+- mais de uma estratégia de solução quando aplicável;
+- evolução de uma abordagem simples para outra mais eficiente;
+- análise de complexidade de tempo e espaço;
+- tratamento dos casos extremos mais relevantes;
+- código C# comentado em português do Brasil.
 
----
+## Progresso
 
-## 📌 Why Arrays?
+As **20 questões** foram incorporadas, traduzidas e revisadas tecnicamente.
 
-Arrays are **one of the first topics in any coding interview** because they:
+| # | Questão | Arquivo | Situação |
+|---:|---|---|---|
+| 1 | Diferenças entre `Array`, `ArrayList` e `List<T>` | `Array_ArrayList_List.cs` | Concluída |
+| 2 | Inverter um array | `ReverseArray.cs` | Concluída |
+| 3 | Maior produto de um subarray contíguo | `MaxProductSubarray.cs` | Concluída |
+| 4 | Remover elementos duplicados | `RemoveDuplicates.cs` | Concluída |
+| 5 | Encontrar o número ausente de 1 até N | `FindMissingNumber.cs` | Concluída |
+| 6 | Encontrar a interseção entre dois arrays | `FindIntersection.cs` | Concluída |
+| 7 | Encontrar o primeiro elemento não repetido | `FirstNonRepeatingElement.cs` | Concluída |
+| 8 | Rotacionar um array em K posições | `RotateArray.cs` | Concluída |
+| 9 | Verificar se um array é palíndromo | `CheckPalindromeArray.cs` | Concluída |
+| 10 | Transformar um array jagged em um array linear | `Flatten2DArray.cs` | Concluída |
+| 11 | Encontrar o elemento majoritário | `MajorityElementFinder.cs` | Concluída |
+| 12 | Encontrar pares com uma soma específica | `FindPairsWithSum.cs` | Concluída |
+| 13 | Implementar busca binária | `BinarySearchArray.cs` | Concluída |
+| 14 | Encontrar a maior soma de subarray | `MaxSubarraySum.cs` | Concluída |
+| 15 | Contar a frequência dos elementos | `ElementFrequencyCounter.cs` | Concluída |
+| 16 | Comparar arrays jagged e multidimensionais | `JaggedVsMultidimensionalArray.cs` | Concluída |
+| 17 | Embaralhar um array com Fisher–Yates | `ShuffleArray.cs` | Concluída |
+| 18 | Redimensionar um array | `ResizeArray.cs` | Concluída |
+| 19 | Ordenar objetos personalizados | `SortCustomObjects.cs` | Concluída |
+| 20 | Complexidade das operações com arrays | `ArrayOperationsComplexity.md` | Concluída |
 
-1. Test **fundamental problem-solving skills**  
-2. Require understanding of **loops, conditions, and indexes**  
-3. Serve as a basis for **hashing, sorting, and algorithm design**  
+## Como estudar as implementações
 
-Common tasks include **reversals, rotations, searching, frequency counting, subarray problems, and element manipulation**.
+Para cada problema:
 
----
+1. comece pela abordagem mais simples e explique seu funcionamento;
+2. identifique os gargalos de tempo e memória;
+3. avance para a próxima solução e compare as complexidades;
+4. teste entradas vazias, um único elemento, valores negativos e duplicidades quando forem aplicáveis;
+5. explique quando uma solução modifica o array original;
+6. descreva as premissas do algoritmo, como a exigência de ordenação para busca binária.
 
-## 🎯 Probability of Being Asked
+## Ajustes técnicos aplicados nesta tradução
 
-| Priority | Questions | Example Problems | Likelihood |
-|---------|-----------|-----------------|-----------|
-| **High** | Reverse, Rotate, Missing Number, Intersection, First Non-Repeating, Palindrome, Max Subarray Sum, Pairs with Sum, Frequency Counting | “Rotate array by k”, “Find first non-repeating element” | **70–80%** |
-| **Medium** | Max Product Subarray, Flatten 2D Array, Majority Element, Shuffle Array, Binary Search Variants, Remove Duplicates | “Find max product subarray”, “Remove duplicates” | **40–50%** |
-| **Low** | Time Complexity of Access, Jagged vs Multidimensional, Resize Array, Sort Custom Objects | “What is array access complexity?” | **20–30%** |
+Durante a revisão das questões, foram realizados ajustes em relação ao código original:
 
-💡 **Tip:**  
-Focus on the **high priority questions first** if preparing under time constraints.
+- numeração alinhada ao índice do README principal;
+- validação de argumentos nulos, arrays vazios e tamanhos inválidos;
+- ordenação realizada sobre cópias para evitar mutações inesperadas;
+- rotação corrigida para arrays vazios e valores negativos de `k`;
+- cálculos intermediários promovidos para `long` quando a soma poderia exceder `int`;
+- resultados baseados em `HashSet` ordenados para manter saída determinística;
+- pares duplicados eliminados também na abordagem de força bruta;
+- busca binária protegida por validação da ordenação crescente;
+- versão LINQ da maior soma reescrita com prefixos de soma e complexidade corrigida;
+- descrição da abordagem ingênua de embaralhamento corrigida para custo esperado O(n log n);
+- `Random` injetável para permitir exemplos e testes reproduzíveis;
+- nulabilidade corrigida na implementação de objetos personalizados;
+- distinção explícita entre array jagged e array multidimensional;
+- questão conceitual de complexidade adicionada como documento próprio.
 
----
+## Execução
 
-## 📂 Repository Structure
+A partir da raiz do repositório:
 
-ArrayInterviewQuestions/
-│
-├── Q02_ReverseArray.cs
-├── Q03_MaxProductSubarray.cs
-├── Q04_RemoveDuplicates.cs
-├── Q06_FindMissingNumber.cs
-├── Q07_FindIntersection.cs
-├── Q08_FirstNonRepeatingElement.cs
-├── Q09_RotateArray.cs
-├── Q10_CheckPalindromeArray.cs
-├── Q11_Flatten2DArray.cs
-├── Q12_MajorityElementFinder.cs
-├── Q13_FindPairsWithSum.cs
-├── Q14_BinarySearchArray.cs
-├── Q15_MaxSubarraySum.cs
-├── Q16_ElementFrequencyCounter.cs
-├── Q17_JaggedVsMultidimensionalArray.cs
-├── Q18_ShuffleArray.cs
-├── Q19_ResizeArray.cs
-├── Q20_SortCustomObjects.cs
-│
-└── README.md
+```bash
+dotnet build Arrays/Arrays.csproj
+dotnet run --project Arrays/Arrays.csproj
+```
 
-
-Each file is a **self-contained class** that:  
-- Explains the problem in the class summary  
-- Provides **2–3 solutions** (from worst to optimal)  
-
----
-
-## ⚡ How to Use
-
-1. **Clone the repository** and open in **Visual Studio** or **Rider**.
-2. Open any question file, e.g., `Q09_RotateArray.cs`.  
-3. Read the **class summary** for the problem statement.  
-4. Check **solutions in order** to see the evolution from brute force to optimal.  
-5. Run the **usage example** in a console app to see results.  
-
----
-
-## 💡 Extra Interview Tips
-
-- **Start with the simplest solution first**, even if it’s O(n²).  
-  - Interviewers often want to see your **thinking process** first.  
-- **Explain time and space complexity** of each approach.  
-- **Optimize step by step**: move from brute force → hashing → two-pointer → in-place.  
-- **Mention edge cases**:  
-  - Empty arrays  
-  - Single element arrays  
-  - Negative numbers  
-  - Duplicates  
-
----
-
-## 📊 Coverage and Confidence
-
-If you **master these 20 questions**:
-
-- **90%** coverage of typical array coding interviews  
-- **70–80%** chance your problem is a **direct variant** of one of these  
-- **Great practice for LeetCode Easy/Medium array problems**  
-
----
-
-## 📚 Questions List
-
-1. Reverse an array  
-2. Maximum product subarray  
-3. Remove duplicates from an array  
-4. Find the missing number in a sequence from 1 to N  
-5. Find the intersection of two arrays  
-6. Find the first non-repeating element in an array  
-7. Rotate an array to the right by K steps  
-8. Check if an array is a palindrome  
-9. Flatten a 2D array  
-10. Find the majority element (> n/2 times)  
-11. Find all pairs with a given sum in an array  
-12. Implement binary search in an array  
-13. Maximum subarray sum (Kadane’s Algorithm)  
-14. Find the frequency of each element in an array  
-15. Difference between jagged and multidimensional arrays  
-16. Shuffle an array (Fisher-Yates)  
-17. Resize an array in C#  
-18. Sort an array of custom objects  
-19. Time complexity of array operations (conceptual)  
-20. Extra edge case handling and performance discussion  
-
----
-
-## ✅ Author Notes
-
-This collection is built for **.NET interview preparation**:  
-
-- Uses **C# 10+ syntax**  
-- Follows **clean coding practices**
-- Maybe not use the last features from C# (like [] array initialization) due to easier understanding of code.
-- Demonstrates **progressive optimization** (brute force → optimal)  
-
-If you **practice all 20 questions and understand the optimizations**,  
-you will handle **90% of array interview questions with confidence**.  
+O `Program.cs` contém exemplos representativos de elemento majoritário, pares com soma, busca binária, algoritmo de Kadane e Fisher–Yates.

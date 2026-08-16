@@ -1,29 +1,25 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q8: FirstNonRepeatingElement
-/// Task: Find the first element in the array that does not repeat using multiple approaches:
-/// 1. Brute force comparison for each element (O(n²))
-/// 2. Dictionary frequency counting (O(n))
-/// 3. LINQ GroupBy for a concise solution (O(n), less control)
+/// Questão 7: encontra o primeiro elemento do array que aparece apenas uma vez.
 /// </summary>
-public class FirstNonRepeatingElement
+public sealed class FirstNonRepeatingElement
 {
-    private int[] _array;
+    private readonly int[] _array;
 
     public FirstNonRepeatingElement(int[] array)
     {
+        ArgumentNullException.ThrowIfNull(array);
         _array = array;
     }
 
-    // 1️⃣ Brute Force O(n^2)
-    // - For each element, check the entire array to see if it repeats
-    // - Returns the first element that has no duplicates
+    // Tempo: O(n²). Espaço adicional: O(1).
     public int? FindBruteForce()
     {
         for (int i = 0; i < _array.Length; i++)
         {
             bool isUnique = true;
+
             for (int j = 0; j < _array.Length; j++)
             {
                 if (i != j && _array[i] == _array[j])
@@ -34,42 +30,41 @@ public class FirstNonRepeatingElement
             }
 
             if (isUnique)
+            {
                 return _array[i];
-        }
-
-        return null; // No unique element
-    }
-
-    // 2️⃣ Better Approach: Dictionary for Frequencies O(n)
-    // - Count occurrences of each element
-    // - Iterate again to find the first with count == 1
-    public int? FindWithDictionary()
-    {
-        Dictionary<int, int> frequency = new Dictionary<int, int>();
-
-        // Count frequencies
-        foreach (int num in _array)
-        {
-            frequency[num] = frequency.GetValueOrDefault(num, 0) + 1;
-        }
-
-        // Find first with count == 1
-        foreach (int num in _array)
-        {
-            if (frequency[num] == 1)
-                return num;
+            }
         }
 
         return null;
     }
 
-    // 3️⃣ LINQ Compact Solution O(n) (less flexible)
-    // - Groups by element and selects the first group with only 1 element
+    // Tempo: O(n). Espaço adicional: O(n).
+    public int? FindWithDictionary()
+    {
+        Dictionary<int, int> frequency = new();
+
+        foreach (int number in _array)
+        {
+            frequency[number] = frequency.GetValueOrDefault(number, 0) + 1;
+        }
+
+        foreach (int number in _array)
+        {
+            if (frequency[number] == 1)
+            {
+                return number;
+            }
+        }
+
+        return null;
+    }
+
+    // Tempo: O(n). Espaço adicional: O(n), com alocações dos agrupamentos do LINQ.
     public int? FindWithLinq()
     {
         return _array
-            .GroupBy(x => x)
-            .FirstOrDefault(g => g.Count() == 1)?
+            .GroupBy(number => number)
+            .FirstOrDefault(group => group.Count() == 1)?
             .Key;
     }
 }

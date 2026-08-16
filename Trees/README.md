@@ -1,168 +1,90 @@
-# 🧩 .NET Tree Interview Questions – Complete Guide
+# Perguntas de entrevista sobre árvores em .NET
 
-This repository contains **20 essential tree interview questions** for **.NET developers**.  
-Each question comes with:  
+Este módulo reúne **20 exercícios sobre árvores** voltados à preparação para entrevistas técnicas com C#.
 
-- ✅ **Explanation** of the problem  
-- ✅ **Multiple solutions** (recursive, iterative, and optimized)  
-- ✅ **Performance analysis** (time & space complexity)  
-- ✅ **Clean, commented C# class implementation**  
+Os exercícios utilizam o modelo compartilhado [`TreeNode`](./TreeNode.cs) e procuram apresentar:
 
-If an interviewer asks about **trees**, mastering these **20 questions** gives you **~90% coverage** of what's commonly asked in coding interviews.
+- explicação do problema;
+- abordagens recursivas e iterativas;
+- análise de complexidade de tempo e espaço;
+- diferenças entre árvore binária, Binary Search Tree e árvore N-ária;
+- tratamento de árvore vazia, árvores degeneradas e entradas inválidas;
+- comentários em português do Brasil.
 
----
+## Progresso
 
-## 📌 Why Trees?
+As **20 questões** foram incorporadas, traduzidas e revisadas tecnicamente.
 
-Trees are **one of the most important data structures in coding interviews** because they:
+| # | Questão | Arquivo | Situação |
+|---:|---|---|---|
+| 1 | Travessias em profundidade: pré-ordem, em ordem e pós-ordem | `DepthFirstTraversal.cs` | Concluída |
+| 2 | Travessia em largura, agrupada e em zigue-zague | `BreadthFirstTraversal.cs` | Concluída |
+| 3 | Encontrar a profundidade máxima | `MaximumDepth.cs` | Concluída |
+| 4 | Encontrar a profundidade mínima | `MinimumDepth.cs` | Concluída |
+| 5 | Verificar se a árvore está balanceada | `CheckBalancedTree.cs` | Concluída |
+| 6 | Verificar se duas árvores são idênticas | `CheckIdenticalTrees.cs` | Concluída |
+| 7 | Inverter uma árvore binária | `InvertBinaryTree.cs` | Concluída |
+| 8 | Validar uma Binary Search Tree | `ValidateBST.cs` | Concluída |
+| 9 | Procurar um valor em uma BST | `SearchBST.cs` | Concluída |
+| 10 | Inserir um valor em uma BST | `InsertIntoBST.cs` | Concluída |
+| 11 | Encontrar os valores mínimo e máximo de uma BST | `FindMinMaxBST.cs` | Concluída |
+| 12 | Encontrar o ancestral comum mais baixo | `LowestCommonAncestor.cs` | Concluída |
+| 13 | Calcular o diâmetro da árvore | `DiameterOfBinaryTree.cs` | Concluída |
+| 14 | Verificar se a árvore é simétrica | `CheckSymmetricTree.cs` | Concluída |
+| 15 | Serializar e desserializar uma árvore | `SerializeDeserializeTree.cs` | Concluída |
+| 16 | Verificar soma de caminho da raiz até uma folha | `PathSum.cs` | Concluída |
+| 17 | Encontrar todos os caminhos da raiz até as folhas | `RootToLeafPaths.cs` | Concluída |
+| 18 | Contar nós totais e folhas | `CountNodes.cs` | Concluída |
+| 19 | Encontrar o k-ésimo menor elemento de uma BST | `KthSmallestInBST.cs` | Concluída |
+| 20 | Construir uma árvore a partir de relações pai-filho | `BuildTreeFromRelationships.cs` | Concluída |
 
-1. Test **recursive thinking** and **divide-and-conquer** skills  
-2. Cover **hierarchical data** found in real applications (org charts, file systems, menus)  
-3. Include **Binary Search Trees** which combine searching, sorting, and tree traversal  
-4. Appear in **system design** questions (DOM trees, category hierarchies, routing tables)  
+## Como estudar as implementações
 
-Common tasks include **traversals, depth calculations, validation, path problems, and building trees from data**.
+Para cada problema:
 
----
+1. identifique se o algoritmo depende apenas de uma árvore binária ou exige uma BST;
+2. comece pela solução recursiva e determine o caso-base;
+3. converta a solução para pilha ou fila quando houver uma versão iterativa;
+4. diferencie altura `h`, largura máxima `w` e quantidade total de nós `n`;
+5. avalie árvore vazia, nó único, árvore degenerada e árvore completa;
+6. verifique se a operação apenas consulta ou modifica a árvore recebida;
+7. considere se a complexidade depende também do tamanho da saída produzida.
 
-## 🎯 Probability of Being Asked
+## Ajustes técnicos aplicados nesta tradução
 
-| Priority | Questions | Example Problems | Likelihood |
-|---------|-----------|-----------------|-----------|
-| **High** | DFS Traversals, BFS/Level Order, Max Depth, Validate BST, Invert Tree, LCA, Path Sum, Balanced Tree, Symmetric Tree | "Invert a binary tree", "Validate BST", "Find max depth" | **70–80%** |
-| **Medium** | Min Depth, Insert/Search BST, Diameter, Serialize/Deserialize, Kth Smallest in BST, Root-to-Leaf Paths, Count Nodes | "Find kth smallest in BST", "Serialize a tree" | **40–50%** |
-| **Low** | Find Min/Max in BST, Build Tree From Relationships, Zigzag Traversal | "Build an org chart from parent-child data" | **20–30%** |
+### Questões 1 a 10
 
-💡 **Tip:**  
-Focus on the **high priority questions first** if preparing under time constraints.
+- documentação do espaço de BFS em função da largura máxima `w`;
+- campos somente de leitura nas classes que apenas consultam a árvore;
+- métodos auxiliares transformados em estáticos quando não dependem de estado;
+- serialização de comparação reescrita com `StringBuilder`;
+- marcadores de nós nulos preservados para comparar também a estrutura;
+- política de duplicados de BST documentada explicitamente;
+- limites de validação de BST representados com `long`;
+- busca em BST documentada com a pré-condição de árvore válida;
+- inserção iterativa reescrita sem supressões desnecessárias de nulabilidade;
+- efeitos mutáveis da inversão e da inserção documentados.
 
----
+### Questões 11 a 20
 
-## 📂 Repository Structure
+- LCA retorna `null` quando um dos valores não pertence à árvore;
+- serialização e desserialização usam formato determinístico e validação estrita;
+- payloads truncados, inválidos ou com tokens excedentes são rejeitados;
+- somas de caminhos utilizam `long` para evitar overflow intermediário;
+- complexidades de caminhos são expressas em função do tamanho da saída;
+- BFS de contagem e simetria usa espaço O(w);
+- `k <= 0` é rejeitado antes da busca pelo k-ésimo menor;
+- construção por relacionamentos valida IDs duplicados, nomes vazios, pais ausentes e múltiplas raízes;
+- ciclos e nós desconectados são detectados antes de expor a hierarquia;
+- filhos de `OrgNode` são expostos como coleção somente leitura.
 
-TreeInterviewQuestions/
-│
-├── TreeNode.cs                      (shared node model)
-│
-├── Q01_DepthFirstTraversal.cs
-├── Q02_BreadthFirstTraversal.cs
-├── Q03_MaximumDepth.cs
-├── Q04_MinimumDepth.cs
-├── Q05_CheckBalancedTree.cs
-├── Q06_CheckIdenticalTrees.cs
-├── Q07_InvertBinaryTree.cs
-├── Q08_ValidateBST.cs
-├── Q09_SearchBST.cs
-├── Q10_InsertIntoBST.cs
-├── Q11_FindMinMaxBST.cs
-├── Q12_LowestCommonAncestor.cs
-├── Q13_DiameterOfBinaryTree.cs
-├── Q14_CheckSymmetricTree.cs
-├── Q15_SerializeDeserializeTree.cs
-├── Q16_PathSum.cs
-├── Q17_RootToLeafPaths.cs
-├── Q18_CountNodes.cs
-├── Q19_KthSmallestInBST.cs
-├── Q20_BuildTreeFromRelationships.cs
-│
-└── README.md
+## Execução
 
+A partir da raiz do repositório:
 
-Each file is a **self-contained class** that:  
-- Explains the problem in the class summary  
-- Provides **2–3 solutions** (from brute force / recursive to optimal / iterative)  
-
----
-
-## 🌳 Tree Node Model
-
-All binary tree problems share a minimal `TreeNode` class:
-
-```csharp
-public class TreeNode
-{
-    public int Value { get; set; }
-    public TreeNode? Left { get; set; }
-    public TreeNode? Right { get; set; }
-
-    public TreeNode(int value) { Value = value; }
-}
+```bash
+dotnet build Trees/Trees.csproj
+dotnet run --project Trees/Trees.csproj
 ```
 
-Q20 (Build Tree from Relationships) introduces an `OrgNode` for N-ary trees — modeled as a real-world org chart / category tree.
-
----
-
-## ⚡ How to Use
-
-1. **Clone the repository** and open in **Visual Studio** or **Rider**.  
-2. Open any question file, e.g., `Q07_InvertBinaryTree.cs`.  
-3. Read the **class summary** for the problem statement.  
-4. Check **solutions in order** to see the evolution from recursive to iterative to optimal.  
-5. Build a small tree in a console app and call the methods to see results.  
-
-**Example:**  
-```csharp
-var root = new TreeNode(4,
-    new TreeNode(2, new TreeNode(1), new TreeNode(3)),
-    new TreeNode(7, new TreeNode(6), new TreeNode(9)));
-
-var depth = new MaximumDepth(root);
-Console.WriteLine(depth.FindMaxDepthRecursive()); // 3
-```
-
----
-
-## 💡 Extra Interview Tips
-
-- **Start with the recursive solution** — it's usually the most natural for trees.  
-  - Interviewers want to see you **think recursively** first.  
-- **Then offer the iterative version** to show you understand stacks/queues.  
-- **Explain time and space complexity** of each approach.  
-  - O(h) space for recursion, where h = tree height.  
-  - O(n) space for BFS when the tree is wide.  
-- **Mention edge cases**:  
-  - Empty tree (null root)  
-  - Single node tree  
-  - Skewed tree (all left or all right children)  
-  - Complete vs. sparse trees  
-- **Know the difference** between:  
-  - Binary Tree vs. Binary Search Tree  
-  - Balanced vs. Unbalanced  
-  - Complete vs. Full vs. Perfect trees  
-
----
-
-## 📊 Coverage and Confidence
-
-If you **master these 20 questions**:
-
-- **90%** coverage of typical tree coding interviews  
-- Strong understanding of **recursion, DFS, BFS, and BST operations**  
-- Ready for **junior to mid-level .NET developer interviews**  
-- Solid foundation for **LeetCode Easy/Medium tree problems**  
-
----
-
-## 📚 Questions List
-
-1. Depth-first traversal (preorder, inorder, postorder — recursive & iterative)  
-2. Breadth-first traversal / level order traversal (flat, grouped, zigzag)  
-3. Maximum depth of a binary tree  
-4. Minimum depth of a binary tree  
-5. Check if a binary tree is height-balanced  
-6. Check if two binary trees are identical  
-7. Invert (mirror) a binary tree  
-8. Validate if a tree is a valid Binary Search Tree  
-9. Search for a value in a BST  
-10. Insert a value into a BST  
-11. Find minimum and maximum value in a BST  
-12. Lowest common ancestor (general tree + BST)  
-13. Find the diameter of a binary tree  
-14. Check if a binary tree is symmetric  
-15. Serialize and deserialize a binary tree  
-16. Path sum (does a root-to-leaf path equal a target?)  
-17. Find all root-to-leaf paths  
-18. Count total nodes and leaf nodes  
-19. Find kth smallest element in a BST  
-20. Build a tree from parent-child relationships (org chart / category tree)  
+O `Program.cs` contém exemplos representativos das 20 questões. A solução completa também é validada automaticamente pelo GitHub Actions com o SDK do .NET 10.

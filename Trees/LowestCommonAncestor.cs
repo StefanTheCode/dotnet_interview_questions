@@ -2,91 +2,125 @@ namespace Trees;
 
 /// <summary>
 /// Q12: LowestCommonAncestor
-/// Task: Find the Lowest Common Ancestor (LCA) of two nodes in a binary tree
-/// using multiple approaches:
-/// 1. Recursive LCA for a general binary tree (O(n) time, O(h) space)
-/// 2. Optimized LCA for a BST using BST property (O(h) time, O(1) space)
-/// 3. Iterative BST LCA (O(h) time, O(1) space, optimal for BST)
+/// Problema: encontrar o ancestral comum mais baixo (Lowest Common Ancestor — LCA)
+/// de dois valores em uma árvore binária geral e em uma BST.
+///
+/// As implementações pressupõem valores únicos. Caso um dos valores não exista,
+/// o resultado é <see langword="null"/>.
 /// </summary>
 public class LowestCommonAncestor
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public LowestCommonAncestor(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Recursive LCA for General Binary Tree
-    // - If current node is p or q, it's the LCA candidate
-    // - If p and q are found in different subtrees, current node is the LCA
-    // - If both are in the same subtree, the LCA is in that subtree
-    // Time: O(n), Space: O(h)
-    public TreeNode? FindLCA(int p, int q)
+    // Árvore binária geral. Tempo: O(n). Espaço auxiliar: O(h).
+    public TreeNode? FindLca(int firstValue, int secondValue)
     {
-        return FindLCAHelper(_root, p, q);
+        if (firstValue == secondValue)
+            return FindNode(_root, firstValue);
+
+        if (!Contains(_root, firstValue) || !Contains(_root, secondValue))
+            return null;
+
+        return FindLcaCore(_root, firstValue, secondValue);
     }
 
-    private TreeNode? FindLCAHelper(TreeNode? node, int p, int q)
+    private static TreeNode? FindLcaCore(TreeNode? node, int firstValue, int secondValue)
     {
-        if (node == null) return null;
-
-        // If current node matches either value, this is a candidate
-        if (node.Value == p || node.Value == q)
+        if (node is null || node.Value == firstValue || node.Value == secondValue)
             return node;
 
-        TreeNode? left = FindLCAHelper(node.Left, p, q);
-        TreeNode? right = FindLCAHelper(node.Right, p, q);
+        TreeNode? left = FindLcaCore(node.Left, firstValue, secondValue);
+        TreeNode? right = FindLcaCore(node.Right, firstValue, secondValue);
 
-        // If both sides returned non-null, current node is the LCA
-        if (left != null && right != null)
+        if (left is not null && right is not null)
             return node;
 
-        // Otherwise, return whichever side found something
         return left ?? right;
     }
 
-    // 2️. Recursive LCA for BST
-    // - Exploit BST ordering to narrow the search
-    // - If both values < current, go left
-    // - If both values > current, go right
-    // - Otherwise, current node is the LCA
-    // Time: O(h), Space: O(h)
-    public TreeNode? FindLCAInBST(int p, int q)
+    // BST recursiva. Tempo: O(h). Espaço auxiliar: O(h).
+    public TreeNode? FindLcaInBst(int firstValue, int secondValue)
     {
-        return FindLCAInBSTHelper(_root, p, q);
+        if (!ContainsInBst(firstValue) || !ContainsInBst(secondValue))
+            return null;
+
+        return FindLcaInBstCore(_root, firstValue, secondValue);
     }
 
-    private TreeNode? FindLCAInBSTHelper(TreeNode? node, int p, int q)
+    private static TreeNode? FindLcaInBstCore(
+        TreeNode? node,
+        int firstValue,
+        int secondValue)
     {
-        if (node == null) return null;
+        if (node is null)
+            return null;
 
-        if (p < node.Value && q < node.Value)
-            return FindLCAInBSTHelper(node.Left, p, q);
+        if (firstValue < node.Value && secondValue < node.Value)
+            return FindLcaInBstCore(node.Left, firstValue, secondValue);
 
-        if (p > node.Value && q > node.Value)
-            return FindLCAInBSTHelper(node.Right, p, q);
+        if (firstValue > node.Value && secondValue > node.Value)
+            return FindLcaInBstCore(node.Right, firstValue, secondValue);
 
-        return node; // Split point — this is the LCA
+        return node;
     }
 
-    // 3️. Iterative LCA for BST — Optimal
-    // - Same logic as recursive BST approach, but without call stack
-    // Time: O(h), Space: O(1)
-    public TreeNode? FindLCAInBSTIterative(int p, int q)
+    // BST iterativa. Tempo: O(h). Espaço auxiliar: O(1).
+    public TreeNode? FindLcaInBstIterative(int firstValue, int secondValue)
     {
+        if (!ContainsInBst(firstValue) || !ContainsInBst(secondValue))
+            return null;
+
         TreeNode? current = _root;
 
-        while (current != null)
+        while (current is not null)
         {
-            if (p < current.Value && q < current.Value)
+            if (firstValue < current.Value && secondValue < current.Value)
+            {
                 current = current.Left;
-            else if (p > current.Value && q > current.Value)
+            }
+            else if (firstValue > current.Value && secondValue > current.Value)
+            {
                 current = current.Right;
+            }
             else
-                return current; // Split point
+            {
+                return current;
+            }
         }
 
         return null;
+    }
+
+    private bool ContainsInBst(int value)
+    {
+        TreeNode? current = _root;
+
+        while (current is not null)
+        {
+            if (value == current.Value)
+                return true;
+
+            current = value < current.Value ? current.Left : current.Right;
+        }
+
+        return false;
+    }
+
+    private static bool Contains(TreeNode? node, int value)
+    {
+        return FindNode(node, value) is not null;
+    }
+
+    private static TreeNode? FindNode(TreeNode? node, int value)
+    {
+        if (node is null || node.Value == value)
+            return node;
+
+        return FindNode(node.Left, value) ?? FindNode(node.Right, value);
     }
 }

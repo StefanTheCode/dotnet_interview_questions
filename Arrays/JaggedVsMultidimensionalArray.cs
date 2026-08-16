@@ -1,31 +1,25 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q17: JaggedVsMultidimensionalArray
-/// Task: Demonstrate the difference between jagged arrays (array of arrays) and multidimensional arrays
-/// and provide basic operations for each:
-/// 1. Declare and initialize both types
-/// 2. Access elements
-/// 3. Iterate over elements
+/// Questão 16: demonstrar as diferenças entre arrays jagged e multidimensionais.
+///
+/// Um array jagged é um array cujos elementos são outros arrays e, portanto,
+/// cada linha pode ter um tamanho diferente. Um array multidimensional retangular
+/// possui uma única estrutura, com o mesmo número de colunas em todas as linhas.
 /// </summary>
 public class JaggedVsMultidimensionalArray
 {
-    // Jagged array: array of arrays (rows can have different lengths)
-    private int[][] _jaggedArray;
-
-    // Multidimensional array: rectangular matrix (all rows same length)
-    private int[,] _multiArray;
+    private readonly int[][] _jaggedArray;
+    private readonly int[,] _multidimensionalArray;
 
     public JaggedVsMultidimensionalArray()
     {
-        // Initialize a jagged array with 3 rows of different lengths
         _jaggedArray = new int[3][];
-        _jaggedArray[0] = new int[] { 1, 2 };
-        _jaggedArray[1] = new int[] { 3, 4, 5 };
-        _jaggedArray[2] = new int[] { 6 };
+        _jaggedArray[0] = new[] { 1, 2 };
+        _jaggedArray[1] = new[] { 3, 4, 5 };
+        _jaggedArray[2] = new[] { 6 };
 
-        // Initialize a 3x3 multidimensional array
-        _multiArray = new int[,]
+        _multidimensionalArray = new[,]
         {
             { 1, 2, 3 },
             { 4, 5, 6 },
@@ -33,41 +27,47 @@ public class JaggedVsMultidimensionalArray
         };
     }
 
-    // 1️. Print jagged array
-    // - Iterates through each sub-array and prints elements
+    /// <summary>
+    /// Percorre cada array interno, respeitando o tamanho individual de suas linhas.
+    /// </summary>
     public void PrintJaggedArray()
     {
-        Console.WriteLine("Jagged Array:");
-        for (int i = 0; i < _jaggedArray.Length; i++)
+        Console.WriteLine("Array jagged:");
+
+        for (int row = 0; row < _jaggedArray.Length; row++)
         {
-            Console.Write("Row " + i + ": ");
-            for (int j = 0; j < _jaggedArray[i].Length; j++)
-            {
-                Console.Write(_jaggedArray[i][j] + " ");
-            }
+            Console.Write($"Linha {row}: ");
+
+            for (int column = 0; column < _jaggedArray[row].Length; column++)
+                Console.Write($"{_jaggedArray[row][column]} ");
+
             Console.WriteLine();
         }
     }
 
-    // 2️. Print multidimensional array
-    // - Iterates through rows and columns in a rectangular structure
+    /// <summary>
+    /// Percorre as dimensões da matriz retangular com GetLength.
+    /// </summary>
     public void PrintMultidimensionalArray()
     {
-        Console.WriteLine("Multidimensional Array:");
-        for (int i = 0; i < _multiArray.GetLength(0); i++)
+        Console.WriteLine("Array multidimensional:");
+
+        for (int row = 0; row < _multidimensionalArray.GetLength(0); row++)
         {
-            for (int j = 0; j < _multiArray.GetLength(1); j++)
-            {
-                Console.Write(_multiArray[i, j] + " ");
-            }
+            for (int column = 0; column < _multidimensionalArray.GetLength(1); column++)
+                Console.Write($"{_multidimensionalArray[row, column]} ");
+
             Console.WriteLine();
         }
     }
 
-    // 3️. Example of accessing elements
+    /// <summary>
+    /// Mostra a diferença de sintaxe para acessar um elemento em cada estrutura.
+    /// </summary>
     public void ShowAccessExample()
     {
-        Console.WriteLine($"Jagged first element: {_jaggedArray[0][0]}");
-        Console.WriteLine($"Multidimensional first element: {_multiArray[0, 0]}");
+        Console.WriteLine($"Primeiro elemento do array jagged: {_jaggedArray[0][0]}");
+        Console.WriteLine(
+            $"Primeiro elemento do array multidimensional: {_multidimensionalArray[0, 0]}");
     }
 }

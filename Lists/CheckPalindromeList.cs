@@ -2,50 +2,58 @@ namespace Lists;
 
 /// <summary>
 /// Q11: CheckPalindromeList
-/// Task: Determine whether a given List&lt;int&gt; is a palindrome (reads the same forwards and backwards)
-/// using multiple approaches:
-/// 1. Compare by reversing into a new list (O(n) time, O(n) space)
-/// 2. LINQ Reverse with SequenceEqual (O(n) time, O(n) space)
-/// 3. In-place two-pointer comparison (O(n) time, O(1) space, optimal)
+/// Tarefa: determinar se uma <see cref="List{T}"/> de inteiros é um palíndromo,
+/// isto é, se possui a mesma sequência quando lida do início para o fim e vice-versa.
+///
+/// Abordagens apresentadas:
+/// 1. Criar uma cópia invertida: O(n) de tempo e O(n) de espaço.
+/// 2. Usar LINQ com Reverse e SequenceEqual: O(n) de tempo e O(n) de espaço auxiliar.
+/// 3. Comparar pelas extremidades com dois ponteiros: O(n) de tempo e O(1) de espaço.
 /// </summary>
-public class CheckPalindromeList
+public sealed class CheckPalindromeList
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public CheckPalindromeList(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Simple Approach: Create a reversed copy and compare
-    // - Time: O(n)
-    // - Space: O(n) for the reversed list
+    /// <summary>
+    /// Cria uma nova lista invertida e compara cada posição.
+    /// </summary>
     public bool IsPalindromeWithCopy()
     {
-        List<int> reversed = new List<int>(_list.Count);
+        List<int> reversed = new(_list.Count);
 
         for (int i = _list.Count - 1; i >= 0; i--)
+        {
             reversed.Add(_list[i]);
+        }
 
         for (int i = 0; i < _list.Count; i++)
+        {
             if (_list[i] != reversed[i])
+            {
                 return false;
+            }
+        }
 
         return true;
     }
 
-    // 2️. LINQ Approach: SequenceEqual with Reverse
-    // - Time: O(n)
-    // - Space: O(n) for the reversed IEnumerable
+    /// <summary>
+    /// Compara a sequência original com sua enumeração invertida.
+    /// </summary>
     public bool IsPalindromeWithLinq()
     {
-        return _list.SequenceEqual(Enumerable.Reverse(_list));
+        return _list.SequenceEqual(_list.AsEnumerable().Reverse());
     }
 
-    // 3️. Optimal Approach: Two-Pointer In-Place Comparison
-    // - Time: O(n)
-    // - Space: O(1)
-    // - Compares first and last elements moving towards the center
+    /// <summary>
+    /// Compara pares de elementos das extremidades em direção ao centro.
+    /// </summary>
     public bool IsPalindromeTwoPointer()
     {
         int left = 0;
@@ -54,7 +62,9 @@ public class CheckPalindromeList
         while (left < right)
         {
             if (_list[left] != _list[right])
+            {
                 return false;
+            }
 
             left++;
             right--;

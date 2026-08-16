@@ -1,53 +1,60 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q15: MaxSubarraySum
-/// Task: Find the contiguous subarray with the largest sum using multiple approaches:
-/// 1. Brute force with nested loops (O(n²))
-/// 2. Kadane's Algorithm for optimal O(n) solution
-/// 3. Optional LINQ variation (concise but not optimal for very large arrays)
+/// Questão 14: encontrar a maior soma entre todos os subarrays contíguos.
+///
+/// As abordagens apresentadas são:
+/// 1. força bruta com soma incremental — O(n²) de tempo e O(1) de espaço;
+/// 2. algoritmo de Kadane — O(n) de tempo e O(1) de espaço;
+/// 3. prefixos de soma combinados com LINQ — O(n²) de tempo e O(n) de espaço.
+///
+/// Os resultados usam long para reduzir o risco de overflow durante a soma de valores int.
 /// </summary>
 public class MaxSubarraySum
 {
-    private int[] _array;
+    private readonly int[] _array;
 
     public MaxSubarraySum(int[] array)
     {
-        _array = array;
+        ArgumentNullException.ThrowIfNull(array);
+
+        if (array.Length == 0)
+            throw new ArgumentException("O array não pode estar vazio.", nameof(array));
+
+        _array = (int[])array.Clone();
     }
 
-    // 1️. Brute Force O(n²)
-    // - Compute sum of all subarrays and track the maximum
-    // - Very slow for large arrays
-    public int FindMaxSumBruteForce()
+    /// <summary>
+    /// Inicia um subarray em cada posição e amplia seu final progressivamente.
+    /// </summary>
+    public long FindMaxSumBruteForce()
     {
-        int maxSum = int.MinValue;
+        long maxSum = long.MinValue;
 
-        for (int i = 0; i < _array.Length; i++)
+        for (int start = 0; start < _array.Length; start++)
         {
-            int currentSum = 0;
-            for (int j = i; j < _array.Length; j++)
+            long currentSum = 0;
+
+            for (int end = start; end < _array.Length; end++)
             {
-                currentSum += _array[j];
-                if (currentSum > maxSum)
-                    maxSum = currentSum;
+                currentSum += _array[end];
+                maxSum = Math.Max(maxSum, currentSum);
             }
         }
 
         return maxSum;
     }
 
-    // 2️. Kadane's Algorithm O(n)
-    // - Keep track of current sum and reset if it becomes negative
-    // - Optimal approach with O(1) space
-    public int FindMaxSumKadane()
+    /// <summary>
+    /// Decide, para cada posição, entre ampliar o subarray atual ou iniciar um novo.
+    /// </summary>
+    public long FindMaxSumKadane()
     {
-        int maxSum = _array[0];
-        int currentSum = _array[0];
+        long currentSum = _array[0];
+        long maxSum = _array[0];
 
         for (int i = 1; i < _array.Length; i++)
         {
-            // Either extend current subarray or start new from current element
             currentSum = Math.Max(_array[i], currentSum + _array[i]);
             maxSum = Math.Max(maxSum, currentSum);
         }
@@ -55,14 +62,21 @@ public class MaxSubarraySum
         return maxSum;
     }
 
-    // 3️. LINQ One-Liner (for demonstration)
-    // - Compute all subarray sums using SelectMany (inefficient for large arrays)
-    // - Time: O(n²), Space: O(n²)
-    public int FindMaxSumWithLinq()
+    /// <summary>
+    /// Usa um array de prefixos para calcular cada soma em O(1), depois enumera
+    /// todas as combinações de início e fim com LINQ.
+    /// </summary>
+    public long FindMaxSumWithLinq()
     {
+        long[] prefixSums = new long[_array.Length + 1];
+
+        for (int i = 0; i < _array.Length; i++)
+            prefixSums[i + 1] = prefixSums[i] + _array[i];
+
         return Enumerable.Range(0, _array.Length)
-                         .SelectMany(i => Enumerable.Range(i, _array.Length - i)
-                                                    .Select(j => _array[i..(j + 1)].Sum()))
-                         .Max();
+            .SelectMany(start =>
+                Enumerable.Range(start + 1, _array.Length - start)
+                    .Select(end => prefixSums[end] - prefixSums[start]))
+            .Max();
     }
 }

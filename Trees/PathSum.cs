@@ -2,99 +2,96 @@ namespace Trees;
 
 /// <summary>
 /// Q16: PathSum
-/// Task: Determine whether any root-to-leaf path in a binary tree sums to a given target
-/// using multiple approaches:
-/// 1. Recursive DFS (O(n) time, O(h) space)
-/// 2. Iterative DFS with Stack (O(n) time, O(h) space)
-/// 3. Find all paths that sum to target (returns the actual paths)
+/// Problema: verificar se existe um caminho da raiz até uma folha cuja soma seja
+/// igual ao alvo e, opcionalmente, retornar todos os caminhos correspondentes.
 /// </summary>
 public class PathSum
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public PathSum(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Recursive DFS
-    // - Subtract current node value from target
-    // - At a leaf, check if remaining target == 0
-    // Time: O(n), Space: O(h)
-    public bool HasPathSumRecursive(int targetSum)
+    // Tempo: O(n). Espaço auxiliar: O(h).
+    public bool HasPathSumRecursive(long targetSum)
     {
-        return HasPathSumHelper(_root, targetSum);
+        return HasPathSumRecursive(_root, targetSum);
     }
 
-    private bool HasPathSumHelper(TreeNode? node, int remaining)
+    private static bool HasPathSumRecursive(TreeNode? node, long remaining)
     {
-        if (node == null) return false;
+        if (node is null)
+            return false;
 
         remaining -= node.Value;
 
-        // Leaf node: check if path sum matches
-        if (node.Left == null && node.Right == null)
+        if (node.Left is null && node.Right is null)
             return remaining == 0;
 
-        return HasPathSumHelper(node.Left, remaining)
-            || HasPathSumHelper(node.Right, remaining);
+        return HasPathSumRecursive(node.Left, remaining)
+            || HasPathSumRecursive(node.Right, remaining);
     }
 
-    // 2️. Iterative DFS with Stack
-    // - Track each node along with the remaining sum to that point
-    // Time: O(n), Space: O(h)
-    public bool HasPathSumIterative(int targetSum)
+    // Tempo: O(n). Espaço auxiliar: O(h).
+    public bool HasPathSumIterative(long targetSum)
     {
-        if (_root == null) return false;
+        if (_root is null)
+            return false;
 
-        Stack<(TreeNode node, int remaining)> stack = new Stack<(TreeNode, int)>();
+        Stack<(TreeNode Node, long Remaining)> stack = new();
         stack.Push((_root, targetSum - _root.Value));
 
         while (stack.Count > 0)
         {
-            var (current, remaining) = stack.Pop();
+            (TreeNode current, long remaining) = stack.Pop();
 
-            // Leaf node: check if path sum matches
-            if (current.Left == null && current.Right == null && remaining == 0)
+            if (current.Left is null && current.Right is null && remaining == 0)
                 return true;
 
-            if (current.Right != null)
+            if (current.Right is not null)
                 stack.Push((current.Right, remaining - current.Right.Value));
-            if (current.Left != null)
+
+            if (current.Left is not null)
                 stack.Push((current.Left, remaining - current.Left.Value));
         }
 
         return false;
     }
 
-    // 3️. Find All Paths with Target Sum
-    // - Return all root-to-leaf paths that sum to target
-    // - Useful when interviewer asks for the actual paths, not just true/false
-    // Time: O(n), Space: O(n * h) for storing paths
-    public List<List<int>> FindAllPaths(int targetSum)
+    // Tempo: O(n + p * h), onde p é a quantidade de caminhos retornados.
+    // Espaço: O(h + p * h), incluindo o resultado.
+    public List<List<int>> FindAllPaths(long targetSum)
     {
-        List<List<int>> result = new List<List<int>>();
-        FindAllPathsHelper(_root, targetSum, new List<int>(), result);
+        List<List<int>> result = [];
+        FindAllPaths(_root, targetSum, [], result);
         return result;
     }
 
-    private void FindAllPathsHelper(TreeNode? node, int remaining, List<int> currentPath, List<List<int>> result)
+    private static void FindAllPaths(
+        TreeNode? node,
+        long remaining,
+        List<int> currentPath,
+        List<List<int>> result)
     {
-        if (node == null) return;
+        if (node is null)
+            return;
 
         currentPath.Add(node.Value);
         remaining -= node.Value;
 
-        if (node.Left == null && node.Right == null && remaining == 0)
+        if (node.Left is null && node.Right is null)
         {
-            result.Add(new List<int>(currentPath)); // Copy the path
+            if (remaining == 0)
+                result.Add([.. currentPath]);
         }
         else
         {
-            FindAllPathsHelper(node.Left, remaining, currentPath, result);
-            FindAllPathsHelper(node.Right, remaining, currentPath, result);
+            FindAllPaths(node.Left, remaining, currentPath, result);
+            FindAllPaths(node.Right, remaining, currentPath, result);
         }
 
-        currentPath.RemoveAt(currentPath.Count - 1); // Backtrack
+        currentPath.RemoveAt(currentPath.Count - 1);
     }
 }

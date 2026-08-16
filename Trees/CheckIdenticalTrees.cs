@@ -1,17 +1,18 @@
+using System.Text;
+
 namespace Trees;
 
 /// <summary>
 /// Q6: CheckIdenticalTrees
-/// Task: Determine whether two binary trees are structurally identical and have the same values
-/// using multiple approaches:
-/// 1. Recursive comparison (O(n) time, O(h) space)
-/// 2. Iterative BFS comparison with Queue (O(n) time, O(n) space)
-/// 3. Serialization comparison (O(n) time, O(n) space)
+/// Problema: determinar se duas árvores binárias possuem a mesma estrutura e os mesmos valores:
+/// 1. Comparação recursiva;
+/// 2. Comparação iterativa em largura;
+/// 3. Comparação das serializações estruturais.
 /// </summary>
 public class CheckIdenticalTrees
 {
-    private TreeNode? _root1;
-    private TreeNode? _root2;
+    private readonly TreeNode? _root1;
+    private readonly TreeNode? _root2;
 
     public CheckIdenticalTrees(TreeNode? root1, TreeNode? root2)
     {
@@ -19,68 +20,73 @@ public class CheckIdenticalTrees
         _root2 = root2;
     }
 
-    // 1️. Recursive Comparison
-    // - Compare current values, then recursively compare left and right subtrees
-    // Time: O(n), Space: O(h)
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public bool AreIdenticalRecursive()
     {
-        return AreIdenticalHelper(_root1, _root2);
+        return AreIdentical(_root1, _root2);
     }
 
-    private bool AreIdenticalHelper(TreeNode? node1, TreeNode? node2)
+    private static bool AreIdentical(TreeNode? node1, TreeNode? node2)
     {
-        // Both null — identical at this point
-        if (node1 == null && node2 == null) return true;
+        if (node1 is null && node2 is null)
+            return true;
 
-        // One is null, the other is not — not identical
-        if (node1 == null || node2 == null) return false;
+        if (node1 is null || node2 is null)
+            return false;
 
-        // Values must match, and both subtrees must be identical
         return node1.Value == node2.Value
-            && AreIdenticalHelper(node1.Left, node2.Left)
-            && AreIdenticalHelper(node1.Right, node2.Right);
+            && AreIdentical(node1.Left, node2.Left)
+            && AreIdentical(node1.Right, node2.Right);
     }
 
-    // 2️. Iterative BFS with Queue
-    // - Traverse both trees level by level in parallel
-    // - Compare each pair of nodes
-    // Time: O(n), Space: O(n)
+    // Percorre as duas árvores em paralelo e também compara posições nulas.
+    // Tempo: O(n). Espaço auxiliar: O(w).
     public bool AreIdenticalIterative()
     {
-        Queue<TreeNode?> queue = new Queue<TreeNode?>();
-        queue.Enqueue(_root1);
-        queue.Enqueue(_root2);
+        Queue<(TreeNode? First, TreeNode? Second)> queue = new();
+        queue.Enqueue((_root1, _root2));
 
         while (queue.Count > 0)
         {
-            TreeNode? node1 = queue.Dequeue();
-            TreeNode? node2 = queue.Dequeue();
+            (TreeNode? node1, TreeNode? node2) = queue.Dequeue();
 
-            if (node1 == null && node2 == null) continue;
-            if (node1 == null || node2 == null) return false;
-            if (node1.Value != node2.Value) return false;
+            if (node1 is null && node2 is null)
+                continue;
 
-            queue.Enqueue(node1.Left);
-            queue.Enqueue(node2.Left);
-            queue.Enqueue(node1.Right);
-            queue.Enqueue(node2.Right);
+            if (node1 is null || node2 is null || node1.Value != node2.Value)
+                return false;
+
+            queue.Enqueue((node1.Left, node2.Left));
+            queue.Enqueue((node1.Right, node2.Right));
         }
 
         return true;
     }
 
-    // 3️. Serialization Comparison
-    // - Serialize both trees to strings and compare
-    // - Simple but uses extra memory for string construction
-    // Time: O(n), Space: O(n)
+    // Marcadores de nós nulos preservam a estrutura, e StringBuilder evita concatenações quadráticas.
+    // Tempo: O(n). Espaço auxiliar: O(n).
     public bool AreIdenticalSerialized()
     {
         return Serialize(_root1) == Serialize(_root2);
     }
 
-    private string Serialize(TreeNode? node)
+    private static string Serialize(TreeNode? root)
     {
-        if (node == null) return "#";
-        return $"{node.Value},{Serialize(node.Left)},{Serialize(node.Right)}";
+        StringBuilder builder = new();
+        Serialize(root, builder);
+        return builder.ToString();
+    }
+
+    private static void Serialize(TreeNode? node, StringBuilder builder)
+    {
+        if (node is null)
+        {
+            builder.Append("#,");
+            return;
+        }
+
+        builder.Append(node.Value).Append(',');
+        Serialize(node.Left, builder);
+        Serialize(node.Right, builder);
     }
 }

@@ -2,89 +2,85 @@ namespace Trees;
 
 /// <summary>
 /// Q7: InvertBinaryTree
-/// Task: Invert (mirror) a binary tree so that left and right children are swapped at every level
-/// using multiple approaches:
-/// 1. Recursive DFS inversion (O(n) time, O(h) space)
-/// 2. Iterative BFS inversion with Queue (O(n) time, O(n) space)
-/// 3. Iterative DFS inversion with Stack (O(n) time, O(h) space)
+/// Problema: espelhar uma árvore binária, trocando os filhos esquerdo e direito de todos os nós:
+/// 1. DFS recursiva;
+/// 2. BFS iterativa;
+/// 3. DFS iterativa.
+///
+/// Todas as abordagens modificam a árvore recebida.
 /// </summary>
 public class InvertBinaryTree
 {
-    private TreeNode? _root;
+    private readonly TreeNode? _root;
 
     public InvertBinaryTree(TreeNode? root)
     {
         _root = root;
     }
 
-    // 1️. Recursive DFS Inversion
-    // - Swap left and right children of current node
-    // - Recursively invert left and right subtrees
-    // Time: O(n), Space: O(h)
+    public TreeNode? CurrentRoot => _root;
+
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public TreeNode? InvertRecursive()
     {
-        return InvertHelper(_root);
+        return InvertRecursive(_root);
     }
 
-    private TreeNode? InvertHelper(TreeNode? node)
+    private static TreeNode? InvertRecursive(TreeNode? node)
     {
-        if (node == null) return null;
+        if (node is null)
+            return null;
 
-        // Swap left and right
-        TreeNode? temp = node.Left;
-        node.Left = node.Right;
-        node.Right = temp;
-
-        // Recurse on both subtrees
-        InvertHelper(node.Left);
-        InvertHelper(node.Right);
+        (node.Left, node.Right) = (node.Right, node.Left);
+        InvertRecursive(node.Left);
+        InvertRecursive(node.Right);
 
         return node;
     }
 
-    // 2️. Iterative BFS with Queue
-    // - Process each node level by level, swapping children at each node
-    // Time: O(n), Space: O(n)
+    // Tempo: O(n). Espaço auxiliar: O(w), onde w é a largura máxima.
     public TreeNode? InvertBFS()
     {
-        if (_root == null) return null;
+        if (_root is null)
+            return null;
 
-        Queue<TreeNode> queue = new Queue<TreeNode>();
+        Queue<TreeNode> queue = new();
         queue.Enqueue(_root);
 
         while (queue.Count > 0)
         {
             TreeNode current = queue.Dequeue();
-
-            // Swap children
             (current.Left, current.Right) = (current.Right, current.Left);
 
-            if (current.Left != null) queue.Enqueue(current.Left);
-            if (current.Right != null) queue.Enqueue(current.Right);
+            if (current.Left is not null)
+                queue.Enqueue(current.Left);
+
+            if (current.Right is not null)
+                queue.Enqueue(current.Right);
         }
 
         return _root;
     }
 
-    // 3️. Iterative DFS with Stack
-    // - Same idea as BFS but uses a stack (depth-first order)
-    // Time: O(n), Space: O(h)
+    // Tempo: O(n). Espaço auxiliar: O(h).
     public TreeNode? InvertDFS()
     {
-        if (_root == null) return null;
+        if (_root is null)
+            return null;
 
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        Stack<TreeNode> stack = new();
         stack.Push(_root);
 
         while (stack.Count > 0)
         {
             TreeNode current = stack.Pop();
-
-            // Swap children
             (current.Left, current.Right) = (current.Right, current.Left);
 
-            if (current.Left != null) stack.Push(current.Left);
-            if (current.Right != null) stack.Push(current.Right);
+            if (current.Right is not null)
+                stack.Push(current.Right);
+
+            if (current.Left is not null)
+                stack.Push(current.Left);
         }
 
         return _root;

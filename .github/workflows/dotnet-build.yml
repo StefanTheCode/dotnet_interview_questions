@@ -1,0 +1,41 @@
+name: Build .NET
+
+on:
+  push:
+    branches:
+      - main
+      - agent/**
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restaurar dependências
+        run: dotnet restore InterviewQuestions.sln
+
+      - name: Compilar solução
+        run: dotnet build InterviewQuestions.sln --configuration Release --no-restore
+
+      - name: Executar exemplos de arrays
+        run: dotnet run --project Arrays/Arrays.csproj --configuration Release --no-build
+
+      - name: Executar exemplos de listas
+        run: dotnet run --project Lists/Lists.csproj --configuration Release --no-build
+
+      - name: Executar exemplos de árvores
+        run: dotnet run --project Trees/Trees.csproj --configuration Release --no-build

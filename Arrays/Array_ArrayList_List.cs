@@ -1,26 +1,22 @@
-﻿using System.Collections;
+using System.Collections;
 
 namespace Arrays;
 
-public class Array_ArrayList_List
+/// <summary>
+/// Questão 1: demonstra as principais diferenças entre <see cref="Array"/>,
+/// <see cref="ArrayList"/> e <see cref="List{T}"/>.
+/// </summary>
+/// <remarks>
+/// <para><b>Array:</b> tamanho fixo, tipagem forte, acesso O(1) e baixo overhead.</para>
+/// <para><b>ArrayList:</b> tamanho dinâmico, mas sem tipagem genérica; tipos de valor sofrem boxing e unboxing.</para>
+/// <para><b>List&lt;T&gt;:</b> tamanho dinâmico, tipagem forte e acesso O(1) por índice.</para>
+/// </remarks>
+public sealed class Array_ArrayList_List
 {
-    /// <summary>
-    /// Performance:
-    /// Array: Fastest access(O(1)), low memory overhead.
-    /// ArrayList: Slower for value types due to boxing.
-    /// List<T>: Best of both worlds - dynamic and type-safe.
-    /// </summary>
-    public Array_ArrayList_List()
-    {
-        // Array
-        int[] array = new int[3] { 1, 2, 3 };
+    public int[] Array { get; } = new[] { 1, 2, 3 };
 
-        // ArrayList
-        ArrayList arrayList = new ArrayList();          
-        arrayList.Add(1); 
-        arrayList.Add("hello");            // Not type-safe
+    // Aceita elementos de tipos diferentes e, portanto, não oferece segurança de tipos.
+    public ArrayList NonGenericList { get; } = new() { 1, "hello" };
 
-        // List<T>
-        List<int> genericList = new List<int> { 1, 2, 3 };  
-    }
+    public List<int> GenericList { get; } = new() { 1, 2, 3 };
 }

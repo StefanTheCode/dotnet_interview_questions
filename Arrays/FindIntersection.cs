@@ -1,29 +1,25 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q7: FindIntersection
-/// Task: Find the intersection of two integer arrays (unique common elements) using multiple approaches:
-/// 1. Brute force nested loops (O(n*m))
-/// 2. Sort both arrays and use two-pointer method (O(n log n + m log m))
-/// 3. HashSet lookup for O(n+m) optimal solution
+/// Questão 6: encontra os valores comuns e únicos entre dois arrays.
 /// </summary>
-public class FindIntersection
+public sealed class FindIntersection
 {
-    private int[] _array1;
-    private int[] _array2;
+    private readonly int[] _array1;
+    private readonly int[] _array2;
 
     public FindIntersection(int[] array1, int[] array2)
     {
+        ArgumentNullException.ThrowIfNull(array1);
+        ArgumentNullException.ThrowIfNull(array2);
         _array1 = array1;
         _array2 = array2;
     }
 
-    // 1️. Brute Force O(n*m)
-    // - Compare each element of array1 with each element of array2
-    // - Add to result if a match is found and it's not already added
+    // Tempo: O(n * m). Espaço adicional: O(min(n, m)).
     public int[] FindIntersectionBruteForce()
     {
-        List<int> intersection = new List<int>();
+        List<int> intersection = new();
 
         for (int i = 0; i < _array1.Length; i++)
         {
@@ -32,7 +28,7 @@ public class FindIntersection
                 if (_array1[i] == _array2[j] && !intersection.Contains(_array1[i]))
                 {
                     intersection.Add(_array1[i]);
-                    break; // Move to next element of array1
+                    break;
                 }
             }
         }
@@ -40,29 +36,31 @@ public class FindIntersection
         return intersection.ToArray();
     }
 
-    // 2️. Better Approach: Sorting + Two-Pointer O(n log n + m log m)
-    // - Sort both arrays
-    // - Move two pointers to find matching elements
+    // Tempo: O(n log n + m log m). As cópias evitam modificar as entradas.
     public int[] FindIntersectionTwoPointer()
     {
-        Array.Sort(_array1);
-        Array.Sort(_array2);
+        int[] sorted1 = (int[])_array1.Clone();
+        int[] sorted2 = (int[])_array2.Clone();
+        Array.Sort(sorted1);
+        Array.Sort(sorted2);
 
-        List<int> intersection = new List<int>();
-        int i = 0, j = 0;
+        List<int> intersection = new();
+        int i = 0;
+        int j = 0;
 
-        while (i < _array1.Length && j < _array2.Length)
+        while (i < sorted1.Length && j < sorted2.Length)
         {
-            if (_array1[i] == _array2[j])
+            if (sorted1[i] == sorted2[j])
             {
-                // Avoid duplicates
-                if (intersection.Count == 0 || intersection[^1] != _array1[i])
-                    intersection.Add(_array1[i]);
+                if (intersection.Count == 0 || intersection[^1] != sorted1[i])
+                {
+                    intersection.Add(sorted1[i]);
+                }
 
                 i++;
                 j++;
             }
-            else if (_array1[i] < _array2[j])
+            else if (sorted1[i] < sorted2[j])
             {
                 i++;
             }
@@ -75,24 +73,24 @@ public class FindIntersection
         return intersection.ToArray();
     }
 
-    // 3️. Optimal Approach: HashSet O(n + m)
-    // - Store elements of smaller array in a HashSet for O(1) lookup
-    // - Iterate over the other array and add common elements
+    // Tempo médio: O(n + m). Preserva a ordem da primeira ocorrência.
     public int[] FindIntersectionHashSet()
     {
-        // Choose smaller array for HashSet to save memory
-        int[] small = _array1.Length < _array2.Length ? _array1 : _array2;
-        int[] large = _array1.Length < _array2.Length ? _array2 : _array1;
+        int[] smaller = _array1.Length <= _array2.Length ? _array1 : _array2;
+        int[] larger = _array1.Length <= _array2.Length ? _array2 : _array1;
 
-        HashSet<int> set = new HashSet<int>(small);
-        HashSet<int> resultSet = new HashSet<int>();
+        HashSet<int> lookup = new(smaller);
+        HashSet<int> added = new();
+        List<int> result = new();
 
-        foreach (int num in large)
+        foreach (int number in larger)
         {
-            if (set.Contains(num))
-                resultSet.Add(num);
+            if (lookup.Contains(number) && added.Add(number))
+            {
+                result.Add(number);
+            }
         }
 
-        return resultSet.ToArray();
+        return result.ToArray();
     }
 }

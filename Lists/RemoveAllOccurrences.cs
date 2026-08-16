@@ -2,49 +2,54 @@ namespace Lists;
 
 /// <summary>
 /// Q14: RemoveAllOccurrences
-/// Task: Remove all occurrences of a specific value from a List&lt;int&gt; using multiple approaches:
-/// 1. Brute force: create new list excluding target value (O(n))
-/// 2. In-place removal using RemoveAll (O(n))
-/// 3. LINQ Where filter for functional style (O(n))
+/// Tarefa: remover todas as ocorrências de um valor específico de uma lista.
+///
+/// Abordagens apresentadas:
+/// 1. Construir uma nova lista manualmente: O(n) de tempo e O(n) de espaço.
+/// 2. Usar List&lt;T&gt;.RemoveAll: O(n) de tempo e modificação da lista interna.
+/// 3. Filtrar com LINQ Where: O(n) de tempo e O(n) de espaço.
 /// </summary>
-public class RemoveAllOccurrences
+public sealed class RemoveAllOccurrences
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public RemoveAllOccurrences(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Manual Approach: Build new list O(n)
-    // - Iterate and add only elements that don't match the target value
     public List<int> RemoveManual(int value)
     {
-        List<int> result = new List<int>();
+        List<int> result = new(_list.Count);
 
-        foreach (int num in _list)
+        foreach (int number in _list)
         {
-            if (num != value)
-                result.Add(num);
+            if (number != value)
+            {
+                result.Add(number);
+            }
         }
 
         return result;
     }
 
-    // 2️. Built-in RemoveAll O(n)
-    // - Uses List<T>.RemoveAll with a predicate
-    // - Modifies the list in-place
-    // - Returns the number of removed elements
+    /// <summary>
+    /// Modifica a cópia interna mantida pela classe e retorna a quantidade removida.
+    /// A lista recebida no construtor não é alterada.
+    /// </summary>
     public int RemoveWithRemoveAll(int value)
     {
-        return _list.RemoveAll(x => x == value);
+        return _list.RemoveAll(number => number == value);
     }
 
-    // 3️. LINQ Where Filter O(n)
-    // - Functional approach that creates a new filtered list
-    // - Does not modify the original list
     public List<int> RemoveWithLinq(int value)
     {
-        return _list.Where(x => x != value).ToList();
+        return _list.Where(number => number != value).ToList();
+    }
+
+    public IReadOnlyList<int> GetCurrentList()
+    {
+        return _list.AsReadOnly();
     }
 }

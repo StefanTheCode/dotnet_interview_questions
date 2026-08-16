@@ -1,63 +1,83 @@
-﻿namespace Arrays;
+namespace Arrays;
 
 /// <summary>
-/// Q19: ResizeArray
-/// Task: Resize an array to a new size using multiple approaches:
-/// 1. Manual creation of a new array and copy elements (O(n))
-/// 2. Using Array.Copy or Array.Resize built-in methods (O(n))
-/// 3. Using dynamic structures like List<T> for easier resizing
+/// Questão 18: redimensionar um array preservando os elementos que couberem no novo tamanho.
+///
+/// Arrays possuem tamanho fixo. Portanto, todas as abordagens criam outra estrutura:
+/// 1. cópia manual — O(min(n, m)) de tempo e O(m) de espaço;
+/// 2. Array.Resize — O(min(n, m)) de tempo e O(m) de espaço;
+/// 3. List&lt;T&gt; como estrutura dinâmica — O(n + m) de tempo e O(m) de espaço.
+///
+/// n representa o tamanho original e m o novo tamanho.
 /// </summary>
 public class ResizeArray
 {
-    private int[] _array;
+    private readonly int[] _array;
 
     public ResizeArray(int[] array)
     {
-        _array = array;
+        ArgumentNullException.ThrowIfNull(array);
+        _array = (int[])array.Clone();
     }
 
-    // 1️. Manual Resize O(n)
-    // - Create a new array of desired size
-    // - Copy old elements manually
+    /// <summary>
+    /// Cria um novo array e copia manualmente a quantidade de elementos que couber.
+    /// </summary>
     public int[] ManualResize(int newSize)
     {
-        int[] newArray = new int[newSize];
+        ValidateNewSize(newSize);
+
+        int[] resized = new int[newSize];
         int lengthToCopy = Math.Min(_array.Length, newSize);
 
         for (int i = 0; i < lengthToCopy; i++)
-            newArray[i] = _array[i];
+            resized[i] = _array[i];
 
-        return newArray;
+        return resized;
     }
 
-    // 2️. Built-in Resize O(n)
-    // - Array.Resize handles array reallocation and copying internally
+    /// <summary>
+    /// Usa Array.Resize sobre uma cópia para preservar o estado interno e o array original.
+    /// </summary>
     public int[] BuiltInResize(int newSize)
     {
-        int[] copy = (int[])_array.Clone();
-        Array.Resize(ref copy, newSize);
-        return copy;
+        ValidateNewSize(newSize);
+
+        int[] resized = (int[])_array.Clone();
+        Array.Resize(ref resized, newSize);
+        return resized;
     }
 
-    // 3️. Using List<T> as dynamic array O(n)
-    // - Convert array to list, resize by Add/Remove
-    // - Convert back to array if needed
+    /// <summary>
+    /// Converte para List&lt;T&gt;, remove ou acrescenta elementos e retorna outro array.
+    /// </summary>
     public int[] ResizeWithList(int newSize)
     {
-        var list = new System.Collections.Generic.List<int>(_array);
+        ValidateNewSize(newSize);
 
-        if (newSize < list.Count)
+        List<int> values = new(_array);
+
+        if (newSize < values.Count)
         {
-            // Remove extra elements
-            list.RemoveRange(newSize, list.Count - newSize);
+            values.RemoveRange(newSize, values.Count - newSize);
         }
         else
         {
-            // Add default zeros to extend
-            while (list.Count < newSize)
-                list.Add(0);
+            while (values.Count < newSize)
+                values.Add(default);
         }
 
-        return list.ToArray();
+        return values.ToArray();
+    }
+
+    private static void ValidateNewSize(int newSize)
+    {
+        if (newSize < 0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(newSize),
+                newSize,
+                "O novo tamanho não pode ser negativo.");
+        }
     }
 }

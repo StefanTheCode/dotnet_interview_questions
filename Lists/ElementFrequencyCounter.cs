@@ -1,69 +1,67 @@
 namespace Lists;
 
 /// <summary>
-/// Q5: ElementFrequencyCounter
-/// Task: Count how many times each element appears in a List&lt;int&gt; using multiple approaches:
-/// 1. Brute force (O(n²))
-/// 2. Dictionary for frequency counting (O(n), optimal)
-/// 3. LINQ GroupBy for concise functional solution (O(n), with allocations)
+/// Q5: contar quantas vezes cada elemento aparece em uma lista.
 /// </summary>
-public class ElementFrequencyCounter
+public sealed class ElementFrequencyCounter
 {
-    private List<int> _list;
+    private readonly List<int> _list;
 
     public ElementFrequencyCounter(List<int> list)
     {
-        _list = list;
+        ArgumentNullException.ThrowIfNull(list);
+        _list = new List<int>(list);
     }
 
-    // 1️. Brute Force O(n²)
-    // - For each element, count its occurrences by scanning the entire list
-    // - Skip elements already processed
+    /// <summary>
+    /// Conta cada valor percorrendo novamente toda a lista.
+    /// Tempo: O(n²). Espaço: O(u), em que u é a quantidade de valores distintos.
+    /// </summary>
     public Dictionary<int, int> CountFrequenciesBruteForce()
     {
-        Dictionary<int, int> frequencies = new Dictionary<int, int>();
-        HashSet<int> processed = new HashSet<int>();
+        Dictionary<int, int> frequencies = [];
+        HashSet<int> processed = [];
 
-        for (int i = 0; i < _list.Count; i++)
+        foreach (int number in _list)
         {
-            if (processed.Contains(_list[i]))
+            if (!processed.Add(number))
                 continue;
 
             int count = 0;
-            for (int j = 0; j < _list.Count; j++)
+            foreach (int candidate in _list)
             {
-                if (_list[i] == _list[j])
+                if (candidate == number)
                     count++;
             }
 
-            frequencies[_list[i]] = count;
-            processed.Add(_list[i]);
+            frequencies[number] = count;
         }
 
         return frequencies;
     }
 
-    // 2️. Dictionary Frequency Count O(n)
-    // - Iterate list once and count occurrences in a dictionary
+    /// <summary>
+    /// Atualiza um dicionário em uma única passagem.
+    /// Tempo médio: O(n). Espaço: O(u).
+    /// </summary>
     public Dictionary<int, int> CountFrequenciesWithDictionary()
     {
-        Dictionary<int, int> frequencies = new Dictionary<int, int>();
+        Dictionary<int, int> frequencies = [];
 
-        foreach (int num in _list)
-        {
-            frequencies[num] = frequencies.GetValueOrDefault(num, 0) + 1;
-        }
+        foreach (int number in _list)
+            frequencies[number] = frequencies.GetValueOrDefault(number) + 1;
 
         return frequencies;
     }
 
-    // 3️. LINQ GroupBy O(n)
-    // - Groups elements and returns counts
-    // - Concise, but allocates groupings internally
+    /// <summary>
+    /// Agrupa os valores com LINQ e converte os grupos em dicionário.
+    /// Tempo: O(n). Espaço: O(n), considerando os agrupamentos intermediários.
+    /// </summary>
     public Dictionary<int, int> CountFrequenciesWithLinq()
     {
         return _list
-            .GroupBy(x => x)
-            .ToDictionary(g => g.Key, g => g.Count());
+            .GroupBy(number => number)
+            .ToDictionary(group => group.Key, group => group.Count());
     }
 }

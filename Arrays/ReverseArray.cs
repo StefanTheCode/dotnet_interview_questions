@@ -1,34 +1,28 @@
-﻿namespace Arrays;
-
-using System;
-using System.Linq;
+namespace Arrays;
 
 /// <summary>
-/// Q2: ReverseArray
-/// Task: Given an array, reverse it using multiple approaches:
-/// 1. Brute force / LINQ
-/// 2. Manual new array
-/// 3. In-place two-pointer swap (optimal)
+/// Questão 2: dado um array, inverta sua ordem usando diferentes abordagens:
+/// 1. LINQ, criando um novo array;
+/// 2. cópia manual para um novo array;
+/// 3. troca de elementos com dois ponteiros, no próprio array.
 /// </summary>
-public class ReverseArray
+public sealed class ReverseArray
 {
     private readonly int[] _array;
 
     public ReverseArray(int[] array)
     {
+        ArgumentNullException.ThrowIfNull(array);
         _array = array;
     }
 
-    // 1. Worst approach: LINQ Reverse (creates new array)
-    // Time: O(n), Space: O(n)
+    // Tempo: O(n). Espaço adicional: O(n).
     public int[] ReverseWithLinq()
     {
-        // Allocates a new reversed array
         return _array.Reverse().ToArray();
     }
 
-    // 2. Intermediate approach: Manual new array
-    // Time: O(n), Space: O(n)
+    // Tempo: O(n). Espaço adicional: O(n).
     public int[] ReverseWithNewArray()
     {
         int[] reversed = new int[_array.Length];
@@ -41,19 +35,16 @@ public class ReverseArray
         return reversed;
     }
 
-    // 3. Best approach: In-place two-pointer swap
-    // avoids extra memory allocations(more performant in constrained environments).
-    // Time: O(n), Space: O(1)
+    // Tempo: O(n). Espaço adicional: O(1).
+    // Esta abordagem modifica o array recebido no construtor.
     public void ReverseInPlace()
     {
-        int left = 0, right = _array.Length - 1;
+        int left = 0;
+        int right = _array.Length - 1;
 
         while (left < right)
         {
-            int temp = _array[left];
-            _array[left] = _array[right];
-            _array[right] = temp;
-
+            (_array[left], _array[right]) = (_array[right], _array[left]);
             left++;
             right--;
         }

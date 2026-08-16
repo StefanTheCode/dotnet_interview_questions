@@ -1,122 +1,154 @@
+using System.Globalization;
+
 namespace Trees;
 
 /// <summary>
 /// Q15: SerializeDeserializeTree
-/// Task: Serialize a binary tree to a string and deserialize it back to a tree
-/// using multiple approaches:
-/// 1. Preorder with null markers using recursion (O(n))
-/// 2. BFS level order serialization (O(n))
+/// Problema: serializar uma árvore binária para texto e reconstruí-la posteriormente.
+///
+/// O marcador "#" representa nós nulos e é necessário para preservar a estrutura.
+/// Payloads vazios, incompletos ou com tokens excedentes são rejeitados.
 /// </summary>
 public class SerializeDeserializeTree
 {
-    // 1️. Preorder Serialization with Null Markers
-    // - Visit root, then left, then right
-    // - Use "#" for null nodes as placeholders
-    // Time: O(n), Space: O(n)
+    // Pré-ordem. Tempo: O(n). Espaço: O(n), incluindo a saída.
     public string SerializePreorder(TreeNode? root)
     {
-        List<string> parts = new List<string>();
-        SerializePreorderHelper(root, parts);
-        return string.Join(",", parts);
+        List<string> tokens = [];
+        SerializePreorder(root, tokens);
+        return string.Join(',', tokens);
     }
 
-    private void SerializePreorderHelper(TreeNode? node, List<string> parts)
+    private static void SerializePreorder(TreeNode? node, List<string> tokens)
     {
-        if (node == null)
+        if (node is null)
         {
-            parts.Add("#");
+            tokens.Add("#");
             return;
         }
 
-        parts.Add(node.Value.ToString());
-        SerializePreorderHelper(node.Left, parts);
-        SerializePreorderHelper(node.Right, parts);
+        tokens.Add(node.Value.ToString(CultureInfo.InvariantCulture));
+        SerializePreorder(node.Left, tokens);
+        SerializePreorder(node.Right, tokens);
     }
 
+    // Tempo: O(n). Espaço auxiliar: O(h), além dos tokens da entrada.
     public TreeNode? DeserializePreorder(string data)
     {
-        if (string.IsNullOrEmpty(data)) return null;
+        ArgumentException.ThrowIfNullOrWhiteSpace(data);
 
-        Queue<string> tokens = new Queue<string>(data.Split(','));
-        return DeserializePreorderHelper(tokens);
+        string[] tokens = data.Split(',', StringSplitOptions.TrimEntries);
+        int index = 0;
+        TreeNode? root = DeserializePreorder(tokens, ref index);
+
+        if (index != tokens.Length)
+            throw new FormatException("O payload contém tokens excedentes.");
+
+        return root;
     }
 
-    private TreeNode? DeserializePreorderHelper(Queue<string> tokens)
+    private static TreeNode? DeserializePreorder(string[] tokens, ref int index)
     {
-        if (tokens.Count == 0) return null;
+        if (index >= tokens.Length)
+            throw new FormatException("O payload terminou antes de completar a árvore.");
 
-        string value = tokens.Dequeue();
-        if (value == "#") return null;
+        string token = tokens[index++];
 
-        TreeNode node = new TreeNode(int.Parse(value));
-        node.Left = DeserializePreorderHelper(tokens);
-        node.Right = DeserializePreorderHelper(tokens);
+        if (token == "#")
+            return null;
 
+        TreeNode node = new(ParseValue(token));
+        node.Left = DeserializePreorder(tokens, ref index);
+        node.Right = DeserializePreorder(tokens, ref index);
         return node;
     }
 
-    // 2️. BFS Level Order Serialization
-    // - Serialize level by level, using "#" for null children
-    // Time: O(n), Space: O(n)
-    public string SerializeBFS(TreeNode? root)
+    // BFS. Tempo: O(n). Espaço: O(n), incluindo fila e saída.
+    public string SerializeBfs(TreeNode? root)
     {
-        if (root == null) return "";
+        if (root is null)
+            return "#";
 
-        List<string> parts = new List<string>();
-        Queue<TreeNode?> queue = new Queue<TreeNode?>();
+        List<string> tokens = [];
+        Queue<TreeNode?> queue = new();
         queue.Enqueue(root);
 
         while (queue.Count > 0)
         {
             TreeNode? current = queue.Dequeue();
 
-            if (current == null)
+            if (current is null)
             {
-                parts.Add("#");
+                tokens.Add("#");
                 continue;
             }
 
-            parts.Add(current.Value.ToString());
+            tokens.Add(current.Value.ToString(CultureInfo.InvariantCulture));
             queue.Enqueue(current.Left);
             queue.Enqueue(current.Right);
         }
 
-        return string.Join(",", parts);
+        return string.Join(',', tokens);
     }
 
-    public TreeNode? DeserializeBFS(string data)
+    // Tempo: O(n). Espaço auxiliar: O(w), além dos tokens da entrada.
+    public TreeNode? DeserializeBfs(string data)
     {
-        if (string.IsNullOrEmpty(data)) return null;
+        ArgumentException.ThrowIfNullOrWhiteSpace(data);
 
-        string[] tokens = data.Split(',');
-        if (tokens[0] == "#") return null;
+        string[] tokens = data.Split(',', StringSplitOptions.TrimEntries);
 
-        TreeNode root = new TreeNode(int.Parse(tokens[0]));
-        Queue<TreeNode> queue = new Queue<TreeNode>();
+        if (tokens[0] == "#")
+        {
+            if (tokens.Length != 1)
+                throw new FormatException("Uma árvore nula não pode conter tokens adicionais.");
+
+            return null;
+        }
+
+        TreeNode root = new(ParseValue(tokens[0]));
+        Queue<TreeNode> queue = new();
         queue.Enqueue(root);
         int index = 1;
 
-        while (queue.Count > 0 && index < tokens.Length)
+        while (queue.Count > 0)
         {
+            if (index + 1 >= tokens.Length)
+                throw new FormatException("O payload terminou antes de completar a árvore.");
+
             TreeNode parent = queue.Dequeue();
 
-            // Left child
-            if (index < tokens.Length && tokens[index] != "#")
-            {
-                parent.Left = new TreeNode(int.Parse(tokens[index]));
+            parent.Left = ParseOptionalNode(tokens[index++]);
+            if (parent.Left is not null)
                 queue.Enqueue(parent.Left);
-            }
-            index++;
 
-            // Right child
-            if (index < tokens.Length && tokens[index] != "#")
-            {
-                parent.Right = new TreeNode(int.Parse(tokens[index]));
+            parent.Right = ParseOptionalNode(tokens[index++]);
+            if (parent.Right is not null)
                 queue.Enqueue(parent.Right);
-            }
-            index++;
         }
 
+        if (index != tokens.Length)
+            throw new FormatException("O payload contém tokens excedentes.");
+
         return root;
+    }
+
+    private static TreeNode? ParseOptionalNode(string token)
+    {
+        return token == "#" ? null : new TreeNode(ParseValue(token));
+    }
+
+    private static int ParseValue(string token)
+    {
+        if (!int.TryParse(
+                token,
+                NumberStyles.Integer,
+                CultureInfo.InvariantCulture,
+                out int value))
+        {
+            throw new FormatException($"O token '{token}' não representa um inteiro válido.");
+        }
+
+        return value;
     }
 }
